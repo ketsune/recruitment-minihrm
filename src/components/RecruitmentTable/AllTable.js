@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button } from 'semantic-ui-react';
+import { Table, Icon, Input } from 'semantic-ui-react';
 
-const row = (item) => {
-  console.log(item);
-  return (
-    <Table.Row key={item.citizenId}>
-      <Table.Cell>{`${item.firstName}\n${item.lastName}`}</Table.Cell>
-      <Table.Cell>{`${item.firstNameTh}\n${item.lastNameTh}`}</Table.Cell>
-      <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
-      <Table.Cell>{`${item.email}`}</Table.Cell>
-      <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
-      <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
-      <Table.Cell>{`${item.registrationDate}`}</Table.Cell>
-      <Table.Cell>{`${item.status}`}</Table.Cell>
-    </Table.Row>
-  );
-};
+const row = item => (
+  <Table.Row key={item.citizenId}>
+    <Table.Cell>{`${item.firstName}
+      ${item.lastName}`}
+    </Table.Cell>
+    <Table.Cell>{`${item.firstNameTh}
+      ${item.lastNameTh}`}
+    </Table.Cell>
+    <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
+    <Table.Cell>{`${item.email}`}</Table.Cell>
+    <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
+    <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
+    <Table.Cell>{`${item.citizenId}`}</Table.Cell>
+    <Table.Cell>{`${item.status}`}</Table.Cell>
+  </Table.Row>
+);
 
-const RecruitmentTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConferm }) => (
+const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -30,7 +31,7 @@ const RecruitmentTable = ({ data, onSearchChange, sortKey, direction, handleSort
           <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
           <Table.HeaderCell >File</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'citizenId' ? direction : null} onClick={() => handleSort('citizenId')}>Citizen ID</Table.HeaderCell>
           <Table.HeaderCell >Status</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -40,9 +41,7 @@ const RecruitmentTable = ({ data, onSearchChange, sortKey, direction, handleSort
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            <Button color="blue" icon floated="right" onClick={onConferm} >
-              Conferm
-            </Button>
+            Test
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
@@ -50,13 +49,12 @@ const RecruitmentTable = ({ data, onSearchChange, sortKey, direction, handleSort
   </div>
 );
 
-RecruitmentTable.propTypes = {
+AllTable.propTypes = {
   data: PropTypes.array.isRequired,
   onSearchChange: PropTypes.func.isRequired,
   sortKey: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
-  onConferm: PropTypes.func.isRequired,
 };
 
-export default RecruitmentTable;
+export default AllTable;

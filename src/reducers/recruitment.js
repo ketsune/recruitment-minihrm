@@ -3,7 +3,7 @@ import * as actionTypes from '../constants/actionTypes';
 const initialState = {
   isFetching: true,
   data: [],
-  activeItem: 'all',
+  activeItem: 'All',
   searchText: '',
   direction: '',
   sortKey: '',
