@@ -20,3 +20,6 @@ export const CREATE_LEAVE_REQUEST = 'CREATE_LEAVE_REQUEST';
 
 // Other
 export const CONFIRM = 'CONFIRM';
+
+// Recruitment
+export const EDIT_RECRUITMENT = 'EDIT_RECRUITMENT';

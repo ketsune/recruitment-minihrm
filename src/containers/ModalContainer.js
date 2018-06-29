@@ -13,6 +13,7 @@ import AddProjectModal from './modals/AddProjectModal';
 import CreateLeaveRequestModal from './modals/CreateLeaveRequestModal';
 import ConfirmModal from './modals/ConfirmModal';
 import ProfilePictureModal from './modals/ProfilePictureModal';
+import EditRecruitmentModal from './modals/EditRecruitmentModal';
 
 const ModalContainer = ({ name, props }) => {
   switch (name) {
@@ -22,6 +23,8 @@ const ModalContainer = ({ name, props }) => {
       return <EditWorkProfileModal {...props} />;
     case modalNames.EDIT_EDUCATION_PROFILE:
       return <EditEducationProfileModal {...props} />;
+    case modalNames.EDIT_RECRUITMENT :
+      return <EditRecruitmentModal {...props} />;
     case modalNames.ADD_EDUCATION_PROFILE:
       return <AddEducationProfileModal {...props} />;
     case modalNames.ADD_CERTIFICATE_PROFILE:
