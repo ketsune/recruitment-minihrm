@@ -19,7 +19,7 @@ const row = item => (
   </Table.Row>
 );
 
-const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
+const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -41,8 +41,8 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort }) =>
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            <Button color="blue" icon floated="right" onClick={onConferm} >
-              Conferm
+            <Button color="blue" icon floated="right" onClick={onConfirm} >
+              Confirm
             </Button>
           </Table.HeaderCell>
         </Table.Row>
@@ -57,7 +57,7 @@ ApplyTable.propTypes = {
   sortKey: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
-  onConferm: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 export default ApplyTable;

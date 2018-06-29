@@ -8,14 +8,14 @@ import EditRecruitmentForm from '../forms/EditRecruitmentForm';
 import { handleReduxFormSubmit } from '../../utils/helper';
 
 
-const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConferm }) => (
+const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm }) => (
     <Modal
         header="Edit Recruitment"
         onClose={onClose}
         onClick={onClick}
         submitting={submitting}
     >
-        <EditRecruitmentForm data={data} onConferm={values => onConferm(values)} />
+        <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} />
     </Modal>
 );
 
@@ -24,7 +24,7 @@ EditRecruitmentModal.propTypes = {
     onClose: PropTypes.func.isRequired,
     submitting: PropTypes.bool.isRequired,
     data: PropTypes.array.isRequired,
-    onConferm: PropTypes.func.isRequired,
+    onConfirm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     onClick: () => dispatch(submit('editRecruitment')),
     onClose: () => dispatch(closeModal()),
-    onConferm: values => handleReduxFormSubmit(dispatch, createProjectRequest, values),
+    onConfirm: values => handleReduxFormSubmit(dispatch, createProjectRequest, values),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditRecruitmentModal);

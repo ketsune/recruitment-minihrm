@@ -9,7 +9,7 @@ import { getVisibleRecruitment } from '../../selectors/recruitment';
 import { openModal } from '../../actions/modal';
 import * as modalNames from '../../constants/modalNames';
 
-const RecruitmentPage = ({ isFetching, activeItem, changeActiveItem, data, onSearchChange, sortKey, sortByKey, direction, onConferm }) => {
+const RecruitmentPage = ({ isFetching, activeItem, changeActiveItem, data, onSearchChange, sortKey, sortByKey, direction, onConfirm }) => {
   const handleSort = (key) => {
     if (sortKey !== key) {
       sortByKey(key, 'ascending');
@@ -28,7 +28,7 @@ const RecruitmentPage = ({ isFetching, activeItem, changeActiveItem, data, onSea
         sortKey={sortKey}
         direction={direction}
         handleSort={handleSort}
-        onConferm={onConferm}
+        onConfirm={onConfirm}
       />
       }
     </div>
@@ -50,7 +50,7 @@ RecruitmentPage.propTypes = {
   sortKey: PropTypes.string.isRequired,
   sortByKey: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
-  onConferm: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -67,7 +67,7 @@ const mapDispatchToProps = dispatch => ({
   changeActiveItem: activeItem => dispatch(changeActiveItemRequest(activeItem)),
   onSearchChange: e => dispatch(filterRecruitment(e.target.value)),
   sortByKey: (key, direction) => dispatch(sortRecruitment(key, direction)),
-  onConferm: () => dispatch(openModal(modalNames.EDIT_RECRUITMENT)),
+  onConfirm: () => dispatch(openModal(modalNames.EDIT_RECRUITMENT)),
 });
 
 const enhance = compose(

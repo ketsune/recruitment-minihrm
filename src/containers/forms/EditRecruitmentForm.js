@@ -9,4 +9,6 @@ const EditRecruitmentForm = ({ data }) => (
     </Form>
 );
 
+
+
 export default EditRecruitmentForm;

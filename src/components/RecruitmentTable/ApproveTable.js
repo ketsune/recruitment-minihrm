@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input } from 'semantic-ui-react';
+import { Table, Icon, Input, Button } from 'semantic-ui-react';
 
 const row = item => (
   <Table.Row key={item.citizenId}>
@@ -19,7 +19,7 @@ const row = item => (
   </Table.Row>
 );
 
-const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
+const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -41,7 +41,9 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort }) 
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            Test
+            <Button color="blue" icon floated="right" onClick={onConfirm} >
+              Confirm
+            </Button>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
@@ -55,6 +57,7 @@ ApproveTable.propTypes = {
   sortKey: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
 };
 
 export default ApproveTable;
