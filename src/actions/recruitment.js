@@ -39,3 +39,33 @@ export const sortRecruitment = (sortKey, direction) => ({
     direction
   }
 });
+
+export const selectStatus = (key, status) => {
+  return (
+    (status === state.recruitment.checkStatus[key]) ? ture : false
+  );
+};
+
+export const changeStatus = (key, status) => ({
+  type: actionTypes.CHANGE_RECRUITMENT_STATUS,
+  payload: {
+    key,
+    status
+  }
+});
+
+export const clearStatus = () => ({
+  type: actionTypes.CLEAR_CHECKSTATUS,
+  payload: {
+
+  }
+});
+
+export const createRecruitmentRequest = (form, resolve, reject) => ({
+  type: actionTypes.RECRUITMENT_CREATE_REQUEST,
+  payload: {
+    form,
+    resolve,
+    reject
+  }
+});

@@ -19,7 +19,7 @@ const row = item => (
   </Table.Row>
 );
 
-const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm }) => (
+const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -41,9 +41,12 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConf
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            <Button color="blue" icon floated="right" onClick={onConfirm} >
+            {/* <Button color="blue" icon floated="right" onClick={onConfirm} >
               Confirm
             </Button>
+            <Button color="blue" icon floated="right" onClick={clearStatus} >
+              Reset
+            </Button> */}
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
@@ -58,6 +61,7 @@ AllTable.propTypes = {
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  clearStatus: PropTypes.func.isRequired,
 };
 
 export default AllTable;

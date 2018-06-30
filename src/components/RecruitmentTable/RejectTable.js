@@ -41,9 +41,9 @@ const RejectTable = ({ data, onSearchChange, sortKey, direction, handleSort, onC
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            <Button color="blue" icon floated="right" onClick={onConfirm} >
+            {/* <Button color="blue" icon floated="right" onClick={onConfirm} >
               Confirm
-            </Button>
+            </Button> */}
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>

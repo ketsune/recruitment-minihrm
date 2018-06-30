@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
 
-const row = item => (
+const row = (item, { checkStatus, reject, selectStatus, changeStatus }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell>{`${item.firstName}
       ${item.lastName}`}
@@ -16,11 +16,13 @@ const row = item => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
     <Table.Cell>{`${item.interviewDate}`}</Table.Cell>
-    <Table.Cell>{`${item.status}`}</Table.Cell>
+    {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
+    <Table.Cell><Checkbox name='accept' checked={checkStatus[item.citizenId] === 'Sign Contract' ? true : false} onChange={() => changeStatus(item.citizenId, 'Sign Contract')} /></Table.Cell>
+    {reject && <Table.Cell><Checkbox name='reject' checked={checkStatus[item.citizenId] === 'Reject' ? true : false} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
   </Table.Row>
 );
 
-const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm }) => (
+const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, selectStatus, changeStatus, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -34,17 +36,22 @@ const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCon
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'interviewDate' ? direction : null} onClick={() => handleSort('interviewDate')}>Interview Date</Table.HeaderCell>
-          <Table.HeaderCell >Status</Table.HeaderCell>
+          {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
+          <Table.HeaderCell >Sign Contract</Table.HeaderCell>
+          {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item))}
+        {data.map(item => row(item, { checkStatus, reject, selectStatus, changeStatus }))}
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
             <Button color="blue" icon floated="right" onClick={onConfirm} >
               Confirm
+            </Button>
+            <Button color="blue" icon floated="right" onClick={clearStatus} >
+              Reset
             </Button>
           </Table.HeaderCell>
         </Table.Row>
@@ -53,6 +60,10 @@ const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCon
   </div>
 );
 
+PassTable.defaultProps = {
+  reject: false,
+};
+
 PassTable.propTypes = {
   data: PropTypes.array.isRequired,
   onSearchChange: PropTypes.func.isRequired,
@@ -60,6 +71,11 @@ PassTable.propTypes = {
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
+  checkStatus: PropTypes.object.isRequired,
+  reject: PropTypes.bool,
+  selectStatus: PropTypes.func.isRequired,
+  changeStatus: PropTypes.func.isRequired,
+  clearStatus: PropTypes.func.isRequired,
 };
 
 export default PassTable;
