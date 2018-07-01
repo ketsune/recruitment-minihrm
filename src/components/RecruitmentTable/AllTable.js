@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button } from 'semantic-ui-react';
+import { Table, Icon, Input } from 'semantic-ui-react';
 
 const row = item => (
   <Table.Row key={item.citizenId}>
@@ -19,7 +19,7 @@ const row = item => (
   </Table.Row>
 );
 
-const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, clearStatus }) => (
+const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -60,8 +60,6 @@ AllTable.propTypes = {
   sortKey: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
-  onConfirm: PropTypes.func.isRequired,
-  clearStatus: PropTypes.func.isRequired,
 };
 
 export default AllTable;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
 
-const row = (item, { checkStatus, reject, selectStatus, changeStatus }) => (
+const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell>{`${item.firstName}
       ${item.lastName}`}
@@ -16,12 +16,12 @@ const row = (item, { checkStatus, reject, selectStatus, changeStatus }) => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell>{`${item.registrationDate}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
-    <Table.Cell><Checkbox name='accept' checked={checkStatus[item.citizenId] === 'Approve' ? true : false} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
-    {reject && <Table.Cell><Checkbox name='reject' checked={checkStatus[item.citizenId] === 'Reject' ? true : false} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
+    <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
+    {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
   </Table.Row>
 );
 
-const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, selectStatus, changeStatus, clearStatus }) => (
+const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -40,7 +40,7 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item, { checkStatus, reject, selectStatus, changeStatus }))}
+        {data.map(item => row(item, { checkStatus, reject, changeStatus }))}
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
@@ -69,9 +69,8 @@ ApplyTable.propTypes = {
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  checkStatus: PropTypes.object.isRequired,
+  checkStatus: PropTypes.array.isRequired,
   reject: PropTypes.bool,
-  selectStatus: PropTypes.func.isRequired,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
 };

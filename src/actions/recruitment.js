@@ -40,11 +40,11 @@ export const sortRecruitment = (sortKey, direction) => ({
   }
 });
 
-export const selectStatus = (key, status) => {
-  return (
-    (status === state.recruitment.checkStatus[key]) ? ture : false
-  );
-};
+// export const selectStatus = (key, status) => {
+//   return (
+//     (status === state.recruitment.checkStatus[key])
+//   );
+// };
 
 export const changeStatus = (key, status) => ({
   type: actionTypes.CHANGE_RECRUITMENT_STATUS,

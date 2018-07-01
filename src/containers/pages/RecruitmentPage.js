@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, lifecycle } from 'recompose';
-import { fetchRecruitmentRequest, changeActiveItemRequest, filterRecruitment, sortRecruitment, selectStatus, changeStatus, clearStatus } from '../../actions/recruitment';
+import { fetchRecruitmentRequest, changeActiveItemRequest, filterRecruitment, sortRecruitment, changeStatus, clearStatus } from '../../actions/recruitment';
 import Recruitment from '../../components/Recruitment';
 import Loader from '../../components/Loader';
 import { getVisibleRecruitment } from '../../selectors/recruitment';
 import { openModal } from '../../actions/modal';
 import * as modalNames from '../../constants/modalNames';
 
-const RecruitmentPage = ({ isFetching, activeItem, changeActiveItem, data, onSearchChange, sortKey, sortByKey, direction, onConfirm, checkStatus, selectStatus, changeStatus, clearStatus }) => {
+const RecruitmentPage = ({ isFetching, activeItem, changeActiveItem, data, onSearchChange, sortKey, sortByKey, direction, onConfirm, checkStatus, changedStatus, clearedStatus }) => {
   const handleSort = (key) => {
     if (sortKey !== key) {
       sortByKey(key, 'ascending');
@@ -30,9 +30,8 @@ const RecruitmentPage = ({ isFetching, activeItem, changeActiveItem, data, onSea
         handleSort={handleSort}
         onConfirm={onConfirm}
         checkStatus={checkStatus}
-        selectStatus={selectStatus}
-        changeStatus={changeStatus}
-        clearStatus={clearStatus}
+        changeStatus={changedStatus}
+        clearStatus={clearedStatus}
       />
       }
     </div>
@@ -56,10 +55,9 @@ RecruitmentPage.propTypes = {
   sortByKey: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  checkStatus: PropTypes.object.isRequired,
-  selectStatus: PropTypes.func.isRequired,
-  changeStatus: PropTypes.func.isRequired,
-  clearStatus: PropTypes.func.isRequired,
+  checkStatus: PropTypes.array,
+  changedStatus: PropTypes.func.isRequired,
+  clearedStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -78,9 +76,8 @@ const mapDispatchToProps = dispatch => ({
   onSearchChange: e => dispatch(filterRecruitment(e.target.value)),
   sortByKey: (key, direction) => dispatch(sortRecruitment(key, direction)),
   onConfirm: () => dispatch(openModal(modalNames.EDIT_RECRUITMENT)),
-  selectStatus: (key, status) => dispatch(selectStatus(key, status)),
-  changeStatus: (key, status) => dispatch(changeStatus(key, status)),
-  clearStatus: () => dispatch(clearStatus()),
+  changedStatus: (key, status) => dispatch(changeStatus(key, status)),
+  clearedStatus: () => dispatch(clearStatus()),
 });
 
 const enhance = compose(

@@ -13,46 +13,100 @@ import CancelTable from './RecruitmentTable/CancelTable';
 import BlacklistTable from './RecruitmentTable/BlacklistTable';
 import { getFilterRecruitment, getFilterRecruitmentTwoParam } from '../selectors/recruitment';
 
-const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, selectStatus, changeStatus, clearStatus) => {
+const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus) => {
   let filteredData = [];
   switch (activeItem) {
     case 'All':
-      return (<AllTable data={data} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} clearStatus={clearStatus} />);
+      return (<AllTable data={data} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     case 'Apply':
       filteredData = getFilterRecruitment(data, 'Apply');
       console.log(filteredData);
-      return (<ApplyTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} checkStatus={checkStatus} reject selectStatus={selectStatus} changeStatus={changeStatus} clearStatus={clearStatus} />);
+      return (<ApplyTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        reject
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Approve':
       filteredData = getFilterRecruitment(data, 'Approve');
-      return (<ApproveTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} checkStatus={checkStatus} selectStatus={selectStatus} changeStatus={changeStatus} clearStatus={clearStatus} />);
+      return (<ApproveTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'In Progress':
       filteredData = getFilterRecruitment(data, 'In Progress');
-      return (<InProgressTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} checkStatus={checkStatus} reject selectStatus={selectStatus} changeStatus={changeStatus} clearStatus={clearStatus} />);
+      return (<InProgressTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        reject
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Reject':
       filteredData = getFilterRecruitmentTwoParam(data, 'Reject', 'Fail');
-      return (<RejectTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} />);
+      return (<RejectTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     case 'Pass':
       filteredData = getFilterRecruitment(data, 'Pass');
-      return (<PassTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} checkStatus={checkStatus} selectStatus={selectStatus} changeStatus={changeStatus} clearStatus={clearStatus} />);
+      return (<PassTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Sign Contract':
       filteredData = getFilterRecruitment(data, 'Sign Contract');
       console.log(filteredData);
-      return (<SignContractTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} checkStatus={checkStatus} reject selectStatus={selectStatus} changeStatus={changeStatus} clearStatus={clearStatus} />);
+      return (<SignContractTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        reject
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Cancel':
       filteredData = getFilterRecruitment(data, 'Cancel');
-      return (<CompleteTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} />);
+      return (<CompleteTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     case 'Complete':
       filteredData = getFilterRecruitment(data, 'Complete');
-      return (<CancelTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} />);
+      return (<CancelTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     case 'Blacklist':
       filteredData = getFilterRecruitment(data, 'Blacklist');
-      return (<BlacklistTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} onConfirm={onConfirm} />);
+      return (<BlacklistTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     default:
       return ('ขออภัยในความไม่สะดวก');
   }
 };
 
-const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, selectStatus, changeStatus, addStatus, clearStatus }) => (
+// const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, selectStatus, changeStatus, addStatus, clearStatus }) => (
+const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus }) => (
   <div>
     <Segment>
       <Grid>
@@ -72,7 +126,7 @@ const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortK
             </Menu>
           </Grid.Column>
           <Grid.Column stretched width={14}>
-            {getActiveTable(activeItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, selectStatus, changeStatus, clearStatus)}
+            {getActiveTable(activeItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus)}
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -89,8 +143,7 @@ Recruitment.propTypes = {
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  checkStatus: PropTypes.object.isRequired,
-  selectStatus: PropTypes.func.isRequired,
+  checkStatus: PropTypes.array.isRequired,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
 };
