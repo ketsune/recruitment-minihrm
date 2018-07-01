@@ -16,7 +16,7 @@ const row = item => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
     <Table.Cell>{`${item.signDate}`}</Table.Cell>
-    <Table.Cell>{`${item.status}`}</Table.Cell>
+    {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
   </Table.Row>
 );
 
@@ -34,7 +34,7 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date</Table.HeaderCell>
-          <Table.HeaderCell >Status</Table.HeaderCell>
+          {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -43,9 +43,9 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            <Button color="blue" icon floated="right" onClick={onConfirm} >
+            {/* <Button color="blue" icon floated="right" onClick={onConfirm} >
               Confirm
-            </Button>
+            </Button> */}
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>

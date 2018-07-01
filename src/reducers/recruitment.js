@@ -7,10 +7,10 @@ const initialState = {
   searchText: '',
   direction: '',
   sortKey: '',
+  checkStatus: [],
 };
 
 const Recruitment = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case actionTypes.RECRUITMENT_FETCH_REQUEST:
       return {
@@ -44,6 +44,38 @@ const Recruitment = (state = initialState, action) => {
         ...state,
         sortKey: action.payload.sortKey,
         direction: action.payload.direction
+      };
+    case actionTypes.CHECK_RECRUITMENT_STATUS:
+      return {
+        ...state,
+      };
+
+    case actionTypes.CHANGE_RECRUITMENT_STATUS:
+      if (action.payload.status === state.checkStatus[action.payload.key]) {
+        return {
+          ...state,
+          checkStatus: {
+            ...state.checkStatus,
+            [action.payload.key]: '',
+          }
+        };
+      }
+      return {
+        ...state,
+        checkStatus: {
+          ...state.checkStatus,
+          [action.payload.key]: action.payload.status,
+        }
+      };
+    case actionTypes.CLEAR_CHECKSTATUS:
+      return {
+        ...state,
+        checkStatus: [],
+      };
+    case actionTypes.RECRUITMENT_CREATE_REQUEST:
+      return {
+        ...state,
+        form: action.payload.form
       };
     default:
       return state;
