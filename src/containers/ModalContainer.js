@@ -23,7 +23,7 @@ const ModalContainer = ({ name, props }) => {
       return <EditWorkProfileModal {...props} />;
     case modalNames.EDIT_EDUCATION_PROFILE:
       return <EditEducationProfileModal {...props} />;
-    case modalNames.EDIT_RECRUITMENT :
+    case modalNames.EDIT_RECRUITMENT:
       return <EditRecruitmentModal {...props} />;
     case modalNames.ADD_EDUCATION_PROFILE:
       return <AddEducationProfileModal {...props} />;
