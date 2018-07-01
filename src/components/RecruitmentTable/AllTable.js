@@ -15,6 +15,7 @@ const row = item => (
     <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell>{`${item.citizenId}`}</Table.Cell>
+    <Table.Cell>{`${item.registrationDate}`}</Table.Cell>
     <Table.Cell>{`${item.status}`}</Table.Cell>
   </Table.Row>
 );
@@ -32,6 +33,7 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'citizenId' ? direction : null} onClick={() => handleSort('citizenId')}>Citizen ID</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
           <Table.HeaderCell >Status</Table.HeaderCell>
         </Table.Row>
       </Table.Header>

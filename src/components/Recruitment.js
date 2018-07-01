@@ -93,10 +93,10 @@ const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, ha
       />);
     case 'Cancel':
       filteredData = getFilterRecruitment(data, 'Cancel');
-      return (<CompleteTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<CancelTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     case 'Complete':
       filteredData = getFilterRecruitment(data, 'Complete');
-      return (<CancelTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<CompleteTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
     case 'Blacklist':
       filteredData = getFilterRecruitment(data, 'Blacklist');
       return (<BlacklistTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
@@ -111,21 +111,29 @@ const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortK
     <Segment>
       <Grid>
         <Grid.Row>
-          <Grid.Column width={2}>
-            <Menu fluid vertical tabular>
+          <Grid.Column width={16}>
+            <Menu fluid tabular compact>
               <Menu.Item name="All applicants" active={activeItem === 'All'} onClick={() => changeActiveItem('All')} />
               <Menu.Item name="New applicants" active={activeItem === 'Apply'} onClick={() => changeActiveItem('Apply')} />
               <Menu.Item name="Interview applicants" active={activeItem === 'Approve'} onClick={() => changeActiveItem('Approve')} />
               <Menu.Item name="In Progress applicants" active={activeItem === 'In Progress'} onClick={() => changeActiveItem('In Progress')} />
               <Menu.Item name="Reject or Fail applicants" active={activeItem === 'Reject'} onClick={() => changeActiveItem('Reject')} />
               <Menu.Item name="Pass applicants" active={activeItem === 'Pass'} onClick={() => changeActiveItem('Pass')} />
+            </Menu>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={16}>
+            <Menu fluid tabular compact>
               <Menu.Item name="Sign Contract applicants" active={activeItem === 'Sign Contract'} onClick={() => changeActiveItem('Sign Contract')} />
               <Menu.Item name="Cancel applicants" active={activeItem === 'Cancel'} onClick={() => changeActiveItem('Cancel')} />
               <Menu.Item name="Complete applicants" active={activeItem === 'Complete'} onClick={() => changeActiveItem('Complete')} />
               <Menu.Item name="Blacklist applicants" active={activeItem === 'Blacklist'} onClick={() => changeActiveItem('Blacklist')} />
             </Menu>
           </Grid.Column>
-          <Grid.Column stretched width={14}>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column stretched width={16}>
             {getActiveTable(activeItem, data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus)}
           </Grid.Column>
         </Grid.Row>
@@ -143,7 +151,7 @@ Recruitment.propTypes = {
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  checkStatus: PropTypes.array.isRequired,
+  checkStatus: PropTypes.object.isRequired,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
 };

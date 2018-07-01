@@ -42,7 +42,7 @@ RecruitmentPage.defaultProps = {
   isFetching: true,
   activeItem: 'all',
   data: [],
-  checkStatus: [],
+  checkStatus: {},
 };
 
 RecruitmentPage.propTypes = {
@@ -55,7 +55,7 @@ RecruitmentPage.propTypes = {
   sortByKey: PropTypes.func.isRequired,
   direction: PropTypes.string.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  checkStatus: PropTypes.array,
+  checkStatus: PropTypes.object,
   changedStatus: PropTypes.func.isRequired,
   clearedStatus: PropTypes.func.isRequired,
 };

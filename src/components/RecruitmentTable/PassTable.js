@@ -71,7 +71,7 @@ PassTable.propTypes = {
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
   onConfirm: PropTypes.func.isRequired,
-  checkStatus: PropTypes.array.isRequired,
+  checkStatus: PropTypes.object.isRequired,
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,

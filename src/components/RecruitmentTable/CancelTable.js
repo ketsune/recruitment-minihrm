@@ -15,6 +15,7 @@ const row = item => (
     <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
+    <Table.Cell>{`${item.interviewDate}`}</Table.Cell>
     <Table.Cell>{`${item.signDate}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
   </Table.Row>
@@ -33,6 +34,7 @@ const CancelTable = ({ data, onSearchChange, sortKey, direction, handleSort }) =
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'interviewDate' ? direction : null} onClick={() => handleSort('interviewDate')}>Interview Date</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date</Table.HeaderCell>
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
         </Table.Row>

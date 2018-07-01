@@ -7,7 +7,7 @@ const initialState = {
   searchText: '',
   direction: '',
   sortKey: '',
-  checkStatus: [],
+  checkStatus: {},
 };
 
 const Recruitment = (state = initialState, action) => {
