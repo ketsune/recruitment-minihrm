@@ -61,11 +61,23 @@ export const clearStatus = () => ({
   }
 });
 
-export const createRecruitmentRequest = (form, resolve, reject) => ({
+export const createRecruitmentRequest = form => ({
   type: actionTypes.RECRUITMENT_CREATE_REQUEST,
   payload: {
-    form,
-    resolve,
-    reject
+    form
+  }
+});
+
+export const createRecruitmentSuccess = data => ({
+  type: actionTypes.RECRUITMENT_CREATE_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const createRecruitmentFailure = message => ({
+  type: actionTypes.RECRUITMENT_CREATE_FAILURE,
+  payload: {
+    message
   }
 });

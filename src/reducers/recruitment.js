@@ -70,12 +70,22 @@ const Recruitment = (state = initialState, action) => {
     case actionTypes.CLEAR_CHECKSTATUS:
       return {
         ...state,
-        checkStatus: [],
+        checkStatus: {},
       };
     case actionTypes.RECRUITMENT_CREATE_REQUEST:
       return {
         ...state,
         form: action.payload.form
+      };
+    case actionTypes.RECRUITMENT_CREATE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_CREATE_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
       };
     default:
       return state;

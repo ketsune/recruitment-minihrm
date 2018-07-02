@@ -3,6 +3,8 @@ import * as actionTypes from '../constants/actionTypes';
 import {
   fetchRecruitmentSuccess,
   fetchRecruitmentFailure,
+  createRecruitmentSuccess,
+  createRecruitmentFailure,
 } from '../actions/recruitment';
 import api from '../services/api';
 
@@ -16,17 +18,35 @@ export function* fetchRecruitmentTask() {
   }
 }
 
+export function* createRecruitmentTask(action) {
+  // try {
+  //   yield call(api.createEmployee, {
+  //     user: action.payload.form
+  //   });
+  //   yield put(createEmployeeSuccess());
+  // }
+  try {
+    const recruitments = yield call(api.changeRecruitmentStatus, {
+      applicant: action.payload.form
+    });
+    yield put(createRecruitmentSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(createRecruitmentFailure(error));
+  }
+}
+
 export function* watchFetchRecruitmentRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_FETCH_REQUEST, fetchRecruitmentTask);
 }
 
-// export function* watchCreateEmployeeRequest() {
-//   yield takeEvery(actionTypes.EMPLOYEE_CREATE_REQUEST, createEmployeeTask);
-// }
+export function* watchCreateRecruitmentRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_CREATE_REQUEST, createRecruitmentTask);
+}
 
 export default function* profileSaga() {
   yield all([
     watchFetchRecruitmentRequest(),
-    // watchCreateEmployeeRequest()
+    watchCreateRecruitmentRequest()
   ]);
 }

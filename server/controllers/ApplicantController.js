@@ -18,7 +18,7 @@ exports.findAll = (req, res, next) => {
 };
 
 exports.updateStatus = (req, res, next) => {
-  const editApplicant = req.body;
+  const editApplicant = req.body.applicant;
   Applicant.updateStatus(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);

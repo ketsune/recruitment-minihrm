@@ -46,11 +46,11 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
         <Table.Row>
           <Table.HeaderCell colSpan="11">
             <Button.Group floated="right">
-              <Button positive icon onClick={onConfirm} >
+              <Button color="blue" icon onClick={onConfirm} >
                 Confirm
               </Button>
               <Button.Or />
-              <Button negative icon onClick={clearStatus} >
+              <Button basic color="red" icon onClick={clearStatus} >
                 Select None
               </Button>
             </Button.Group>

@@ -34,11 +34,10 @@ Applicant.updateStatus = applicant => (
     `UPDATE applicants
     SET
     status = $1
-    WHERE first_name = $2 AND last_name = $3`,
+    WHERE citizen_id = $2`,
     [
       applicant.status,
-      applicant.firstName,
-      applicant.lastName
+      applicant.citizenId,
     ]
   )
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))

@@ -272,4 +272,11 @@ api.fetchRecruitment = () => (
   callApi('/api/applicants')
 );
 
+api.changeRecruitmentStatus = body => (
+  callApi('api/applicants/update-status', {
+    method: 'PUT',
+    body
+  })
+);
+
 export default api;

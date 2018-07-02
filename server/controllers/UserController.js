@@ -1,6 +1,5 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt-nodejs');
-const moment = require('moment');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 
