@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox, Form, Grid } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox, Form } from 'semantic-ui-react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { setDate, setTime } from '../../actions/recruitment';
-
-
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -30,7 +28,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
   </Table.Row>
 );
 
-const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setDate, setTime }) => (
+const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setSignDate, setSignTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -60,8 +58,8 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
             <div>
               <Form onSubmit={onConfirm}>
                 <Form.Group >
-                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setTime(value)} />
+                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setSignDate(value)} />
+                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setSignTime(value)} />
                 </Form.Group>
               </Form>
             </div>
@@ -89,8 +87,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setDate: (value) => dispatch(setDate(value)),
-  setTime: (value) => dispatch(setTime(value))
+  setSignDate: value => dispatch(setDate(value)),
+  setSignTime: value => dispatch(setTime(value))
 });
 
 SignContractTable.defaultProps = {
@@ -108,8 +106,8 @@ SignContractTable.propTypes = {
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
-  setDate: PropTypes.func.isRequired,
-  setTime: PropTypes.func.isRequired,
+  setSignDate: PropTypes.func.isRequired,
+  setSignTime: PropTypes.func.isRequired,
 };
 
 const enhance = compose(

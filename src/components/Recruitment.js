@@ -143,7 +143,8 @@ const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, ha
         onSearchChange={onSearchChange}
         sortKey={sortKey}
         direction={direction}
-        handleSort={handleSort} />);
+        handleSort={handleSort}
+      />);
     default:
       return ('ขออภัยในความไม่สะดวก');
   }

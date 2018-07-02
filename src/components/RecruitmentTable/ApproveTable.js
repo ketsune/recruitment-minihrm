@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox, Form, Grid } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox, Form } from 'semantic-ui-react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
@@ -27,7 +27,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
   </Table.Row>
 );
 
-const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setDate, setTime }) => (
+const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApproveDate, setApproveTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -56,8 +56,8 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
             <div>
               <Form onSubmit={onConfirm}>
                 <Form.Group >
-                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setTime(value)} />
+                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setApproveDate(value)} />
+                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setApproveTime(value)} />
                 </Form.Group>
               </Form>
             </div>
@@ -85,8 +85,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setDate: (value) => dispatch(setDate(value)),
-  setTime: (value) => dispatch(setTime(value))
+  setApproveDate: value => dispatch(setDate(value)),
+  setApproveTime: value => dispatch(setTime(value))
 });
 
 ApproveTable.defaultProps = {
@@ -104,8 +104,8 @@ ApproveTable.propTypes = {
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
-  setDate: PropTypes.func.isRequired,
-  setTime: PropTypes.func.isRequired,
+  setApproveDate: PropTypes.func.isRequired,
+  setApproveTime: PropTypes.func.isRequired,
 };
 
 const enhance = compose(

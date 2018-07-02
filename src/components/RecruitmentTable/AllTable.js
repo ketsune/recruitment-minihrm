@@ -48,11 +48,11 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConf
             <Button.Group floated="right">
               <Button positive icon onClick={onConfirm} >
                 Confirm
-          </Button>
+              </Button>
               <Button.Or />
               <Button negative icon onClick={clearStatus} >
                 Select None
-          </Button>
+              </Button>
             </Button.Group>
           </Table.HeaderCell>
         </Table.Row>
