@@ -13,39 +13,16 @@ import Input from '../../components/Input';
 //   return errors;
 // };
 
-// const EditGeneralProfileForm = ({ handleSubmit }) => (
-//   <Form onSubmit={handleSubmit}>
-//     <Form.Group widths="equal">
-//       <Field name="firstName" component={Input} as={Form.Input} label="First name" placeholder="First name" />
-//       <Field name="lastName" component={Input} as={Form.Input} label="Last name" placeholder="Last name" />
-//     </Form.Group>
-//     <Form.Group widths="equal">
-//       <Field name="firstNameTh" component={Input} as={Form.Input} label="ชื่อ" placeholder="ชื่อ" />
-//       <Field name="lastNameTh" component={Input} as={Form.Input} label="นามสกุล" placeholder="นามสกุล" />
-//     </Form.Group>
-//     <Field name="nickName" component={Input} as={Form.Input} label="Nick name" placeholder="Nick name" />
-//     <Field name="birthday" component={Input} as={Form.Input} type="date" label="Birth date" placeholder="Birth date" />
-//     <Field name="citizenId" component={Input} as={Form.Input} label="Citizen ID" placeholder="Citizen ID" />
-//     <Field name="mobileNumber" component={Input} as={Form.Input} label="Mobile No." placeholder="Mobile No." />
-//     <Field name="email" component={Input} as={Form.Input} label="Email" placeholder="Email" />
-//     <Field name="facebookId" component={Input} as={Form.Input} label="Facebook" placeholder="Facebook" />
-//     <Field name="lineId" component={Input} as={Form.Input} label="Line ID" placeholder="Line ID" />
-//     <Field name="address" component={Input} as={Form.Input} label="Address" placeholder="Address" />
-//   </Form>
-// );
-
-// EditGeneralProfileForm.propTypes = {
-//   handleSubmit: PropTypes.func.isRequired
-// };
-
-const row = (item, { checkStatus }) => (
+const row = (item, { checkStatus, date, time }) => (
   <Table.Row key={item.citizenId}>
     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
     {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
+    {(checkStatus[item.citizenId] === 'Reject' || checkStatus[item.citizenId] === 'Fail' || checkStatus[item.citizenId] === 'Cancel' || checkStatus[item.citizenId] === 'Blacklist') && <Table.Cell><input /></Table.Cell>}
+    {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date},Time: {time}</Table.Cell>}
   </Table.Row>
 );
 
-const EditRecruitmentForm = ({ data, checkStatus, handleSubmit }) => (
+const EditRecruitmentForm = ({ data, checkStatus, handleSubmit, date, time }) => (
   <Form onSubmit={handleSubmit}>
     <Table>
       <Form.Group widths="equal">
@@ -56,10 +33,11 @@ const EditRecruitmentForm = ({ data, checkStatus, handleSubmit }) => (
         <Table.Row>
           <Table.HeaderCell >Name</Table.HeaderCell>
           <Table.HeaderCell >Status</Table.HeaderCell>
+          <Table.HeaderCell >Note</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item, { checkStatus }))}
+        {data.map(item => row(item, { checkStatus, date, time }))}
       </Table.Body>
     </Table>
   </Form>
@@ -70,6 +48,8 @@ EditRecruitmentForm.propTypes = {
   data: PropTypes.array.isRequired,
   checkStatus: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
+  date: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
 };
 
 // const mapStateToProps = state => ({

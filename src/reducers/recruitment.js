@@ -8,6 +8,8 @@ const initialState = {
   direction: '',
   sortKey: '',
   checkStatus: {},
+  date: '',
+  time: '',
 };
 
 const Recruitment = (state = initialState, action) => {
@@ -33,6 +35,9 @@ const Recruitment = (state = initialState, action) => {
       return {
         ...state,
         activeItem: action.payload.activeItem,
+        checkStatus: [],
+        date: '',
+        time: '',
       };
     case actionTypes.FILTER_RECRUITMENT:
       return {
@@ -86,6 +91,16 @@ const Recruitment = (state = initialState, action) => {
       return {
         ...state,
         message: action.payload.message
+      };
+    case actionTypes.RECRUITMENT_SETDATE:
+      return {
+        ...state,
+        date: action.payload.value
+      };
+    case actionTypes.RECRUITMENT_SETTIME:
+      return {
+        ...state,
+        time: action.payload.value
       };
     default:
       return state;

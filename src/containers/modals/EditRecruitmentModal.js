@@ -5,7 +5,7 @@ import { Table } from 'semantic-ui-react';
 import { isSubmitting } from 'redux-form';
 import { closeModal } from '../../actions/modal';
 import Modal from '../../components/Modal';
-// import EditRecruitmentForm from '../forms/EditRecruitmentForm';
+import EditRecruitmentForm from '../forms/EditRecruitmentForm';
 // import { handleReduxFormSubmit } from '../../utils/helper';
 import { createRecruitmentRequest } from '../../actions/recruitment';
 
@@ -16,7 +16,7 @@ const row = (item, { checkStatus }) => (
   </Table.Row>
 );
 
-const EditRecruitmentModal = ({ onClick, submitting, onClose, data, checkStatus }) => (
+const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus, date, time }) => (
   <Modal
     header="Edit Recruitment"
     onClose={onClose}
@@ -35,18 +35,19 @@ const EditRecruitmentModal = ({ onClick, submitting, onClose, data, checkStatus 
         {data.map(item => row(item, { checkStatus }))}
       </Table.Body>
     </Table>
-    {/* <EditRecruitmentForm data={data} checkStatus={checkStatus} onConfirm={values => onConfirm(values)} /> */}
+    <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} checkStatus={checkStatus} date={date} time={time} />
   </Modal>
 );
 
 EditRecruitmentModal.propTypes = {
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
-  // onSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   data: PropTypes.array.isRequired,
-  // onConfirm: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   checkStatus: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -54,6 +55,8 @@ const mapStateToProps = state => ({
   submitting: isSubmitting('editRecruitment')(state),
   data: state.recruitment.data,
   checkStatus: state.recruitment.checkStatus,
+  date: state.recruitment.date,
+  time: state.recruitment.time,
 });
 
 // createProjectRequest->createRecruitmentRequest แล้วสร้างด้วย เขียนไว้กันลืมแก้อะนะ

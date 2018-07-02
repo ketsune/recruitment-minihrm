@@ -17,7 +17,17 @@ const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, ha
   let filteredData = [];
   switch (activeItem) {
     case 'All':
-      return (<AllTable data={data} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<AllTable
+        data={data}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Apply':
       filteredData = getFilterRecruitment(data, 'Apply');
       return (<ApplyTable
@@ -61,7 +71,17 @@ const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, ha
       />);
     case 'Reject':
       filteredData = getFilterRecruitmentTwoParam(data, 'Reject', 'Fail');
-      return (<RejectTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<RejectTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Pass':
       filteredData = getFilterRecruitment(data, 'Pass');
       return (<PassTable
@@ -92,13 +112,38 @@ const getActiveTable = (activeItem, data, onSearchChange, sortKey, direction, ha
       />);
     case 'Cancel':
       filteredData = getFilterRecruitment(data, 'Cancel');
-      return (<CancelTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<CancelTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Complete':
       filteredData = getFilterRecruitment(data, 'Complete');
-      return (<CompleteTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<CompleteTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort}
+        onConfirm={onConfirm}
+        checkStatus={checkStatus}
+        changeStatus={changeStatus}
+        clearStatus={clearStatus}
+      />);
     case 'Blacklist':
       filteredData = getFilterRecruitment(data, 'Blacklist');
-      return (<BlacklistTable data={filteredData} onSearchChange={onSearchChange} sortKey={sortKey} direction={direction} handleSort={handleSort} />);
+      return (<BlacklistTable
+        data={filteredData}
+        onSearchChange={onSearchChange}
+        sortKey={sortKey}
+        direction={direction}
+        handleSort={handleSort} />);
     default:
       return ('ขออภัยในความไม่สะดวก');
   }

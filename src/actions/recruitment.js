@@ -81,3 +81,17 @@ export const createRecruitmentFailure = message => ({
     message
   }
 });
+
+export const setDate = (value) => ({
+  type: actionTypes.RECRUITMENT_SETDATE,
+  payload: {
+    value,
+  }
+});
+
+export const setTime = (value) => ({
+  type: actionTypes.RECRUITMENT_SETTIME,
+  payload: {
+    value,
+  }
+});

@@ -19,6 +19,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Pass'} onChange={() => changeStatus(item.citizenId, 'Pass')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Fail'} onChange={() => changeStatus(item.citizenId, 'Fail')} /></Table.Cell>}
+    <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
@@ -39,6 +40,7 @@ const InProgressTable = ({ data, onSearchChange, sortKey, direction, handleSort,
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
           <Table.HeaderCell >Pass</Table.HeaderCell>
           {reject && <Table.HeaderCell >Fail</Table.HeaderCell>}
+          <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
