@@ -9,14 +9,14 @@ import { handleReduxFormSubmit } from '../../utils/helper';
 import { createRecruitmentRequest } from '../../actions/recruitment';
 
 
-const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus }) => (
+const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus, date, time }) => (
   <Modal
     header="Edit Recruitment"
     onClose={onClose}
     onClick={onClick}
     submitting={submitting}
   >
-    <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} checkStatus={checkStatus} />
+    <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} checkStatus={checkStatus} date={date} time={time} />
   </Modal>
 );
 
@@ -27,6 +27,8 @@ EditRecruitmentModal.propTypes = {
   data: PropTypes.array.isRequired,
   onConfirm: PropTypes.func.isRequired,
   checkStatus: PropTypes.object.isRequired,
+  date: PropTypes.string.isRequired,
+  time: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -34,6 +36,8 @@ const mapStateToProps = state => ({
   submitting: isSubmitting('editRecruitment')(state),
   data: state.recruitment.data,
   checkStatus: state.recruitment.checkStatus,
+  date: state.recruitment.date,
+  time: state.recruitment.time,
 });
 
 // createProjectRequest->createRecruitmentRequest แล้วสร้างด้วย เขียนไว้กันลืมแก้อะนะ

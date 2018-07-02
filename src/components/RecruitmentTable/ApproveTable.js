@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox, Form, Grid } from 'semantic-ui-react';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { setDate, setTime } from '../../actions/recruitment';
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -18,10 +22,11 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'In Progress'} onChange={() => changeStatus(item.citizenId, 'In Progress')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
+    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
   </Table.Row>
 );
 
-const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus }) => (
+const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setDate, setTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -37,6 +42,7 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
           <Table.HeaderCell >In Progress</Table.HeaderCell>
           {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
+          <Table.HeaderCell >Edit</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -45,6 +51,14 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
+            <div>
+              <Form onSubmit={onConfirm}>
+                <Form.Group >
+                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setDate(value)} />
+                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setTime(value)} />
+                </Form.Group>
+              </Form>
+            </div>
             <Button.Group floated="right">
               <Button positive icon onClick={onConfirm} >
                 Confirm
@@ -61,6 +75,18 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
   </div>
 );
 
+const selector = formValueSelector('dateTime');
+
+const mapStateToProps = state => ({
+  date: selector(state, 'date'),
+  Time: selector(state, 'time')
+});
+
+const mapDispatchToProps = dispatch => ({
+  setDate: (value) => dispatch(setDate(value)),
+  setTime: (value) => dispatch(setTime(value))
+});
+
 ApproveTable.defaultProps = {
   reject: false,
 };
@@ -76,6 +102,20 @@ ApproveTable.propTypes = {
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
+  setDate: PropTypes.func.isRequired,
+  setTime: PropTypes.func.isRequired,
 };
 
-export default ApproveTable;
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+    form: 'dateTime',
+    initialValues: {
+      date: null,
+      time: null,
+    },
+  })
+);
+
+
+export default enhance(ApproveTable);

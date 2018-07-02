@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox, Form, Grid } from 'semantic-ui-react';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { setDate, setTime } from '../../actions/recruitment';
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -21,7 +25,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
   </Table.Row>
 );
 
-const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus }) => (
+const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setDate, setTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -45,6 +49,14 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
+            <div>
+              <Form onSubmit={onConfirm}>
+                <Form.Group >
+                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setDate(value)} />
+                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setTime(value)} />
+                </Form.Group>
+              </Form>
+            </div>
             <Button.Group floated="right">
               <Button positive icon onClick={onConfirm} >
                 Confirm
@@ -61,6 +73,18 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
   </div>
 );
 
+const selector = formValueSelector('dateTime');
+
+const mapStateToProps = state => ({
+  date: selector(state, 'date'),
+  Time: selector(state, 'time')
+});
+
+const mapDispatchToProps = dispatch => ({
+  setDate: (value) => dispatch(setDate(value)),
+  setTime: (value) => dispatch(setTime(value))
+});
+
 ApplyTable.defaultProps = {
   reject: false,
 };
@@ -76,6 +100,20 @@ ApplyTable.propTypes = {
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
+  setDate: PropTypes.func.isRequired,
+  setTime: PropTypes.func.isRequired,
 };
 
-export default ApplyTable;
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+    form: 'dateTime',
+    initialValues: {
+      date: null,
+      time: null,
+    },
+  })
+);
+
+
+export default enhance(ApplyTable);

@@ -1,6 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox, Form, Grid } from 'semantic-ui-react';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { setDate, setTime } from '../../actions/recruitment';
+
+
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -19,10 +25,11 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => changeStatus(item.citizenId, 'Complete')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Cancel'} onChange={() => changeStatus(item.citizenId, 'Cancel')} /></Table.Cell>}
+    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Sign Contract'} onChange={() => changeStatus(item.citizenId, 'Sign Contract')} /></Table.Cell>
   </Table.Row>
 );
 
-const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus }) => (
+const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setDate, setTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -39,6 +46,7 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
           <Table.HeaderCell >Complete</Table.HeaderCell>
           {reject && <Table.HeaderCell >Cancel</Table.HeaderCell>}
+          <Table.HeaderCell >Edit</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
@@ -47,6 +55,14 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
+            <div>
+              <Form onSubmit={onConfirm}>
+                <Form.Group >
+                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setDate(value)} />
+                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setTime(value)} />
+                </Form.Group>
+              </Form>
+            </div>
             <Button.Group floated="right">
               <Button positive icon onClick={onConfirm} >
                 Confirm
@@ -63,6 +79,18 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
   </div>
 );
 
+const selector = formValueSelector('dateTime');
+
+const mapStateToProps = state => ({
+  date: selector(state, 'date'),
+  Time: selector(state, 'time')
+});
+
+const mapDispatchToProps = dispatch => ({
+  setDate: (value) => dispatch(setDate(value)),
+  setTime: (value) => dispatch(setTime(value))
+});
+
 SignContractTable.defaultProps = {
   reject: false,
 };
@@ -78,6 +106,20 @@ SignContractTable.propTypes = {
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
+  setDate: PropTypes.func.isRequired,
+  setTime: PropTypes.func.isRequired,
 };
 
-export default SignContractTable;
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+    form: 'dateTime',
+    initialValues: {
+      date: null,
+      time: null,
+    },
+  })
+);
+
+
+export default enhance(SignContractTable);
