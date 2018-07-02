@@ -45,12 +45,15 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConf
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            <Button color="blue" icon floated="right" onClick={onConfirm} >
-              Confirm
-            </Button>
-            <Button color="blue" icon floated="right" onClick={clearStatus} >
-              Reset
-            </Button>
+            <Button.Group floated="right">
+              <Button positive icon onClick={onConfirm} >
+                Confirm
+          </Button>
+              <Button.Or />
+              <Button negative icon onClick={clearStatus} >
+                Select None
+          </Button>
+            </Button.Group>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
