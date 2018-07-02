@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
 
-const row = item => (
+const row = (item, { checkStatus, changeStatus }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell>{`${item.firstName}
       ${item.lastName}`}
@@ -18,10 +18,11 @@ const row = item => (
     <Table.Cell>{`${item.interviewDate}`}</Table.Cell>
     <Table.Cell>{`${item.signDate}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
+    <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
-const CancelTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
+const CancelTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -35,12 +36,13 @@ const CancelTable = ({ data, onSearchChange, sortKey, direction, handleSort }) =
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'interviewDate' ? direction : null} onClick={() => handleSort('interviewDate')}>Interview Date</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'cancelDate' ? direction : null} onClick={() => handleSort('cancelDate')}>Cancel Date</Table.HeaderCell>
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
+          <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item))}
+        {data.map(item => row(item, { checkStatus, changeStatus }))}
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
@@ -61,6 +63,10 @@ CancelTable.propTypes = {
   sortKey: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  checkStatus: PropTypes.object.isRequired,
+  changeStatus: PropTypes.func.isRequired,
+  clearStatus: PropTypes.func.isRequired,
 };
 
 export default CancelTable;

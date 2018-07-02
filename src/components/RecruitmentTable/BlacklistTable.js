@@ -33,7 +33,7 @@ const BlacklistTable = ({ data, onSearchChange, sortKey, direction, handleSort }
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'blacklistDate' ? direction : null} onClick={() => handleSort('blacklistDate')}>Blacklist Date</Table.HeaderCell>
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
         </Table.Row>
       </Table.Header>

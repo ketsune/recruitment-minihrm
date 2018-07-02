@@ -6,7 +6,7 @@ const row = (item, { checkStatus, date, time }) => (
   <Table.Row>
     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
     {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
-    {(checkStatus[item.citizenId] === 'Reject' || checkStatus[item.citizenId] === 'Fail') && <Table.Cell><input /></Table.Cell>}
+    {(checkStatus[item.citizenId] === 'Reject' || checkStatus[item.citizenId] === 'Fail' || checkStatus[item.citizenId] === 'Cancel') && <Table.Cell><input /></Table.Cell>}
     {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date},Time: {time}</Table.Cell>}
   </Table.Row>
 );

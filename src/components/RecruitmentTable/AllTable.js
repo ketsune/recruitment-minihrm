@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input } from 'semantic-ui-react';
+import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
 
-const row = item => (
+const row = (item, { checkStatus, changeStatus }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell>{`${item.firstName}
       ${item.lastName}`}
@@ -17,10 +17,11 @@ const row = item => (
     <Table.Cell>{`${item.citizenId}`}</Table.Cell>
     <Table.Cell>{`${item.registrationDate}`}</Table.Cell>
     <Table.Cell>{`${item.status}`}</Table.Cell>
+    <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
-const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
+const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -35,20 +36,21 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
           <Table.HeaderCell sorted={sortKey === 'citizenId' ? direction : null} onClick={() => handleSort('citizenId')}>Citizen ID</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'status' ? direction : null} onClick={() => handleSort('status')}>Status</Table.HeaderCell>
+          <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item))}
+        {data.map(item => row(item, { checkStatus, changeStatus }))}
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="11">
-            {/* <Button color="blue" icon floated="right" onClick={onConfirm} >
+            <Button color="blue" icon floated="right" onClick={onConfirm} >
               Confirm
             </Button>
             <Button color="blue" icon floated="right" onClick={clearStatus} >
               Reset
-            </Button> */}
+            </Button>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
@@ -62,6 +64,10 @@ AllTable.propTypes = {
   sortKey: PropTypes.string.isRequired,
   direction: PropTypes.string.isRequired,
   handleSort: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  checkStatus: PropTypes.object.isRequired,
+  changeStatus: PropTypes.func.isRequired,
+  clearStatus: PropTypes.func.isRequired,
 };
 
 export default AllTable;

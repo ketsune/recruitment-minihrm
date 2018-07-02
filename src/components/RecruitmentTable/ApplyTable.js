@@ -22,6 +22,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
+    <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
@@ -41,6 +42,7 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
           <Table.HeaderCell >Approve</Table.HeaderCell>
           {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
+          <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>

@@ -26,6 +26,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => changeStatus(item.citizenId, 'Complete')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Cancel'} onChange={() => changeStatus(item.citizenId, 'Cancel')} /></Table.Cell>}
     <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Sign Contract'} onChange={() => changeStatus(item.citizenId, 'Sign Contract')} /></Table.Cell>
+    <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
@@ -47,6 +48,7 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
           <Table.HeaderCell >Complete</Table.HeaderCell>
           {reject && <Table.HeaderCell >Cancel</Table.HeaderCell>}
           <Table.HeaderCell >Edit</Table.HeaderCell>
+          <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
