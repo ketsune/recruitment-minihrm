@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form, Table } from 'semantic-ui-react';
-import { Field } from 'redux-form';
-import Input from '../../components/Input';
+import { compose } from 'recompose';
+import { reduxForm } from 'redux-form';
+// import Input from '../../components/Input';
 // import * as validator from '../../utils/validator';
 
 // const validate = (values) => {
@@ -22,13 +23,13 @@ const row = (item, { checkStatus, date, time }) => (
   </Table.Row>
 );
 
-const EditRecruitmentForm = ({ data, checkStatus, handleSubmit, date, time }) => (
-  <Form onSubmit={handleSubmit}>
+const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (
+  <Form onSubmit={onConfirm}>
     <Table>
-      <Form.Group widths="equal">
+      {/* <Form.Group widths="equal">
         <Field name="firstName" component={Input} as={Form.Input} label="First name" placeholder="First name" />
         <Field name="lastName" component={Input} as={Form.Input} label="Last name" placeholder="Last name" />
-      </Form.Group>
+      </Form.Group> */}
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell >Name</Table.HeaderCell>
@@ -47,7 +48,7 @@ const EditRecruitmentForm = ({ data, checkStatus, handleSubmit, date, time }) =>
 EditRecruitmentForm.propTypes = {
   data: PropTypes.array.isRequired,
   checkStatus: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
 };
@@ -59,11 +60,8 @@ EditRecruitmentForm.propTypes = {
 //   }
 // });
 
-// const enhance = compose(
-//   connect(mapStateToProps),
-//   reduxForm({
-//     form: 'editRecruitment'
-//   })
-// );
+const enhance = compose(reduxForm({
+  form: 'editRecruitment'
+}));
 
-export default (EditRecruitmentForm);
+export default enhance(EditRecruitmentForm);

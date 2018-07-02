@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Table } from 'semantic-ui-react';
+// import { Table } from 'semantic-ui-react';
 import { isSubmitting } from 'redux-form';
 import { closeModal } from '../../actions/modal';
 import Modal from '../../components/Modal';
 import EditRecruitmentForm from '../forms/EditRecruitmentForm';
-// import { handleReduxFormSubmit } from '../../utils/helper';
+import { handleReduxFormSubmit } from '../../utils/helper';
 import { createRecruitmentRequest } from '../../actions/recruitment';
 
-const row = (item, { checkStatus }) => (
-  <Table.Row key={item.citizenId}>
-    {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
-    {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
-  </Table.Row>
-);
+// const row = (item, { checkStatus }) => (
+//   <Table.Row key={item.citizenId}>
+//     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
+//     {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
+//   </Table.Row>
+// );
 
 const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus, date, time }) => (
   <Modal
@@ -24,7 +24,7 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, c
     submitting={submitting}
     checkStatus={checkStatus}
   >
-    <Table>
+    {/* <Table>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell >Name</Table.HeaderCell>
@@ -34,7 +34,7 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, c
       <Table.Body>
         {data.map(item => row(item, { checkStatus }))}
       </Table.Body>
-    </Table>
+    </Table> */}
     <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} checkStatus={checkStatus} date={date} time={time} />
   </Modal>
 );
@@ -76,10 +76,10 @@ const mapDispatchToProps = dispatch => ({
     });
   },
   onClose: () => dispatch(closeModal()),
-  // onConfirm: (values) => {
-  //   console.log(values);
-  //   handleReduxFormSubmit(dispatch, createRecruitmentRequest, values, 'editRecruitment');
-  // },
+  onConfirm: (values) => {
+    console.log(values);
+    handleReduxFormSubmit(dispatch, createRecruitmentRequest, values, 'editRecruitment');
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditRecruitmentModal);

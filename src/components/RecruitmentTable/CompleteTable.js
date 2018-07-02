@@ -27,8 +27,8 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
     <Table striped sortable selectable celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name-EN</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>Name-TH</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>ชื่อ-นามสกุล</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
@@ -46,13 +46,13 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
         <Table.Row>
           <Table.HeaderCell colSpan="11">
             <Button.Group floated="right">
-              <Button positive icon onClick={onConfirm} >
+              <Button color="blue" icon onClick={onConfirm} >
                 Confirm
-          </Button>
+              </Button>
               <Button.Or />
-              <Button negative icon onClick={clearStatus} >
+              <Button basic color="red" icon onClick={clearStatus} >
                 Select None
-          </Button>
+              </Button>
             </Button.Group>
           </Table.HeaderCell>
         </Table.Row>

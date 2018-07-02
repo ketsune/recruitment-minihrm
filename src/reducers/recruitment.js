@@ -35,7 +35,7 @@ const Recruitment = (state = initialState, action) => {
       return {
         ...state,
         activeItem: action.payload.activeItem,
-        checkStatus: [],
+        checkStatus: {},
         date: '',
         time: '',
       };

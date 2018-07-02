@@ -32,8 +32,8 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
     <Table striped sortable selectable celled>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name-EN</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>Name-TH</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>ชื่อ-นามสกุล</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
@@ -50,15 +50,15 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
-          <Table.HeaderCell colSpan="11">
-            <div>
-              <Form onSubmit={onConfirm}>
-                <Form.Group >
-                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setApplyDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setApplyTime(value)} />
-                </Form.Group>
-              </Form>
-            </div>
+          <Table.HeaderCell colSpan="5">
+            <Form onSubmit={onConfirm}>
+              <Form.Group floated="left">
+                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setApplyDate(value)} />
+                <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setApplyTime(value)} />
+              </Form.Group>
+            </Form>
+          </Table.HeaderCell>
+          <Table.HeaderCell colSpan="6">
             <Button.Group floated="right">
               <Button color="blue" icon onClick={onConfirm} >
                 Confirm
