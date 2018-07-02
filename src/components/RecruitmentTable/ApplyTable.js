@@ -8,11 +8,11 @@ import { setDate, setTime } from '../../actions/recruitment';
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
-    <Table.Cell>{`${item.firstName}
-      ${item.lastName}`}
+    <Table.Cell collapsing>{`${item.firstName}`}<br />
+      {`${item.lastName}`}
     </Table.Cell>
-    <Table.Cell>{`${item.firstNameTh}
-      ${item.lastNameTh}`}
+    <Table.Cell collapsing>{`${item.firstNameTh}`}<br />
+      {`${item.lastNameTh}`}
     </Table.Cell>
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
@@ -50,15 +50,15 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
-          <Table.HeaderCell colSpan="5">
+          <Table.HeaderCell colSpan="4">
             <Form onSubmit={onConfirm}>
               <Form.Group floated="left">
-                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setApplyDate(value)} />
-                <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setApplyTime(value)} />
+                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />
+                <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApplyTime(value)} />
               </Form.Group>
             </Form>
           </Table.HeaderCell>
-          <Table.HeaderCell colSpan="6">
+          <Table.HeaderCell colSpan="7">
             <Button.Group floated="right">
               <Button color="blue" icon onClick={onConfirm} >
                 Confirm

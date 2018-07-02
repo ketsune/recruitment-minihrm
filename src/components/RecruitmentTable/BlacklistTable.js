@@ -4,11 +4,11 @@ import { Table, Icon, Input } from 'semantic-ui-react';
 
 const row = item => (
   <Table.Row key={item.citizenId}>
-    <Table.Cell>{`${item.firstName}
-      ${item.lastName}`}
+    <Table.Cell collapsing>{`${item.firstName}`}<br />
+      {`${item.lastName}`}
     </Table.Cell>
-    <Table.Cell>{`${item.firstNameTh}
-      ${item.lastNameTh}`}
+    <Table.Cell collapsing>{`${item.firstNameTh}`}<br />
+      {`${item.lastNameTh}`}
     </Table.Cell>
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>

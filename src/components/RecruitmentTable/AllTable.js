@@ -4,13 +4,13 @@ import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
 
 const row = (item, { checkStatus, changeStatus }) => (
   <Table.Row key={item.citizenId}>
-    <Table.Cell>{`${item.firstName}
-      ${item.lastName}`}
+    <Table.Cell collapsing>{`${item.firstName}`}<br />
+      {`${item.lastName}`}
     </Table.Cell>
-    <Table.Cell>{`${item.firstNameTh}
-      ${item.lastNameTh}`}
+    <Table.Cell collapsing>{`${item.firstNameTh}`}<br />
+      {`${item.lastNameTh}`}
     </Table.Cell>
-    <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
+    <Table.Cell>{`${item.position.join('/\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>

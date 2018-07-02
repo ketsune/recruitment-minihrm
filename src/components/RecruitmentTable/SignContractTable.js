@@ -8,18 +8,18 @@ import { setDate, setTime } from '../../actions/recruitment';
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
-    <Table.Cell>{`${item.firstName}
-      ${item.lastName}`}
+    <Table.Cell collapsing>{`${item.firstName}`}<br />
+      {`${item.lastName}`}
     </Table.Cell>
-    <Table.Cell>{`${item.firstNameTh}
-      ${item.lastNameTh}`}
+    <Table.Cell collapsing>{`${item.firstNameTh}`}<br />
+      {`${item.lastNameTh}`}
     </Table.Cell>
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
-    <Table.Cell>{`${item.signDate}`}</Table.Cell>
+    <Table.Cell>{`${item.signDate} ${item.signTime}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => changeStatus(item.citizenId, 'Complete')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Cancel'} onChange={() => changeStatus(item.citizenId, 'Cancel')} /></Table.Cell>}
@@ -41,7 +41,7 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date/Time</Table.HeaderCell>
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
           <Table.HeaderCell >Complete</Table.HeaderCell>
           {reject && <Table.HeaderCell >Cancel</Table.HeaderCell>}
@@ -54,15 +54,15 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
-          <Table.HeaderCell colSpan="6">
+          <Table.HeaderCell colSpan="5">
             <Form onSubmit={onConfirm}>
               <Form.Group floated="left">
-                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Date" type="date" onChange={(event, value) => setSignDate(value)} />
-                <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Time" type="time" onChange={(event, value) => setSignTime(value)} />
+                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setSignDate(value)} />
+                <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setSignTime(value)} />
               </Form.Group>
             </Form>
           </Table.HeaderCell>
-          <Table.HeaderCell colSpan="6">
+          <Table.HeaderCell colSpan="7">
             <Button.Group floated="right">
               <Button color="blue" icon onClick={onConfirm} >
                 Confirm
