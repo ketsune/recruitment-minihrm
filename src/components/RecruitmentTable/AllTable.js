@@ -34,7 +34,7 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'citizenId' ? direction : null} onClick={() => handleSort('citizenId')}>Citizen ID</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
-          <Table.HeaderCell >Status</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'status' ? direction : null} onClick={() => handleSort('status')}>Status</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>
