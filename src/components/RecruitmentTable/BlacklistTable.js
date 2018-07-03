@@ -15,7 +15,7 @@ const row = item => (
     <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
-    <Table.Cell>{`${item.signDate}`}</Table.Cell>
+    <Table.Cell>{`${item.blacklistDate}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
   </Table.Row>
 );

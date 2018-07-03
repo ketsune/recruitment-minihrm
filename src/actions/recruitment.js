@@ -95,3 +95,45 @@ export const setTime = value => ({
     value,
   }
 });
+
+export const updateRecruitmentInterviewDateTimeRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentInterviewDateTimeSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentInterviewDateTimeFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentSignDateTimeRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentSignDateTimeSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentSignDateTimeFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_FAILURE,
+  payload: {
+    message
+  }
+});

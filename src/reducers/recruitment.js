@@ -102,6 +102,36 @@ const Recruitment = (state = initialState, action) => {
         ...state,
         time: action.payload.value
       };
+    case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_REQUEST:
+      return {
+        ...state,
+        datetime: action.payload.datetime
+      };
+    case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
+    case actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST:
+      return {
+        ...state,
+        datetime: action.payload.datetime
+      };
+    case actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
     default:
       return state;
   }

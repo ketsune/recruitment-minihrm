@@ -279,4 +279,18 @@ api.changeRecruitmentStatus = body => (
   })
 );
 
+api.updateRecruitmentInterviewDateTime = body => (
+  callApi('api/applicants/update-interview-datetime', {
+    method: 'PUT',
+    body
+  })
+);
+
+api.updateRecruitmentSignDateTime = body => (
+  callApi('api/applicants/update-sign-datetime', {
+    method: 'PUT',
+    body
+  })
+);
+
 export default api;

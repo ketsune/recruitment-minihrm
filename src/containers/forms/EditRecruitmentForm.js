@@ -22,9 +22,10 @@ const row = (item, { checkStatus, date, time }) => (
     {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date},Time: {time}</Table.Cell>}
   </Table.Row>
 );
-
-const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (
-  <Form onSubmit={onConfirm}>
+// const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (
+const EditRecruitmentForm = ({ data, checkStatus, date, time }) => (
+  // <Form onSubmit={onConfirm}>
+  <Form>
     <Table>
       {/* <Form.Group widths="equal">
         <Field name="firstName" component={Input} as={Form.Input} label="First name" placeholder="First name" />
@@ -48,7 +49,7 @@ const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (
 EditRecruitmentForm.propTypes = {
   data: PropTypes.array.isRequired,
   checkStatus: PropTypes.object.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+  // onConfirm: PropTypes.func.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
 };

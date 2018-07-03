@@ -9,9 +9,9 @@ router.get('/', ApplicantController.findAll);
 
 router.put('/update-status', ApplicantController.updateStatus);
 
-router.put('/update-interview-date', ApplicantController.updateInterviewDate);
+router.put('/update-interview-datetime', ApplicantController.updateInterviewDateTime);
 
-router.put('/update-sign-date', ApplicantController.updateSignDate);
+router.put('/update-sign-datetime', ApplicantController.updateSignDateTime);
 
 
 // router.put('/', ApplicantController.update);

@@ -5,6 +5,10 @@ import {
   fetchRecruitmentFailure,
   createRecruitmentSuccess,
   createRecruitmentFailure,
+  updateRecruitmentInterviewDateTimeFailure,
+  updateRecruitmentInterviewDateTimeSuccess,
+  updateRecruitmentSignDateTimeFailure,
+  updateRecruitmentSignDateTimeSuccess,
 } from '../actions/recruitment';
 import api from '../services/api';
 
@@ -19,12 +23,6 @@ export function* fetchRecruitmentTask() {
 }
 
 export function* createRecruitmentTask(action) {
-  // try {
-  //   yield call(api.createEmployee, {
-  //     user: action.payload.form
-  //   });
-  //   yield put(createEmployeeSuccess());
-  // }
   try {
     const recruitments = yield call(api.changeRecruitmentStatus, {
       applicant: action.payload.form
@@ -36,6 +34,33 @@ export function* createRecruitmentTask(action) {
   }
 }
 
+export function* updateRecruitmentInterviewDateTimeTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentInterviewDateTime, {
+      applicant: action.payload.datetime
+    });
+    yield put(updateRecruitmentInterviewDateTimeSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentInterviewDateTimeFailure(error));
+  }
+}
+
+export function* updateRecruitmentSignDateTimeTask(action) {
+  try {
+    console.log('Inside Request Sagas');
+    console.log(action.payload.datetime);
+    const recruitments = yield call(api.updateRecruitmentSignDateTime, {
+      applicant: action.payload.datetime
+    });
+    console.log(recruitments);
+    yield put(updateRecruitmentSignDateTimeSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentSignDateTimeFailure(error));
+  }
+}
+
 export function* watchFetchRecruitmentRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_FETCH_REQUEST, fetchRecruitmentTask);
 }
@@ -44,9 +69,19 @@ export function* watchCreateRecruitmentRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_CREATE_REQUEST, createRecruitmentTask);
 }
 
+export function* watchUpdateRecruitmentInterviewDateTimeRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_REQUEST, updateRecruitmentInterviewDateTimeTask);
+}
+
+export function* watchUpdateRecruitmentSignDateTimeRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST, updateRecruitmentSignDateTimeTask);
+}
+
 export default function* profileSaga() {
   yield all([
     watchFetchRecruitmentRequest(),
-    watchCreateRecruitmentRequest()
+    watchCreateRecruitmentRequest(),
+    watchUpdateRecruitmentInterviewDateTimeRequest(),
+    watchUpdateRecruitmentSignDateTimeRequest()
   ]);
 }

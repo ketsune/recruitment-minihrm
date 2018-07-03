@@ -26,18 +26,18 @@ exports.updateStatus = (req, res, next) => {
     .catch(next);
 };
 
-exports.updateInterviewDate = (req, res, next) => {
-  const editApplicant = req.body;
-  Applicant.updateInterviewDate(editApplicant)
+exports.updateInterviewDateTime = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateInterviewDateTime(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);
     })
     .catch(next);
 };
 
-exports.updateSignDate = (req, res, next) => {
-  const editApplicant = req.body;
-  Applicant.updateSignDate(editApplicant)
+exports.updateSignDateTime = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateSignDateTime(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);
     })

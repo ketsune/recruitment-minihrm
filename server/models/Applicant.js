@@ -47,31 +47,31 @@ Applicant.updateStatus = applicant => (
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
 
-Applicant.updateInterviewDate = applicant => (
+Applicant.updateInterviewDateTime = applicant => (
   db.none(
     `UPDATE applicants
     SET
-    interview_date = $1
-    WHERE first_name = $2 AND last_name = $3`,
+    interview_date = $1, interview_time = $2
+    WHERE  citizen_id = $3`,
     [
-      applicant.interviewDate,
-      applicant.firstName,
-      applicant.lastName
+      applicant.date,
+      applicant.time,
+      applicant.citizenId
     ]
   )
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
 
-Applicant.updateSignDate = applicant => (
+Applicant.updateSignDateTime = applicant => (
   db.none(
     `UPDATE applicants
     SET
-    sign_date = $1
-    WHERE first_name = $2 AND last_name = $3`,
+    sign_date = $1, sign_time = $2
+    WHERE citizen_id = $3`,
     [
-      applicant.signDate,
-      applicant.firstName,
-      applicant.lastName
+      applicant.date,
+      applicant.time,
+      applicant.citizenId
     ]
   )
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))

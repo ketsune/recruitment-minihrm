@@ -31,6 +31,11 @@ export const getFilterRecruitment = (data, status) => {
     .filter(row => row.status === status);
 };
 
+export const getRecruitmentByCitizen = (data, citizenId) => {
+  if (!data) return [];
+  return data.find(row => row.citizenId === citizenId);
+};
+
 export const getFilterRecruitmentTwoParam = (data, status, status2) => {
   if (!data) return [];
   return data
