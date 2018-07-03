@@ -79,3 +79,12 @@ exports.updateBlacklistDate = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.updateNote = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateNote(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};

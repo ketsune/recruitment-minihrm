@@ -221,3 +221,24 @@ export const updateRecruitmentBlacklistDateFailure = message => ({
     message
   }
 });
+
+export const updateRecruitmentNoteRequest = note => ({
+  type: actionTypes.RECRUITMENT_UPDATE_NOTE_REQUEST,
+  payload: {
+    note
+  }
+});
+
+export const updateRecruitmentNoteSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_NOTE_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentNoteFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_NOTE_FAILURE,
+  payload: {
+    message
+  }
+});

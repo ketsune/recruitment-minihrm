@@ -132,6 +132,20 @@ Applicant.updateBlacklistDate = applicant => (
   )
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
+
+Applicant.updateNote = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    note = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.note,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
 // EmployeeInfo.findById = id => (
 //   db.oneOrNone('SELECT * FROM employee_info WHERE user_id = $1', [id])
 // );

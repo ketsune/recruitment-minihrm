@@ -21,6 +21,8 @@ router.put('/update-cancel-date', ApplicantController.updateCancelDate);
 
 router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
 
+router.put('/update-note', ApplicantController.updateNote);
+
 
 // router.put('/', ApplicantController.update);
 

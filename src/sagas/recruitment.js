@@ -17,6 +17,8 @@ import {
   updateRecruitmentCancelDateSuccess,
   updateRecruitmentBlacklistDateFailure,
   updateRecruitmentBlacklistDateSuccess,
+  updateRecruitmentNoteFailure,
+  updateRecruitmentNoteSuccess,
 } from '../actions/recruitment';
 import api from '../services/api';
 
@@ -119,6 +121,19 @@ export function* updateRecruitmentBlacklistDateTask(action) {
   }
 }
 
+export function* updateRecruitmentNoteTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentNote, {
+      applicant: action.payload.note
+    });
+    console.log(recruitments);
+    yield put(updateRecruitmentNoteSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentNoteFailure(error));
+  }
+}
+
 export function* watchFetchRecruitmentRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_FETCH_REQUEST, fetchRecruitmentTask);
 }
@@ -151,6 +166,10 @@ export function* watchUpdateRecruitmentBlacklistDateRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_REQUEST, updateRecruitmentBlacklistDateTask);
 }
 
+export function* watchUpdateRecruitmentNoteRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_NOTE_REQUEST, updateRecruitmentNoteTask);
+}
+
 export default function* profileSaga() {
   yield all([
     watchFetchRecruitmentRequest(),
@@ -160,6 +179,7 @@ export default function* profileSaga() {
     watchUpdateRecruitmentCompleteDateTimeRequest(),
     watchUpdateRecruitmentRejectDateRequest(),
     watchUpdateRecruitmentCancelDateRequest(),
-    watchUpdateRecruitmentBlacklistDateRequest()
+    watchUpdateRecruitmentBlacklistDateRequest(),
+    watchUpdateRecruitmentNoteRequest(),
   ]);
 }

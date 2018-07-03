@@ -321,4 +321,11 @@ api.updateRecruitmentBlacklistDate = body => (
   })
 );
 
+api.updateRecruitmentNote = body => (
+  callApi('api/applicants/update-note', {
+    method: 'PUT',
+    body
+  })
+);
+
 export default api;
