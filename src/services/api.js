@@ -293,4 +293,32 @@ api.updateRecruitmentSignDateTime = body => (
   })
 );
 
+api.updateRecruitmentCompleteDateTime = body => (
+  callApi('api/applicants/update-first-date', {
+    method: 'PUT',
+    body
+  })
+);
+
+api.updateRecruitmentRejectDate = body => (
+  callApi('api/applicants/update-reject-date', {
+    method: 'PUT',
+    body
+  })
+);
+
+api.updateRecruitmentCancelDate = body => (
+  callApi('api/applicants/update-cancel-date', {
+    method: 'PUT',
+    body
+  })
+);
+
+api.updateRecruitmentBlacklistDate = body => (
+  callApi('api/applicants/update-blacklist-date', {
+    method: 'PUT',
+    body
+  })
+);
+
 export default api;

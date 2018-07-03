@@ -16,6 +16,7 @@ const row = item => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
     <Table.Cell>{`${item.blacklistDate}`}</Table.Cell>
+    <Table.Cell>Note to Add</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
   </Table.Row>
 );
@@ -34,6 +35,7 @@ const BlacklistTable = ({ data, onSearchChange, sortKey, direction, handleSort }
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'blacklistDate' ? direction : null} onClick={() => handleSort('blacklistDate')}>Blacklist Date</Table.HeaderCell>
+          <Table.HeaderCell >Note</Table.HeaderCell>
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
         </Table.Row>
       </Table.Header>

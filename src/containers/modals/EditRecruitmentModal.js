@@ -7,15 +7,12 @@ import { closeModal } from '../../actions/modal';
 import Modal from '../../components/Modal';
 import EditRecruitmentForm from '../forms/EditRecruitmentForm';
 // import { handleReduxFormSubmit } from '../../utils/helper';
-import { createRecruitmentRequest, updateRecruitmentInterviewDateTimeRequest, updateRecruitmentSignDateTimeRequest } from '../../actions/recruitment';
+import {
+  createRecruitmentRequest, updateRecruitmentInterviewDateTimeRequest,
+  updateRecruitmentSignDateTimeRequest, updateRecruitmentCompleteDateTimeRequest,
+  updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest, updateRecruitmentBlacklistDateRequest
+} from '../../actions/recruitment';
 import { getRecruitmentByCitizen } from '../../selectors/recruitment';
-
-// const row = (item, { checkStatus }) => (
-//   <Table.Row key={item.citizenId}>
-//     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
-//     {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
-//   </Table.Row>
-// );
 
 // const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus, date, time }) => (
 const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time }) => (
@@ -29,17 +26,6 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus,
     time={time}
     data={data}
   >
-    {/* <Table>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell >Name</Table.HeaderCell>
-          <Table.HeaderCell >Status</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map(item => row(item, { checkStatus }))}
-      </Table.Body>
-    </Table> */}
     {/* <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} checkStatus={checkStatus} date={date} time={time} /> */}
     <EditRecruitmentForm data={data} checkStatus={checkStatus} date={date} time={time} />
   </Modal>
@@ -70,12 +56,12 @@ const mapDispatchToProps = dispatch => ({
   onClick: (checkStatus, date, time, data) => {
     Object.keys(checkStatus).map((key) => {
       // UPDATE DATETIME => apply-->approve pass-->sign ?-->cancel ?-->blacklist
+      const datetime = {
+        citizenId: key,
+        date,
+        time
+      };
       if (date !== '' || time !== '') {
-        const datetime = {
-          citizenId: key,
-          date,
-          time
-        };
         const target = getRecruitmentByCitizen(data, key);
         switch (checkStatus[key]) {
           case 'Approve':
@@ -97,8 +83,46 @@ const mapDispatchToProps = dispatch => ({
             }
             dispatch(updateRecruitmentSignDateTimeRequest(datetime));
             break;
+          case 'Complete':
+            delete datetime.time;
+            dispatch(updateRecruitmentCompleteDateTimeRequest(datetime));
+            break;
           default:
-            return '';
+            break;
+        }
+      }
+      else {
+        // Get Now DATE
+        let today = new Date();
+        let dd = today.getDate();
+        let mm = today.getMonth() + 1;// January is 0!
+        const yyyy = today.getFullYear();
+        if (dd < 10) {
+          dd = '0'.concat(dd);
+        }
+        if (mm < 10) {
+          mm = '0'.concat(mm);
+        }
+        today = `${yyyy}-${mm}-${dd}`;
+        switch (checkStatus[key]) {
+          case 'Reject':
+          case 'Fail':
+            delete datetime.time;
+            datetime.date = today;
+            dispatch(updateRecruitmentRejectDateRequest(datetime));
+            break;
+          case 'Cancel':
+            delete datetime.time;
+            datetime.date = today;
+            dispatch(updateRecruitmentCancelDateRequest(datetime));
+            break;
+          case 'Blacklist':
+            delete datetime.time;
+            datetime.date = today;
+            dispatch(updateRecruitmentBlacklistDateRequest(datetime));
+            break;
+          default:
+            break;
         }
       }
       // CHANGE STATUS

@@ -18,8 +18,16 @@ const row = (item, { checkStatus, date, time }) => (
   <Table.Row key={item.citizenId}>
     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
     {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
-    {(checkStatus[item.citizenId] === 'Reject' || checkStatus[item.citizenId] === 'Fail' || checkStatus[item.citizenId] === 'Cancel' || checkStatus[item.citizenId] === 'Blacklist') && <Table.Cell><input /></Table.Cell>}
-    {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date},Time: {time}</Table.Cell>}
+    {
+      (checkStatus[item.citizenId] === 'Reject' ||
+      checkStatus[item.citizenId] === 'Fail' ||
+      checkStatus[item.citizenId] === 'Cancel' ||
+      checkStatus[item.citizenId] === 'Blacklist')
+      &&
+      <Table.Cell><input /></Table.Cell>
+    }
+    {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date}, Time: {time}</Table.Cell>}
+    {(checkStatus[item.citizenId] === 'Complete') && <Table.Cell>Date : {date}</Table.Cell>}
   </Table.Row>
 );
 // const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (

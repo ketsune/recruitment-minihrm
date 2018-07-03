@@ -14,8 +14,9 @@ const row = (item, { checkStatus, changeStatus }) => (
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
-    <Table.Cell>{`${item.registrationDate}`}</Table.Cell>
     <Table.Cell>{`${item.status}`}</Table.Cell>
+    <Table.Cell>{`${item.rejectDate}`}</Table.Cell>
+    <Table.Cell>Note to Add</Table.Cell>
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
@@ -32,8 +33,9 @@ const RejectTable = ({ data, onSearchChange, sortKey, direction, handleSort, onC
           <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
           <Table.HeaderCell >File</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
           <Table.HeaderCell >Status</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'rejectDate' ? direction : null} onClick={() => handleSort('rejectDate')}>Reject Date</Table.HeaderCell>
+          <Table.HeaderCell>Note</Table.HeaderCell>
           <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
       </Table.Header>

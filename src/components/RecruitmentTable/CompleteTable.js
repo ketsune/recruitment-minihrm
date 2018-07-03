@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { compose } from 'recompose';
+import { connect } from 'react-redux';
+import { Table, Icon, Input, Button, Checkbox, Form } from 'semantic-ui-react';
+import { setDate } from '../../actions/recruitment';
 
 const row = (item, { checkStatus, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -16,12 +20,13 @@ const row = (item, { checkStatus, changeStatus }) => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
     <Table.Cell>{`${item.firstDate}`}</Table.Cell>
+    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => changeStatus(item.citizenId, 'Complete')} /></Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
-const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus }) => (
+const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <Table striped sortable selectable celled>
@@ -35,6 +40,7 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
           <Table.HeaderCell >File</Table.HeaderCell>
           <Table.HeaderCell >Exam</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'firstDate' ? direction : null} onClick={() => handleSort('firstDate')}>First Date</Table.HeaderCell>
+          <Table.HeaderCell >Edit Date</Table.HeaderCell>
           {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
           <Table.HeaderCell >Blacklist</Table.HeaderCell>
         </Table.Row>
@@ -44,7 +50,14 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
       </Table.Body>
       <Table.Footer fullWidth>
         <Table.Row>
-          <Table.HeaderCell colSpan="11">
+          <Table.HeaderCell colSpan="3">
+            <Form onSubmit={onConfirm}>
+              <Form.Group floated="left">
+                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setCompleteDate(value)} />
+              </Form.Group>
+            </Form>
+          </Table.HeaderCell>
+          <Table.HeaderCell colSpan="8">
             <Button.Group floated="right">
               <Button color="blue" icon onClick={onConfirm} >
                 Confirm
@@ -61,6 +74,16 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
   </div>
 );
 
+const selector = formValueSelector('dateTime');
+
+const mapStateToProps = state => ({
+  date: selector(state, 'date'),
+});
+
+const mapDispatchToProps = dispatch => ({
+  setCompleteDate: value => dispatch(setDate(value)),
+});
+
 CompleteTable.propTypes = {
   data: PropTypes.array.isRequired,
   onSearchChange: PropTypes.func.isRequired,
@@ -70,7 +93,19 @@ CompleteTable.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   checkStatus: PropTypes.object.isRequired,
   changeStatus: PropTypes.func.isRequired,
+  setCompleteDate: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
 };
 
-export default CompleteTable;
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  reduxForm({
+    form: 'dateTime',
+    initialValues: {
+      date: null,
+      time: null,
+    },
+  })
+);
+
+export default enhance(CompleteTable);

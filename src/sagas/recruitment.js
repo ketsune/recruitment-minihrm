@@ -9,6 +9,14 @@ import {
   updateRecruitmentInterviewDateTimeSuccess,
   updateRecruitmentSignDateTimeFailure,
   updateRecruitmentSignDateTimeSuccess,
+  updateRecruitmentCompleteDateTimeFailure,
+  updateRecruitmentCompleteDateTimeSuccess,
+  updateRecruitmentRejectDateFailure,
+  updateRecruitmentRejectDateSuccess,
+  updateRecruitmentCancelDateFailure,
+  updateRecruitmentCancelDateSuccess,
+  updateRecruitmentBlacklistDateFailure,
+  updateRecruitmentBlacklistDateSuccess,
 } from '../actions/recruitment';
 import api from '../services/api';
 
@@ -48,8 +56,6 @@ export function* updateRecruitmentInterviewDateTimeTask(action) {
 
 export function* updateRecruitmentSignDateTimeTask(action) {
   try {
-    console.log('Inside Request Sagas');
-    console.log(action.payload.datetime);
     const recruitments = yield call(api.updateRecruitmentSignDateTime, {
       applicant: action.payload.datetime
     });
@@ -58,6 +64,58 @@ export function* updateRecruitmentSignDateTimeTask(action) {
   }
   catch (error) {
     yield put(updateRecruitmentSignDateTimeFailure(error));
+  }
+}
+
+export function* updateRecruitmentCompleteDateTimeTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentCompleteDateTime, {
+      applicant: action.payload.datetime
+    });
+    console.log(recruitments);
+    yield put(updateRecruitmentCompleteDateTimeSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentCompleteDateTimeFailure(error));
+  }
+}
+
+export function* updateRecruitmentRejectDateTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentRejectDate, {
+      applicant: action.payload.datetime
+    });
+    console.log(recruitments);
+    yield put(updateRecruitmentRejectDateSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentRejectDateFailure(error));
+  }
+}
+
+export function* updateRecruitmentCancelDateTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentCancelDate, {
+      applicant: action.payload.datetime
+    });
+    console.log(recruitments);
+    yield put(updateRecruitmentCancelDateSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentCancelDateFailure(error));
+  }
+}
+
+export function* updateRecruitmentBlacklistDateTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentBlacklistDate, {
+      applicant: action.payload.datetime
+    });
+    console.log(recruitments);
+    yield put(updateRecruitmentBlacklistDateSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentBlacklistDateFailure(error));
   }
 }
 
@@ -77,11 +135,31 @@ export function* watchUpdateRecruitmentSignDateTimeRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST, updateRecruitmentSignDateTimeTask);
 }
 
+export function* watchUpdateRecruitmentCompleteDateTimeRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_REQUEST, updateRecruitmentCompleteDateTimeTask);
+}
+
+export function* watchUpdateRecruitmentRejectDateRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_REQUEST, updateRecruitmentRejectDateTask);
+}
+
+export function* watchUpdateRecruitmentCancelDateRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_REQUEST, updateRecruitmentCancelDateTask);
+}
+
+export function* watchUpdateRecruitmentBlacklistDateRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_REQUEST, updateRecruitmentBlacklistDateTask);
+}
+
 export default function* profileSaga() {
   yield all([
     watchFetchRecruitmentRequest(),
     watchCreateRecruitmentRequest(),
     watchUpdateRecruitmentInterviewDateTimeRequest(),
-    watchUpdateRecruitmentSignDateTimeRequest()
+    watchUpdateRecruitmentSignDateTimeRequest(),
+    watchUpdateRecruitmentCompleteDateTimeRequest(),
+    watchUpdateRecruitmentRejectDateRequest(),
+    watchUpdateRecruitmentCancelDateRequest(),
+    watchUpdateRecruitmentBlacklistDateRequest()
   ]);
 }

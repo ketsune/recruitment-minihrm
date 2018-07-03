@@ -76,6 +76,62 @@ Applicant.updateSignDateTime = applicant => (
   )
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
+
+Applicant.updateFirstDate = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    first_date = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.date,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
+
+Applicant.updateRejectDate = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    reject_date = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.date,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
+
+Applicant.updateCancelDate = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    cancel_date = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.date,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
+
+Applicant.updateBlacklistDate = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    blacklist_date = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.date,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
 // EmployeeInfo.findById = id => (
 //   db.oneOrNone('SELECT * FROM employee_info WHERE user_id = $1', [id])
 // );

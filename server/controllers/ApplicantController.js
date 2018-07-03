@@ -43,3 +43,39 @@ exports.updateSignDateTime = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.updateFirstDate = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateFirstDate(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
+exports.updateRejectDate = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateRejectDate(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
+exports.updateCancelDate = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateCancelDate(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
+exports.updateBlacklistDate = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateBlacklistDate(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};

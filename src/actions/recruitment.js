@@ -137,3 +137,87 @@ export const updateRecruitmentSignDateTimeFailure = message => ({
     message
   }
 });
+
+export const updateRecruitmentCompleteDateTimeRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentCompleteDateTimeSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentCompleteDateTimeFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentRejectDateRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentRejectDateSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentRejectDateFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentCancelDateRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentCancelDateSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentCancelDateFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentBlacklistDateRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentBlacklistDateSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentBlacklistDateFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_FAILURE,
+  payload: {
+    message
+  }
+});

@@ -132,6 +132,66 @@ const Recruitment = (state = initialState, action) => {
         ...state,
         message: action.payload.message
       };
+    case actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_REQUEST:
+      return {
+        ...state,
+        datetime: action.payload.datetime
+      };
+    case actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
+    case actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_REQUEST:
+      return {
+        ...state,
+        datetime: action.payload.datetime
+      };
+    case actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
+    case actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_REQUEST:
+      return {
+        ...state,
+        datetime: action.payload.datetime
+      };
+    case actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_CANCEL_DATE_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
+    case actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_REQUEST:
+      return {
+        ...state,
+        datetime: action.payload.datetime
+      };
+    case actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
     default:
       return state;
   }

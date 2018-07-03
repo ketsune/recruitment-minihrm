@@ -13,6 +13,14 @@ router.put('/update-interview-datetime', ApplicantController.updateInterviewDate
 
 router.put('/update-sign-datetime', ApplicantController.updateSignDateTime);
 
+router.put('/update-first-date', ApplicantController.updateFirstDate);
+
+router.put('/update-reject-date', ApplicantController.updateRejectDate);
+
+router.put('/update-cancel-date', ApplicantController.updateCancelDate);
+
+router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
+
 
 // router.put('/', ApplicantController.update);
 
