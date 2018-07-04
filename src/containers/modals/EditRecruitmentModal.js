@@ -10,7 +10,8 @@ import EditRecruitmentForm from '../forms/EditRecruitmentForm';
 import {
   createRecruitmentRequest, updateRecruitmentInterviewDateTimeRequest,
   updateRecruitmentSignDateTimeRequest, updateRecruitmentCompleteDateTimeRequest,
-  updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest, updateRecruitmentBlacklistDateRequest
+  updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest,
+  updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest
 } from '../../actions/recruitment';
 import { getRecruitmentByCitizen } from '../../selectors/recruitment';
 
@@ -40,6 +41,7 @@ EditRecruitmentModal.propTypes = {
   checkStatus: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
+  // onSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -53,7 +55,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   // function สำหรับการเปลี่ยนสเตตัส อาจจะเพิ่มการเช็คเงื่อนไขการเปลี่ยนสถานะเพื่อความถูกต้อง
-  onClick: (checkStatus, date, time, data) => {
+  onClick: (checkStatus, date, time, data, note) => {
     Object.keys(checkStatus).map((key) => {
       // UPDATE DATETIME => apply-->approve pass-->sign ?-->cancel ?-->blacklist
       const datetime = {
@@ -92,6 +94,9 @@ const mapDispatchToProps = dispatch => ({
         }
       }
       else {
+        // Get Note
+        const addNote = note.editRecruitment.values;
+        addNote.citizenId = key;
         // Get Now DATE
         let today = new Date();
         let dd = today.getDate();
@@ -109,16 +114,19 @@ const mapDispatchToProps = dispatch => ({
           case 'Fail':
             delete datetime.time;
             datetime.date = today;
+            dispatch(updateRecruitmentNoteRequest(addNote));
             dispatch(updateRecruitmentRejectDateRequest(datetime));
             break;
           case 'Cancel':
             delete datetime.time;
             datetime.date = today;
+            dispatch(updateRecruitmentNoteRequest(addNote));
             dispatch(updateRecruitmentCancelDateRequest(datetime));
             break;
           case 'Blacklist':
             delete datetime.time;
             datetime.date = today;
+            dispatch(updateRecruitmentNoteRequest(addNote));
             dispatch(updateRecruitmentBlacklistDateRequest(datetime));
             break;
           default:
@@ -137,10 +145,7 @@ const mapDispatchToProps = dispatch => ({
     });
   },
   onClose: () => dispatch(closeModal()),
-  // onConfirm: (values) => {
-  //   console.log(values);
-  //   handleReduxFormSubmit(dispatch, createRecruitmentRequest, values, 'editRecruitment');
-  // },
+  // onSubmit: values => dispatch(updateRecruitmentNoteRequest(values)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EditRecruitmentModal);

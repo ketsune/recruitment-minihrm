@@ -222,10 +222,10 @@ export const updateRecruitmentBlacklistDateFailure = message => ({
   }
 });
 
-export const updateRecruitmentNoteRequest = note => ({
+export const updateRecruitmentNoteRequest = values => ({
   type: actionTypes.RECRUITMENT_UPDATE_NOTE_REQUEST,
   payload: {
-    note
+    values,
   }
 });
 

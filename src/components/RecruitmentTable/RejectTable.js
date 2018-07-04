@@ -16,7 +16,7 @@ const row = (item, { checkStatus, changeStatus }) => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell>{`${item.status}`}</Table.Cell>
     <Table.Cell>{`${item.rejectDate}`}</Table.Cell>
-    <Table.Cell>Note to Add</Table.Cell>
+    <Table.Cell>{`${item.note}`}</Table.Cell>
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );

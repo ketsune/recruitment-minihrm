@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 import { Form, Table } from 'semantic-ui-react';
 import { compose } from 'recompose';
-import { reduxForm } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
+import Input from '../../components/Input';
+// import { updateRecruitmentNoteRequest } from '../../actions/recruitment';
 // import Input from '../../components/Input';
 // import * as validator from '../../utils/validator';
 
@@ -14,31 +17,33 @@ import { reduxForm } from 'redux-form';
 //   return errors;
 // };
 
-const row = (item, { checkStatus, date, time }) => (
+const row = (item, { checkStatus, date, time, submitting }) => (
   <Table.Row key={item.citizenId}>
     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
     {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
     {
       (checkStatus[item.citizenId] === 'Reject' ||
-      checkStatus[item.citizenId] === 'Fail' ||
-      checkStatus[item.citizenId] === 'Cancel' ||
-      checkStatus[item.citizenId] === 'Blacklist')
+        checkStatus[item.citizenId] === 'Fail' ||
+        checkStatus[item.citizenId] === 'Cancel' ||
+        checkStatus[item.citizenId] === 'Blacklist')
       &&
-      <Table.Cell><input /></Table.Cell>
+      // <Table.Cell><input /></Table.Cell>
+      <Table.Cell>
+        {/* <Form onSubmit={handleSubmit}> */}
+        <Form.Group widths="equal">
+          <Field name="note" as={Form.Input} component={Input} label="" placeholder="Note" disabled={submitting} />
+        </Form.Group>
+        {/* </Form> */}
+      </Table.Cell>
     }
     {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date}, Time: {time}</Table.Cell>}
     {(checkStatus[item.citizenId] === 'Complete') && <Table.Cell>Date : {date}</Table.Cell>}
   </Table.Row>
 );
 // const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (
-const EditRecruitmentForm = ({ data, checkStatus, date, time }) => (
-  // <Form onSubmit={onConfirm}>
-  <Form>
+const EditRecruitmentForm = ({ data, checkStatus, date, time, handleSubmit, submitting }) => (
+  <Form onSubmit={handleSubmit}>
     <Table>
-      {/* <Form.Group widths="equal">
-        <Field name="firstName" component={Input} as={Form.Input} label="First name" placeholder="First name" />
-        <Field name="lastName" component={Input} as={Form.Input} label="Last name" placeholder="Last name" />
-      </Form.Group> */}
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell >Name</Table.HeaderCell>
@@ -47,7 +52,7 @@ const EditRecruitmentForm = ({ data, checkStatus, date, time }) => (
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item, { checkStatus, date, time }))}
+        {data.map(item => row(item, { checkStatus, date, time, submitting }))}
       </Table.Body>
     </Table>
   </Form>
@@ -60,6 +65,8 @@ EditRecruitmentForm.propTypes = {
   // onConfirm: PropTypes.func.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired,
 };
 
 // const mapStateToProps = state => ({
@@ -67,10 +74,16 @@ EditRecruitmentForm.propTypes = {
 //     // userId: state.profile.general.userId,
 //     // firstName: state.profile.general.firstName,
 //   }
+// // });
+// const mapDispatchToProps = dispatch => ({
+//   onSubmit: values => new Promise((resolve, reject) => {
+//     dispatch(updateRecruitmentNoteRequest({ values, resolve, reject }));
+//   })
 // });
+// const selector = formValueSelector('editRecruitment'); // <-- same as form name
 
 const enhance = compose(reduxForm({
-  form: 'editRecruitment'
+  form: 'editRecruitment',
 }));
 
 export default enhance(EditRecruitmentForm);

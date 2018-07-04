@@ -16,7 +16,7 @@ const row = item => (
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell><Icon name="clipboard" /></Table.Cell>
     <Table.Cell>{`${item.blacklistDate}`}</Table.Cell>
-    <Table.Cell>Note to Add</Table.Cell>
+    <Table.Cell>{`${item.note}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
   </Table.Row>
 );

@@ -125,7 +125,7 @@ const Recruitment = (state = initialState, action) => {
     case actionTypes.RECRUITMENT_UPDATE_NOTE_REQUEST:
       return {
         ...state,
-        note: action.payload.note
+        note: action.payload.values
       };
     case actionTypes.RECRUITMENT_UPDATE_NOTE_SUCCESS:
       return {

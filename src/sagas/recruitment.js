@@ -123,10 +123,11 @@ export function* updateRecruitmentBlacklistDateTask(action) {
 
 export function* updateRecruitmentNoteTask(action) {
   try {
+    console.log('Note Saga');
+    console.log(action.payload.values);
     const recruitments = yield call(api.updateRecruitmentNote, {
-      applicant: action.payload.note
+      applicant: action.payload.values
     });
-    console.log(recruitments);
     yield put(updateRecruitmentNoteSuccess(recruitments));
   }
   catch (error) {
