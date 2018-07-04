@@ -93,7 +93,7 @@ const mapDispatchToProps = dispatch => ({
             break;
         }
       }
-      else {
+      else if (checkStatus[key] !== 'Pass') {
         // Get Note
         const addNote = note.editRecruitment.values;
         addNote.citizenId = key;

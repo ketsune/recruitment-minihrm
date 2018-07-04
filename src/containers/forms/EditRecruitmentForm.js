@@ -20,7 +20,8 @@ import Input from '../../components/Input';
 const row = (item, { checkStatus, date, time, submitting }) => (
   <Table.Row key={item.citizenId}>
     {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
-    {checkStatus[item.citizenId] && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
+    {checkStatus[item.citizenId] && checkStatus[item.citizenId] !== 'Pass' && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
+    {checkStatus[item.citizenId] === 'Pass' && <Table.Cell colSpan="2">{checkStatus[item.citizenId]}</Table.Cell>}
     {
       (checkStatus[item.citizenId] === 'Reject' ||
         checkStatus[item.citizenId] === 'Fail' ||
