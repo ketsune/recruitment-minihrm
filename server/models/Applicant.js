@@ -5,7 +5,7 @@ const Applicant = {};
 
 Applicant.create = applicant => (
   db.one(
-    'INSERT INTO applicants (first_name, last_name, position, mobile_number, email, first_name_th, last_name_th, citizen_id, file_path, file_name, status, sign_date, sign_time, interview_date, interview_time, registration_date, cancel_date, first_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18) RETURNING 1',
+    'INSERT INTO applicants (first_name, last_name, position, mobile_number, email, first_name_th, last_name_th, citizen_id, file_path, file_name, status, registration_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING 1',
     [
       applicant.firstName,
       applicant.lastName,
@@ -15,16 +15,10 @@ Applicant.create = applicant => (
       applicant.firstNameTH,
       applicant.lastNameTH,
       applicant.citizenID,
-      applicant.filePath,
-      applicant.fileName,
-      applicant.status,
-      applicant.signDate,
-      applicant.signTime,
-      applicant.interviewDate,
-      applicant.interviewTime,
+      './upload/',
+      'resume.pdf',
+      'Apply',
       applicant.registrationDate,
-      applicant.cancelDate,
-      applicant.firstDate,
     ]
   )
 );
