@@ -182,7 +182,7 @@ const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortK
         </Grid.Row>
       </Grid>
     </Segment>
-  </div>
+  </div >
 );
 
 Recruitment.propTypes = {

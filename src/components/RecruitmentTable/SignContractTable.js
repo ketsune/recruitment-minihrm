@@ -31,7 +31,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
 const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setSignDate, setSignTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
-    <Table striped sortable selectable celled>
+    <Table striped sortable selectable celled style={{ overflowX: 'auto' }}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>

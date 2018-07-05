@@ -24,7 +24,7 @@ const row = item => (
 const BlacklistTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
-    <Table striped sortable selectable celled>
+    <Table striped sortable selectable celled style={{ overflowX: 'auto' }}>
       <Table.Header>
         <Table.Row>
           <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>
