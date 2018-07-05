@@ -16,7 +16,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     </Table.Cell>
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
-    <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
+    <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell>{`${item.interviewDate} ${item.interviewTime}`}</Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}

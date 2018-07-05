@@ -12,7 +12,7 @@ const row = (item, { checkStatus, changeStatus }) => {
   let blacklistColor = {};
   if (item.status === 'Blacklist') {
     blacklistColor = {
-      background: '#ffcccc'
+      background: '#ecdfdf'
     };
   }
   return (
@@ -25,7 +25,7 @@ const row = (item, { checkStatus, changeStatus }) => {
       </Table.Cell>
       <Table.Cell>{`${item.position.join('/\n')}`}</Table.Cell>
       <Table.Cell>{`${item.email}`}</Table.Cell>
-      <Table.Cell>{`${item.mobileNumber}`}</Table.Cell>
+      <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
       <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
       <Table.Cell>{`${item.citizenId}`}</Table.Cell>
       {/* <Table.Cell>{`${item.registrationDate}`}</Table.Cell> */}
