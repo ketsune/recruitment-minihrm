@@ -1,4 +1,16 @@
 const Applicant = require('../models/Applicant');
+const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
+
+const transporter = nodemailer.createTransport(smtpTransport({
+  host: 'cpanel01wh.bkk1.cloud.z.com',
+  port: 465,
+  auth: {
+    user: 'masaru39@playtorium.co.th',
+    pass: 'z123456@plays'
+  },
+  secure: true
+}));
 
 exports.create = (req, res, next) => {
   const newApplicant = req.body;
@@ -24,6 +36,22 @@ exports.updateStatus = (req, res, next) => {
       res.json(updatedApplicant);
     })
     .catch(next);
+  if (editApplicant.status === 'Approve') {
+    const mailOptions = {
+      from: 'masaru39@playtorium.co.th',
+      to: 'love_masachi4855@hotmail.com',
+      subject: 'Hello',
+      html: `<p>Good Morning</p>`
+    };
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        console.log(info);
+      }
+    });
+  }
 };
 
 exports.updateInterviewDateTime = (req, res, next) => {
@@ -95,4 +123,12 @@ exports.findById = (req, res, next) => {
       res.json(applicantInfo);
     })
     .catch(next);
+};
+
+exports.uploadFile = (req, res, next) => {
+  console.log(req.file.destination);
+  Applicant.uploadFile(`${req.file.destination}`, `${req.body.citizenId}.pdf`, req.body.citizenId)
+    .then(() => {
+      res.json('complete');
+    });
 };

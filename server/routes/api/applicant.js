@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const ApplicantController = require('../../controllers/ApplicantController');
 // const EmployeeInfoController = require('../../controllers/EmployeeInfoController');
-// const multer = require('multer');
+const multer = require('multer');
 
 router.post('/', ApplicantController.create);
 
@@ -24,20 +24,17 @@ router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
 router.put('/update-note', ApplicantController.updateNote);
 
 router.get('/applicant-info', ApplicantController.findById);
+const storage = multer.diskStorage({
+  destination: (req, res, cb) => {
+    cb(null, 'server/storage/applicant');
+  },
+  filename: (req, res, cb) => {
+    cb(null, `${req.body.citizenId}.pdf`);
+  }
+});
 
-// router.put('/', ApplicantController.update);
+const upload = multer({ storage });
 
-// const storage = multer.diskStorage({
-//   destination: (req, res, cb) => {
-//     cb(null, 'server/storage/profile-img');
-//   },
-//   filename: (req, res, cb) => {
-//     cb(null, String(req.user.id));
-//   }
-// });
-
-// const upload = multer({ storage });
-
-// router.post('/upload-profile-img', upload.single('profile'), EmployeeInfoController.updateProfileImg);
+router.post('/upload-file', upload.single('resume'), ApplicantController.uploadFile);
 
 module.exports = router;
