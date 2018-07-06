@@ -38,6 +38,7 @@ const Recruitment = (state = initialState, action) => {
         checkStatus: {},
         date: '',
         time: '',
+        searchText: '',
       };
     case actionTypes.FILTER_RECRUITMENT:
       return {
