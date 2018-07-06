@@ -171,7 +171,7 @@ export function* watchUpdateRecruitmentNoteRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_NOTE_REQUEST, updateRecruitmentNoteTask);
 }
 
-export default function* profileSaga() {
+export default function* recruitmentSaga() {
   yield all([
     watchFetchRecruitmentRequest(),
     watchCreateRecruitmentRequest(),

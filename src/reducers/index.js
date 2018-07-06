@@ -12,6 +12,7 @@ import leave from './leave';
 import timesheet from './timesheet';
 import applicant from './applicant';
 import recruitment from './recruitment';
+import recruitmentProfile from './recruitmentProfile';
 
 export default combineReducers({
   form: formReducer,
@@ -26,5 +27,6 @@ export default combineReducers({
   projectDetail,
   leave,
   timesheet,
-  recruitment
+  recruitment,
+  recruitmentProfile,
 });

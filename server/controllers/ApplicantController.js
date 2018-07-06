@@ -88,3 +88,11 @@ exports.updateNote = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.findById = (req, res, next) => {
+  Applicant.findById(req.query.id)
+    .then((applicantInfo) => {
+      res.json(applicantInfo);
+    })
+    .catch(next);
+};

@@ -328,4 +328,8 @@ api.updateRecruitmentNote = body => (
   })
 );
 
+api.fetchRecruitmentProfile = id => (
+  callApi(`../api/applicants/applicant-info/?id=${id}`)
+);
+
 export default api;

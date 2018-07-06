@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
-
+import history from '../../history';
 
 const overflowStyle = {
   overflowX: 'auto',
@@ -16,7 +16,7 @@ const row = (item, { checkStatus, changeStatus }) => {
     };
   }
   return (
-    <Table.Row key={item.citizenId} style={blacklistColor}>
+    <Table.Row key={item.citizenId} style={blacklistColor} onClick={() => history.push(`/recruitment/${item.citizenId}`)} >
       <Table.Cell>{`${item.firstName} 
     ${item.lastName}`}
       </Table.Cell>
@@ -41,7 +41,7 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConf
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={overflowStyle}>
-      <Table striped sortable celled>
+      <Table striped sortable celled selectable>
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>

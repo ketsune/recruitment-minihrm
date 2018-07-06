@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage';
 import EmployeePage from './pages/EmployeePage';
 import ApplicantPage from './pages/ApplicantPage';
 import RecruitmentPage from './pages/RecruitmentPage';
+import RecruitmentDetailPage from './pages/RecruitmentDetailPage';
 
 const Routes = () => (
   <Switch>
@@ -22,7 +23,8 @@ const Routes = () => (
     <PrivateRoute path="/profile/:id?" component={ProfilePage} />
     <PrivateRoute path="/employee" component={EmployeePage} />
     <PrivateRoute path="/applicant" component={ApplicantPage} />
-    <PrivateRoute path="/recruitment" component={RecruitmentPage} />
+    <PrivateRoute exact path="/recruitment" component={RecruitmentPage} />
+    <PrivateRoute path="/recruitment/:id" component={RecruitmentDetailPage} />
   </Switch>
 );
 

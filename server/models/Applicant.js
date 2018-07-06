@@ -140,9 +140,10 @@ Applicant.updateNote = applicant => (
   )
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
-// EmployeeInfo.findById = id => (
-//   db.oneOrNone('SELECT * FROM employee_info WHERE user_id = $1', [id])
-// );
+
+Applicant.findById = id => (
+  db.oneOrNone('SELECT * FROM applicants WHERE citizen_id = $1', [id])
+);
 
 // EmployeeInfo.updateProfileImg = (path, id) => (
 //   db.none('UPDATE employee_info SET picture = $1 WHERE user_id = $2', [path, id])

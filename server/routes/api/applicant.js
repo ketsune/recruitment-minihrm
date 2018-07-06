@@ -23,6 +23,7 @@ router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
 
 router.put('/update-note', ApplicantController.updateNote);
 
+router.get('/applicant-info', ApplicantController.findById);
 
 // router.put('/', ApplicantController.update);
 
