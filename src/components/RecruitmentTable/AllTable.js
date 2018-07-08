@@ -16,7 +16,7 @@ const row = (item, { checkStatus, changeStatus }) => {
     };
   }
   return (
-    <Table.Row key={item.citizenId} style={blacklistColor} onClick={() => history.push(`/recruitment/${item.citizenId}`)} >
+    <Table.Row key={item.citizenId} style={blacklistColor} >
       <Table.Cell>{`${item.firstName} 
     ${item.lastName}`}
       </Table.Cell>
@@ -26,10 +26,10 @@ const row = (item, { checkStatus, changeStatus }) => {
       <Table.Cell>{`${item.position.join('/\n')}`}</Table.Cell>
       <Table.Cell>{`${item.email}`}</Table.Cell>
       <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
-      <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
       <Table.Cell>{`${item.citizenId}`}</Table.Cell>
       {/* <Table.Cell>{`${item.registrationDate}`}</Table.Cell> */}
       <Table.Cell>{`${item.status}`}</Table.Cell>
+      <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
       <Table.Cell>
         {item.status === 'Blacklist' ? <Icon name="cancel" /> : <Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} />}
       </Table.Cell>
@@ -40,6 +40,7 @@ const row = (item, { checkStatus, changeStatus }) => {
 const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
+    <hr />
     <div style={overflowStyle}>
       <Table striped sortable celled selectable>
         <Table.Header>
@@ -49,10 +50,10 @@ const AllTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConf
             <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
-            <Table.HeaderCell >File</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'citizenId' ? direction : null} onClick={() => handleSort('citizenId')}>Citizen ID</Table.HeaderCell>
             {/* <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell> */}
             <Table.HeaderCell sorted={sortKey === 'status' ? direction : null} onClick={() => handleSort('status')}>Status</Table.HeaderCell>
+            <Table.HeaderCell >Details</Table.HeaderCell>
             <Table.HeaderCell >Blacklist</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
