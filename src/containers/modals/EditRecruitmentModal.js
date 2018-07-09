@@ -160,11 +160,11 @@ const enhance = compose(
       if (tmp.length > 0) {
         tmp = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
         if ((date === '' || time === '') && tmp.length === 0) {
-          alert('date or time is empty');
+          alert('Date or Time is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
           onClose();
         }
         else if (tmp.length > 0 && date === '') {
-          alert('date is empty');
+          alert('Date is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
           onClose();
         }
       }
