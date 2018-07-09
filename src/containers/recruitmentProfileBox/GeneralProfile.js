@@ -14,7 +14,7 @@ const GeneralProfile = ({ generalProfile }) => (
           <Header size="huge">{generalProfile.firstName} {generalProfile.lastName} ( {generalProfile.status} )</Header>
         </Grid.Row>
         <Grid.Row style={{ marginLeft: '20px', marginBottom: '5px' }}>
-          <Header size="medium">{generalProfile.firstNameTh} {generalProfile.lastNameTh}</Header>
+          <Header size="medium">{`${generalProfile.firstNameTh} ${generalProfile.lastNameTh} - ${generalProfile.position.join('/ ')}`}</Header>
         </Grid.Row>
         <hr style={{ width: '100%' }} />
         <Grid.Row divided>

@@ -60,7 +60,7 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
           }`}
             </style>
             <DatePicker selected={} dateFormat="YYYY-MM-DD" onChange={(event, value) => setApplyDate(value)} /> */}
-            <Form onSubmit={onConfirm}>
+            <Form>
               <Form.Group floated="left">
                 <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />
                 <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApplyTime(value)} />
