@@ -4,6 +4,8 @@ import { Table, Icon, Input, Button, Checkbox, Form } from 'semantic-ui-react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
 import { setDate, setTime } from '../../actions/recruitment';
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
@@ -32,8 +34,8 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
     <Table striped sortable selectable celled style={{ overflowX: 'auto' }}>
       <Table.Header>
         <Table.Row>
-          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>ชื่อ-นามสกุล</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
+          <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
           <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
@@ -51,6 +53,13 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
       <Table.Footer fullWidth>
         <Table.Row>
           <Table.HeaderCell colSpan="4">
+            {/* <style>
+              {`.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+            padding-left: 0;
+            padding-right: 0;
+          }`}
+            </style>
+            <DatePicker selected={} dateFormat="YYYY-MM-DD" onChange={(event, value) => setApplyDate(value)} /> */}
             <Form onSubmit={onConfirm}>
               <Form.Group floated="left">
                 <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />
