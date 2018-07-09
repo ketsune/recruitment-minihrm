@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Segment, Grid, Header, Icon } from 'semantic-ui-react';
+// import { Document, Page } from 'react-pdf';
 // import { openModal } from '../../actions/modal';
 // import * as modalNames from '../../constants/modalNames';
 
@@ -24,7 +25,8 @@ const GeneralProfile = ({ generalProfile }) => (
             <Header size="small">Registration Date <Icon name="calendar outline" />: {generalProfile.registrationDate}</Header>
           </Grid.Column>
           <Grid.Column width={6} verticalAlign="middle" >
-            <Header size="small">Resume / Transcript: <Icon name="file pdf outline" /></Header>
+            <Header size="small">Resume / Transcript: <a href="http://localhost:3000/static/applicants-file/Supanat_1100702299763_1.pdf"><Icon name="file pdf outline" /></a></Header>
+            {/* <Document file="http://localhost:3000/static/applicants-file/Supanat_1100702299763_1.pdf"><Page scale="0.5" pageNumber="1" /></Document> */}
           </Grid.Column>
         </Grid.Row>
       </Grid>
