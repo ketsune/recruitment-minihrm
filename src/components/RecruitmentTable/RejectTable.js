@@ -24,40 +24,42 @@ const row = (item, { checkStatus, changeStatus }) => (
 const RejectTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
-    <Table striped sortable selectable celled style={{ overflowX: 'auto' }}>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>ชื่อ-นามสกุล</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
-          <Table.HeaderCell >File</Table.HeaderCell>
-          <Table.HeaderCell >Status</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'rejectDate' ? direction : null} onClick={() => handleSort('rejectDate')}>Reject Date</Table.HeaderCell>
-          <Table.HeaderCell>Note</Table.HeaderCell>
-          <Table.HeaderCell >Blacklist</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map(item => row(item, { checkStatus, changeStatus }))}
-      </Table.Body>
-      <Table.Footer fullWidth>
-        <Table.Row>
-          <Table.HeaderCell colSpan="11">
-            <Button.Group floated="right">
-              <Button color="blue" icon onClick={onConfirm} >
-                Confirm
+    <div style={{ overflowX: 'auto' }}>
+      <Table striped sortable selectable celled >
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
+            <Table.HeaderCell >File</Table.HeaderCell>
+            <Table.HeaderCell >Status</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'rejectDate' ? direction : null} onClick={() => handleSort('rejectDate')}>Reject Date</Table.HeaderCell>
+            <Table.HeaderCell>Note</Table.HeaderCell>
+            <Table.HeaderCell >Blacklist</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {data.map(item => row(item, { checkStatus, changeStatus }))}
+        </Table.Body>
+        <Table.Footer fullWidth>
+          <Table.Row>
+            <Table.HeaderCell colSpan="11">
+              <Button.Group floated="right">
+                <Button color="blue" icon onClick={onConfirm} >
+                  Confirm
               </Button>
-              <Button.Or />
-              <Button basic color="red" icon onClick={clearStatus} >
-                Select None
+                <Button.Or />
+                <Button basic color="red" icon onClick={clearStatus} >
+                  Select None
               </Button>
-            </Button.Group>
-          </Table.HeaderCell>
-        </Table.Row>
-      </Table.Footer>
-    </Table>
+              </Button.Group>
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Footer>
+      </Table>
+    </div>
   </div>
 );
 

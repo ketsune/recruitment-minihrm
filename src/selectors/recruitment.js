@@ -12,7 +12,10 @@ export const getVisibleRecruitment = (state) => {
       || regExp.test(data.citizenId)
       || regExp.test(data.registrationDate)
       || regExp.test(data.signDate)
-      || regExp.test(data.interviewDate))
+      || regExp.test(data.interviewDate)
+      || regExp.test(data.blacklistDate)
+      || regExp.test(data.firstDate)
+      || regExp.test(data.cancelDate))
     .sort((a, b) => {
       const direction = state.recruitment.direction === 'ascending' ? 1 : -1;
       if (a[state.recruitment.sortKey] < b[state.recruitment.sortKey]) {
@@ -40,6 +43,6 @@ export const getFilterRecruitmentTwoParam = (data, status, status2) => {
   if (!data) return [];
   return data
     .filter(row => row.status === status
-    || row.status === status2);
+      || row.status === status2);
 };
 

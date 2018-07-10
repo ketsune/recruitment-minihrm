@@ -24,34 +24,36 @@ const row = item => (
 const BlacklistTable = ({ data, onSearchChange, sortKey, direction, handleSort }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
-    <Table striped sortable selectable celled style={{ overflowX: 'auto' }}>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell sorted={sortKey === 'nameEN' ? direction : null} onClick={() => handleSort('nameEN')}>Name</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'nameTH' ? direction : null} onClick={() => handleSort('nameTH')}>ชื่อ-นามสกุล</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
-          <Table.HeaderCell >File</Table.HeaderCell>
-          <Table.HeaderCell >Exam</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'blacklistDate' ? direction : null} onClick={() => handleSort('blacklistDate')}>Blacklist Date</Table.HeaderCell>
-          <Table.HeaderCell >Note</Table.HeaderCell>
-          {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map(item => row(item))}
-      </Table.Body>
-      <Table.Footer fullWidth>
-        <Table.Row>
-          <Table.HeaderCell colSpan="11">
-            {/* <Button color="blue" icon floated="right" onClick={onConfirm} >
+    <div style={{ overflowX: 'auto' }}>
+      <Table striped sortable selectable celled >
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
+            <Table.HeaderCell >File</Table.HeaderCell>
+            <Table.HeaderCell >Exam</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'blacklistDate' ? direction : null} onClick={() => handleSort('blacklistDate')}>Blacklist Date</Table.HeaderCell>
+            <Table.HeaderCell >Note</Table.HeaderCell>
+            {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {data.map(item => row(item))}
+        </Table.Body>
+        <Table.Footer fullWidth>
+          <Table.Row>
+            <Table.HeaderCell colSpan="11">
+              {/* <Button color="blue" icon floated="right" onClick={onConfirm} >
               Confirm
             </Button> */}
-          </Table.HeaderCell>
-        </Table.Row>
-      </Table.Footer>
-    </Table>
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Footer>
+      </Table>
+    </div>
   </div>
 );
 

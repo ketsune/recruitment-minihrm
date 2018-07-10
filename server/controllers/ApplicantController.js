@@ -41,8 +41,13 @@ exports.updateStatus = (req, res, next) => {
       from: 'masaru39@playtorium.co.th',
       to: 'love_masachi4855@hotmail.com',
       subject: 'Hello',
-      html: `<p>Good Morning</p>`
+      html: `<p>Good Morning </p> `,
+      attachments: [{
+        'filename': 'logo_original.png',
+        'path' : './src/view/logo_original.png',
+      }]
     };
+
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
         console.log(err);
@@ -126,7 +131,7 @@ exports.findById = (req, res, next) => {
 };
 
 exports.uploadFile = (req, res, next) => {
-  console.log(req.file.destination);
+  // console.log(req.file.destination);
   Applicant.uploadFile(`${req.file.destination}`, `${req.body.citizenId}.pdf`, req.body.citizenId)
     .then(() => {
       res.json('complete');
