@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
-// import { Table } from 'semantic-ui-react';
 import { isSubmitting } from 'redux-form';
 import { closeModal } from '../../actions/modal';
 import Modal from '../../components/Modal';
@@ -153,6 +152,7 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
     componentDidMount() {
+      // Check that date time is empty or not (validation)
       const { date, time, onClose, checkStatus } = this.props;
       let tmp = Object.keys(checkStatus)
         .filter(key => checkStatus[key] === 'Complete' || checkStatus[key] === 'Approve'
