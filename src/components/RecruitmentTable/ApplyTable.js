@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 // import 'react-datepicker/dist/react-datepicker.css';
 import { setDate, setTime } from '../../actions/recruitment';
 
+
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell collapsing>{`${item.firstName}`}<br />
@@ -31,56 +32,51 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
 const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApplyDate, setApplyTime }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
-    <Table striped sortable selectable celled style={{ overflowX: 'auto' }}>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'phone' ? direction : null} onClick={() => handleSort('phone')}>Phone</Table.HeaderCell>
-          <Table.HeaderCell >File</Table.HeaderCell>
-          <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
-          {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
-          <Table.HeaderCell >Approve</Table.HeaderCell>
-          {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
-          <Table.HeaderCell >Blacklist</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {data.map(item => row(item, { checkStatus, reject, changeStatus }))}
-      </Table.Body>
-      <Table.Footer fullWidth>
-        <Table.Row>
-          <Table.HeaderCell colSpan="4">
-            {/* <style>
-              {`.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
-            padding-left: 0;
-            padding-right: 0;
-          }`}
-            </style>
-            <DatePicker selected={} dateFormat="YYYY-MM-DD" onChange={(event, value) => setApplyDate(value)} /> */}
-            <Form>
-              <Form.Group floated="left">
-                <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />
-                <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApplyTime(value)} />
-              </Form.Group>
-            </Form>
-          </Table.HeaderCell>
-          <Table.HeaderCell colSpan="7">
-            <Button.Group floated="right">
-              <Button color="blue" icon onClick={onConfirm} >
-                Confirm
+    <div style={{ overflowX: 'auto' }}>
+      <Table striped sortable selectable celled>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
+            <Table.HeaderCell >File</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'registrationDate' ? direction : null} onClick={() => handleSort('registrationDate')}>Registration Date</Table.HeaderCell>
+            {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
+            <Table.HeaderCell >Approve</Table.HeaderCell>
+            {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
+            <Table.HeaderCell >Blacklist</Table.HeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {data.map(item => row(item, { checkStatus, reject, changeStatus }))}
+        </Table.Body>
+        <Table.Footer fullWidth>
+          <Table.Row>
+            <Table.HeaderCell colSpan="4">
+              <Form onSubmit={onConfirm}>
+                <Form.Group floated="left">
+                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />
+                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApplyTime(value)} />
+                </Form.Group>
+              </Form>
+            </Table.HeaderCell>
+            <Table.HeaderCell colSpan="7">
+              <Button.Group floated="right">
+                <Button color="blue" icon onClick={onConfirm} >
+                  Confirm
               </Button>
-              <Button.Or />
-              <Button basic color="red" icon onClick={clearStatus} >
-                Select None
+                <Button.Or />
+                <Button basic color="red" icon onClick={clearStatus} >
+                  Select None
               </Button>
-            </Button.Group>
-          </Table.HeaderCell>
-        </Table.Row>
-      </Table.Footer>
-    </Table>
+              </Button.Group>
+            </Table.HeaderCell>
+          </Table.Row>
+        </Table.Footer>
+      </Table>
+    </div>
   </div>
 );
 

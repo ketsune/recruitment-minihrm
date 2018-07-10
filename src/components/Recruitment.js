@@ -157,7 +157,7 @@ const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortK
       <Grid>
         <Grid.Row>
           <Grid.Column width={16}>
-            <Menu color="blue" inverted fluid compact>
+            <Menu color="blue" inverted fluid compact stackable >
               <Menu.Item name="All applicants" active={activeItem === 'All'} onClick={() => changeActiveItem('All')} />
               <Menu.Item name="New applicants" active={activeItem === 'Apply'} onClick={() => changeActiveItem('Apply')} />
               <Menu.Item name="Interview applicants" active={activeItem === 'Approve'} onClick={() => changeActiveItem('Approve')} />
