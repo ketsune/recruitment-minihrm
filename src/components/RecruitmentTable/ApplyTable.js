@@ -4,6 +4,8 @@ import { Table, Icon, Input, Button, Checkbox, Form } from 'semantic-ui-react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
 import { setDate, setTime } from '../../actions/recruitment';
 
 

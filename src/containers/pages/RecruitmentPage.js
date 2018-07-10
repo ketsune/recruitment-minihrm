@@ -68,6 +68,8 @@ const mapStateToProps = state => ({
   sortKey: state.recruitment.sortKey,
   direction: state.recruitment.direction,
   checkStatus: state.recruitment.checkStatus,
+  date: state.recruitment.date,
+  time: state.recruitment.time,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -75,7 +77,9 @@ const mapDispatchToProps = dispatch => ({
   changeActiveItem: activeItem => dispatch(changeActiveItemRequest(activeItem)),
   onSearchChange: e => dispatch(filterRecruitment(e.target.value)),
   sortByKey: (key, direction) => dispatch(sortRecruitment(key, direction)),
-  onConfirm: () => dispatch(openModal(modalNames.EDIT_RECRUITMENT)),
+  onConfirm: () => {
+    dispatch(openModal(modalNames.EDIT_RECRUITMENT));
+  },
   changedStatus: (key, status) => dispatch(changeStatus(key, status)),
   clearedStatus: () => dispatch(clearStatus()),
 });

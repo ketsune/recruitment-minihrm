@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 // import { Table } from 'semantic-ui-react';
 import { isSubmitting } from 'redux-form';
@@ -148,4 +149,27 @@ const mapDispatchToProps = dispatch => ({
   // onSubmit: values => dispatch(updateRecruitmentNoteRequest(values)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditRecruitmentModal);
+const enhance = compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  lifecycle({
+    componentDidMount() {
+      const { date, time, onClose, checkStatus } = this.props;
+      let tmp = Object.keys(checkStatus)
+        .filter(key => checkStatus[key] === 'Complete' || checkStatus[key] === 'Approve'
+        || checkStatus[key] === 'Sign Contract');
+      if (tmp.length > 0) {
+        tmp = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
+        if ((date === '' || time === '') && tmp.length === 0) {
+          alert('Date or Time is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
+          onClose();
+        }
+        else if (tmp.length > 0 && date === '') {
+          alert('Date is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
+          onClose();
+        }
+      }
+    }
+  })
+);
+
+export default enhance(EditRecruitmentModal);

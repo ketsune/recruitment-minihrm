@@ -20,7 +20,7 @@ const ExamProfile = ({ examProfile, onClick }) => (
       <Grid>
         <Grid.Row divided>
           <Grid.Column width={10}>
-            <Header size="small">Interview Time <Icon name="clock outline" />: {examProfile.interviewTime}</Header>
+            <Header size="small">Interview Time <Icon name="clock" />: {examProfile.interviewTime}</Header>
             <Header size="small">Interview Date <Icon name="calendar outline" />: {examProfile.interviewDate}</Header>
           </Grid.Column>
           <Grid.Column width={6} verticalAlign="middle">
@@ -33,7 +33,7 @@ const ExamProfile = ({ examProfile, onClick }) => (
 );
 
 ExamProfile.propTypes = {
-  examProfile: PropTypes.array.isRequired,
+  examProfile: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
 };
 
