@@ -13,7 +13,6 @@ import {
   updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest,
   updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest
 } from '../../actions/recruitment';
-import { getRecruitmentByCitizen } from '../../selectors/recruitment';
 
 // const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus, date, time }) => (
 const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time }) => (
@@ -56,47 +55,23 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   // function สำหรับการเปลี่ยนสเตตัส อาจจะเพิ่มการเช็คเงื่อนไขการเปลี่ยนสถานะเพื่อความถูกต้อง
   onClick: (checkStatus, date, time, data, note) => {
-    Object.keys(checkStatus).map((key) => {
-      // UPDATE DATETIME => apply-->approve pass-->sign ?-->cancel ?-->blacklist
-      const datetime = {
-        citizenId: key,
-        date,
-        time
-      };
-      if (date !== '' || time !== '') {
-        const target = getRecruitmentByCitizen(data, key);
-        switch (checkStatus[key]) {
-          case 'Approve':
-            // Fill in blank date or time for editting only one field
-            if (date === '') {
-              datetime.date = target.interviewDate;
-            }
-            else if (time === '') {
-              datetime.time = target.interviewTime;
-            }
-            dispatch(updateRecruitmentInterviewDateTimeRequest(datetime));
-            break;
-          case 'Sign Contract':
-            if (date === '') {
-              datetime.date = target.signDate;
-            }
-            else if (time === '') {
-              datetime.time = target.signTime;
-            }
-            dispatch(updateRecruitmentSignDateTimeRequest(datetime));
-            break;
-          case 'Complete':
-            delete datetime.time;
-            dispatch(updateRecruitmentCompleteDateTimeRequest(datetime));
-            break;
-          default:
-            break;
-        }
-      }
-      else if (checkStatus[key] !== 'Pass') {
+    Object.keys(checkStatus)
+      .filter(status => checkStatus[status] !== '')
+      .map((key) => {
+        // UPDATE DATETIME => apply-->approve pass-->sign ?-->cancel ?-->blacklist
+        const dateTime = {
+          citizenId: key,
+          date,
+          time
+        };
         // Get Note
-        const addNote = note.editRecruitment.values;
-        addNote.citizenId = key;
+        const addNote = {};
+        if (note.editRecruitment !== undefined) {
+          const tmp = note.editRecruitment.values;
+          const strIndex = `note_${key}`;
+          addNote.note = tmp[strIndex];
+          addNote.citizenId = key;
+        }
         // Get Now DATE
         let today = new Date();
         let dd = today.getDate();
@@ -110,39 +85,57 @@ const mapDispatchToProps = dispatch => ({
         }
         today = `${yyyy}-${mm}-${dd}`;
         switch (checkStatus[key]) {
-          case 'Reject':
-          case 'Fail':
-            delete datetime.time;
-            datetime.date = today;
-            dispatch(updateRecruitmentNoteRequest(addNote));
-            dispatch(updateRecruitmentRejectDateRequest(datetime));
-            break;
-          case 'Cancel':
-            delete datetime.time;
-            datetime.date = today;
-            dispatch(updateRecruitmentNoteRequest(addNote));
-            dispatch(updateRecruitmentCancelDateRequest(datetime));
+          case 'Approve':
+            dispatch(updateRecruitmentInterviewDateTimeRequest(dateTime));
             break;
           case 'Blacklist':
-            delete datetime.time;
-            datetime.date = today;
+            delete dateTime.time;
+            dateTime.date = today;
             dispatch(updateRecruitmentNoteRequest(addNote));
-            dispatch(updateRecruitmentBlacklistDateRequest(datetime));
+            dispatch(updateRecruitmentBlacklistDateRequest(dateTime));
+            break;
+          case 'Cancel':
+            delete dateTime.time;
+            dateTime.date = today;
+            dispatch(updateRecruitmentNoteRequest(addNote));
+            dispatch(updateRecruitmentCancelDateRequest(dateTime));
+            break;
+          case 'Complete':
+            delete dateTime.time;
+            dispatch(updateRecruitmentCompleteDateTimeRequest(dateTime));
+            break;
+          // case 'In Progress':
+          //   break;
+          // case 'Pass':
+          //   break;
+          case 'Reject':
+            delete dateTime.time;
+            dateTime.date = today;
+            dispatch(updateRecruitmentNoteRequest(addNote));
+            dispatch(updateRecruitmentRejectDateRequest(dateTime));
+            break;
+          case 'Sign Contract':
+            dispatch(updateRecruitmentSignDateTimeRequest(dateTime));
+            break;
+          case 'Fail':
+            delete dateTime.time;
+            dateTime.date = today;
+            dispatch(updateRecruitmentNoteRequest(addNote));
+            dispatch(updateRecruitmentRejectDateRequest(dateTime));
             break;
           default:
             break;
         }
-      }
-      // CHANGE STATUS
-      const form = {
-        citizenId: key,
-        status: checkStatus[key],
-      };
-      console.log(form);
-      dispatch(createRecruitmentRequest(form));
-      dispatch(closeModal());
-      return '';
-    });
+        // CHANGE STATUS
+        const form = {
+          citizenId: key,
+          status: checkStatus[key],
+        };
+        console.log(form);
+        dispatch(createRecruitmentRequest(form));
+        dispatch(closeModal());
+        return '';
+      });
   },
   onClose: () => dispatch(closeModal()),
   // onSubmit: values => dispatch(updateRecruitmentNoteRequest(values)),
@@ -156,7 +149,7 @@ const enhance = compose(
       const { date, time, onClose, checkStatus } = this.props;
       let tmp = Object.keys(checkStatus)
         .filter(key => checkStatus[key] === 'Complete' || checkStatus[key] === 'Approve'
-        || checkStatus[key] === 'Sign Contract');
+          || checkStatus[key] === 'Sign Contract');
       if (tmp.length > 0) {
         tmp = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
         if ((date === '' || time === '') && tmp.length === 0) {

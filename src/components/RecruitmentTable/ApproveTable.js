@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox, Form } from 'semantic-ui-react';
+import { Table, Input, Button, Checkbox, Form } from 'semantic-ui-react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { setDate, setTime } from '../../actions/recruitment';
+import history from '../../history';
 
 const row = (item, { checkStatus, reject, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -17,9 +18,8 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
-    <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
     <Table.Cell>{`${item.interviewDate} ${item.interviewTime}`}</Table.Cell>
-    {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
+    <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'In Progress'} onChange={() => changeStatus(item.citizenId, 'In Progress')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
     <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
@@ -39,9 +39,9 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
             <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
-            <Table.HeaderCell >File</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'interviewDate' ? direction : null} onClick={() => handleSort('interviewDate')}>Interview Date/Time</Table.HeaderCell>
             {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
+            <Table.HeaderCell >Details</Table.HeaderCell>
             <Table.HeaderCell >In Progress</Table.HeaderCell>
             {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
             <Table.HeaderCell >Edit Date</Table.HeaderCell>
@@ -56,7 +56,7 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
             <Table.HeaderCell colSpan="4">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApproveDate(value)} />
+                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApproveDate(value)} />
                   <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApproveTime(value)} />
                 </Form.Group>
               </Form>

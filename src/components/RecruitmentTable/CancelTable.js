@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Input, Button, Checkbox } from 'semantic-ui-react';
+import { Table, Input, Button, Checkbox } from 'semantic-ui-react';
+import history from '../../history';
 
 const row = (item, { checkStatus, changeStatus }) => (
   <Table.Row key={item.citizenId}>
@@ -13,10 +14,9 @@ const row = (item, { checkStatus, changeStatus }) => (
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
-    <Table.Cell><Icon name="file pdf outline" /></Table.Cell>
-    <Table.Cell><Icon name="clipboard" /></Table.Cell>
     <Table.Cell>{`${item.cancelDate}`}</Table.Cell>
     <Table.Cell>{`${item.note}`}</Table.Cell>
+    <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
@@ -34,10 +34,9 @@ const CancelTable = ({ data, onSearchChange, sortKey, direction, handleSort, onC
             <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
-            <Table.HeaderCell >File</Table.HeaderCell>
-            <Table.HeaderCell >Exam</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'cancelDate' ? direction : null} onClick={() => handleSort('cancelDate')}>Cancel Date</Table.HeaderCell>
             <Table.HeaderCell >Note</Table.HeaderCell>
+            <Table.HeaderCell >Details</Table.HeaderCell>
             {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
             <Table.HeaderCell >Blacklist</Table.HeaderCell>
           </Table.Row>
