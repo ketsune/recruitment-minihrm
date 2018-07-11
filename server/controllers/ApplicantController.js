@@ -181,10 +181,11 @@ exports.findFileById = (req, res, next) => {
     .catch(next);
 };
 
-exports.uploadFile = (req, res, next) => {
-  // console.log(req.file.destination);
-  Applicant.uploadFile(`${req.file.destination}`, `${req.body.citizenId}.pdf`, req.body.citizenId)
+exports.upload = (req, res, next) => {
+  // console.log(req);
+  Applicant.upload(`/applicants-files/`, `${req.body.citizenId}_${req.body.type}.pdf`, req.body.citizenId)
     .then(() => {
       res.json('complete');
-    });
+    })
+    .catch(next);
 };

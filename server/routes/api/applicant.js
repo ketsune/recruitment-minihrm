@@ -30,15 +30,13 @@ router.get('/applicant-file', ApplicantController.findFileById);
 
 const storage = multer.diskStorage({
   destination: (req, res, cb) => {
-    cb(null, 'server/storage/applicant');
+    cb(null, 'server/storage/public/applicants-files');
   },
   filename: (req, res, cb) => {
-    cb(null, `${req.body.citizenId}.pdf`);
+    cb(null, `${req.body.citizenId}_${req.body.type}.pdf`);
   }
 });
-
 const upload = multer({ storage });
-
-router.post('/upload-file', upload.single('cv'), ApplicantController.uploadFile);
+router.post('/upload-file', upload.single('file'), ApplicantController.upload);
 
 module.exports = router;

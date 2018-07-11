@@ -149,8 +149,8 @@ Applicant.findFileById = id => (
   db.oneOrNone('SELECT * FROM applicants_files WHERE citizen_id = $1', [id])
 );
 
-Applicant.uploadFile = (path, name, id) => (
-  db.none('UPDATE applicants SET file_path = $1, file_name = $2 WHERE citizen_id = $3', [path, name, id])
+Applicant.upload = (path, name, id, type) => (
+  db.none('INSERT INTO applicants_files (citizen_id, file_path, file_name, type) VALUES ($1, $2, $3, $4);', [id, path, name, type])
 );
 
 // EmployeeInfo.findById = id => (
