@@ -35,6 +35,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-router.post('/upload-file', upload.single('resume'), ApplicantController.uploadFile);
+router.post('/upload-file', upload.single('cv'), ApplicantController.uploadFile);
 
 module.exports = router;
