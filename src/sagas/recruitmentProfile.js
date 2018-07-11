@@ -8,9 +8,10 @@ import api from '../services/api';
 
 export function* fetchRecruitmentProfileTask(action) {
   try {
-    console.log(action.payload);
-    const recruitments = yield call(api.fetchRecruitmentProfile, action.payload.id);
-    yield put(fetchRecruitmentProfileSuccess(recruitments));
+    const applicant = {};
+    applicant.profile = yield call(api.fetchRecruitmentProfile, action.payload.id);
+    applicant.file = yield call(api.fetchRecruitmentFile, action.payload.id);
+    yield put(fetchRecruitmentProfileSuccess(applicant));
   }
   catch (error) {
     yield put(fetchRecruitmentProfileFailure(error));

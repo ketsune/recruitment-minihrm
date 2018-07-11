@@ -332,4 +332,8 @@ api.fetchRecruitmentProfile = id => (
   callApi(`../api/applicants/applicant-info/?id=${id}`)
 );
 
+api.fetchRecruitmentFile = id => (
+  callApi(`../api/applicants/applicant-file/?id=${id}`)
+);
+
 export default api;

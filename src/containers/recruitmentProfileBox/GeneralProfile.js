@@ -5,8 +5,8 @@ import { Segment, Grid, Header, Icon, Image } from 'semantic-ui-react';
 // import { openModal } from '../../actions/modal';
 // import * as modalNames from '../../constants/modalNames';
 
-const GeneralProfile = ({ generalProfile }) => {
-  const imgSrc = `http://localhost:3000/static${generalProfile.filePath}${generalProfile.fileName}`;
+const GeneralProfile = ({ generalProfile, file }) => {
+  const imgSrc = `http://localhost:3000/static${file.filePath}${file.fileName}`;
   return (
     <Segment.Group raised size="large">
       <Segment padded>
@@ -37,6 +37,7 @@ const GeneralProfile = ({ generalProfile }) => {
 
 GeneralProfile.propTypes = {
   generalProfile: PropTypes.object.isRequired,
+  file: PropTypes.object.isRequired
   // onEditClick: PropTypes.func.isRequired,
 };
 

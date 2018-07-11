@@ -8,7 +8,7 @@ import Loader from '../../components/Loader';
 
 const RecruitmentDetailPage = ({ recruitmentProfile }) => (
   <div>
-    {recruitmentProfile.isFetching ? <Loader /> : <RecruitmentProfile recruitmentProfile={recruitmentProfile} />}
+    {recruitmentProfile.isFetching ? <Loader /> : <RecruitmentProfile recruitmentProfile={recruitmentProfile.data} />}
   </div>
 );
 
@@ -29,7 +29,6 @@ const enhance = compose(
   lifecycle({
     componentDidMount() {
       const { fetchRecruitmentProfile, match: { params } } = this.props;
-      console.log('Mount Profile');
       fetchRecruitmentProfile(params.id);
     }
   })

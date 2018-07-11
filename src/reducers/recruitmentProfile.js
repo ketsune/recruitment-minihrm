@@ -1,7 +1,8 @@
 import * as actionTypes from '../constants/actionTypes';
 
 const initialState = {
-  isFetching: true
+  isFetching: true,
+  data: []
 };
 
 const recruitmentProfile = (state = initialState, action) => {
@@ -15,7 +16,7 @@ const recruitmentProfile = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        ...action.payload.data
+        data: action.payload.data
       };
     case actionTypes.RECRUITMENT_PROFILE_FETCH_FAILURE:
       return {

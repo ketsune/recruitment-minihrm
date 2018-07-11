@@ -10,8 +10,8 @@ const RecruitmentProfile = ({ recruitmentProfile }) => (
     <PageHeader icon="user" text="Applicant" />
     <Grid centered>
       <Grid.Column computer={12} mobile={16}>
-        <GeneralProfileBox generalProfile={recruitmentProfile} />
-        <ExamProfileBox examProfile={recruitmentProfile} />
+        <GeneralProfileBox generalProfile={recruitmentProfile.profile} file={recruitmentProfile.file} />
+        <ExamProfileBox examProfile={recruitmentProfile.profile} />
       </Grid.Column>
     </Grid>
   </div>

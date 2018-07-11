@@ -23,7 +23,11 @@ router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
 
 router.put('/update-note', ApplicantController.updateNote);
 
-router.get('/applicant-info', ApplicantController.findById);
+router.get('/applicant-info', ApplicantController.findInfoById);
+
+router.get('/applicant-file', ApplicantController.findFileById);
+
+
 const storage = multer.diskStorage({
   destination: (req, res, cb) => {
     cb(null, 'server/storage/applicant');

@@ -141,9 +141,14 @@ Applicant.updateNote = applicant => (
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
 
-Applicant.findById = id => (
+Applicant.findInfoById = id => (
   db.oneOrNone('SELECT * FROM applicants WHERE citizen_id = $1', [id])
 );
+
+Applicant.findFileById = id => (
+  db.oneOrNone('SELECT * FROM applicants_files WHERE citizen_id = $1', [id])
+);
+
 Applicant.uploadFile = (path, name, id) => (
   db.none('UPDATE applicants SET file_path = $1, file_name = $2 WHERE citizen_id = $3', [path, name, id])
 );

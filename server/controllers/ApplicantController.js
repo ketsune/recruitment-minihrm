@@ -42,13 +42,13 @@ exports.updateStatus = (req, res, next) => {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
         subject: 'HR Playtorium : Interview Appointment',
-        html: `<p>Dear Khun  ` + selectApplicant.firstName + ` ,</p>
+        html: `<p>Dear Khun  ${selectApplicant.firstName} ,</p>
         <p>Playtorium Solutions Company Limited would like to make an appointment</p>
         <br />
         <hr />
         <p>for  Interview as details below;</p>    
-        <p>Date : `+ selectApplicant.interviewDate + `</p>
-        <p>Time : `+ selectApplicant.interviewTime + ` : Interview and Portfolio Presentation (If Applicable)</p>
+        <p>Date : ${selectApplicant.interviewDate} </p>
+        <p>Time : ${selectApplicant.interviewTime}  : Interview and Portfolio Presentation (If Applicable)</p>
         <p>Venue : PLAYTORIUM office, SJ Infinite One Business Complex, 11th Fl., (map as attached) Contact : Khun Suphattra 0819222562 </p>
         <br />
         <hr />
@@ -60,8 +60,8 @@ exports.updateStatus = (req, res, next) => {
         <p>Mobile : 0819222562</p>
         `,
         attachments: [{
-          'filename': 'play_map.jpg',
-          'path': './server/storage/play_map.jpg',
+          filename: 'play_map.jpg',
+          path: './server/storage/play_map.jpg',
         }]
       };
 
@@ -74,21 +74,19 @@ exports.updateStatus = (req, res, next) => {
         }
       });
     }).catch(next);
-
   }
-
   if (editApplicant.status === 'Sign Contract') {
     Applicant.findById(req.body.applicant.citizenId).then((selectApplicant) => {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
         subject: 'HR Playtorium : เซ็นสัญญา',
-        html: `<p>Dear Khun  ` + selectApplicant.firstName + ` ,</p>
+        html: `<p>Dear Khun  ${selectApplicant.firstName} ,</p>
         
         `,
         attachments: [{
-          'filename': 'play_map.jpg',
-          'path': './server/storage/play_map.jpg',
+          filename: 'play_map.jpg',
+          path: './server/storage/play_map.jpg',
         }]
       };
 
@@ -101,7 +99,6 @@ exports.updateStatus = (req, res, next) => {
         }
       });
     }).catch(next);
-
   }
 };
 
@@ -168,8 +165,16 @@ exports.updateNote = (req, res, next) => {
     .catch(next);
 };
 
-exports.findById = (req, res, next) => {
-  Applicant.findById(req.query.id)
+exports.findInfoById = (req, res, next) => {
+  Applicant.findInfoById(req.query.id)
+    .then((applicantInfo) => {
+      res.json(applicantInfo);
+    })
+    .catch(next);
+};
+
+exports.findFileById = (req, res, next) => {
+  Applicant.findFileById(req.query.id)
     .then((applicantInfo) => {
       res.json(applicantInfo);
     })
