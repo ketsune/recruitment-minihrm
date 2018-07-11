@@ -32,7 +32,7 @@ const row = (item, { checkStatus, date, time, submitting }) => (
       <Table.Cell>
         {/* <Form onSubmit={handleSubmit}> */}
         <Form.Group widths="equal">
-          <Field name="note" as={Form.Input} component={Input} label="" placeholder="Note" disabled={submitting} />
+          <Field name={`note_${item.citizenId}`} as={Form.Input} component={Input} label="" placeholder="Note" disabled={submitting} />
         </Form.Group>
         {/* </Form> */}
       </Table.Cell>

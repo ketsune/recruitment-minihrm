@@ -57,7 +57,7 @@ const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCon
             <Table.HeaderCell colSpan="4">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Data" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setPassDate(value)} />
+                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setPassDate(value)} />
                   <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setPassTime(value)} />
                 </Form.Group>
               </Form>
