@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
+import { Modal as SUIModal, Button } from 'semantic-ui-react';
 import { isSubmitting } from 'redux-form';
 import { closeModal } from '../../actions/modal';
-import Modal from '../../components/Modal';
 import EditRecruitmentForm from '../forms/EditRecruitmentForm';
 // import { handleReduxFormSubmit } from '../../utils/helper';
 import {
@@ -14,32 +14,46 @@ import {
   updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest
 } from '../../actions/recruitment';
 
-// const EditRecruitmentModal = ({ onClick, onClose, submitting, data, onConfirm, checkStatus, date, time }) => (
-const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time }) => (
-  <Modal
-    header="Edit Recruitment"
+const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note }) => (
+  <SUIModal
+    dimmer="blurring"
+    size="small"
+    closeIcon
+    open
     onClose={onClose}
-    onClick={onClick}
-    submitting={submitting}
-    checkStatus={checkStatus}
-    date={date}
-    time={time}
-    data={data}
   >
-    {/* <EditRecruitmentForm data={data} onConfirm={values => onConfirm(values)} checkStatus={checkStatus} date={date} time={time} /> */}
-    <EditRecruitmentForm data={data} checkStatus={checkStatus} date={date} time={time} />
-  </Modal>
+    <SUIModal.Header>
+      Edit Recruitment
+    </SUIModal.Header>
+    <SUIModal.Content>
+      <EditRecruitmentForm data={data} checkStatus={checkStatus} date={date} time={time} />
+    </SUIModal.Content>
+    <SUIModal.Actions>
+      {buttons.map(B => B)}
+      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => onClick(checkStatus, date, time, data, note)}>Save</Button>
+      {confirm && <Button loading={submitting} disabled={submitting} onClick={onClose}>No</Button>}
+    </SUIModal.Actions>
+  </SUIModal>
 );
+
+EditRecruitmentModal.defaultProps = {
+  confirm: false,
+  buttons: [],
+  note: '',
+};
 
 EditRecruitmentModal.propTypes = {
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   data: PropTypes.array.isRequired,
+  confirm: PropTypes.bool,
+  buttons: PropTypes.array,
   // onConfirm: PropTypes.func.isRequired,
   checkStatus: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
+  note: PropTypes.object,
   // onSubmit: PropTypes.func.isRequired,
 };
 
@@ -50,6 +64,7 @@ const mapStateToProps = state => ({
   checkStatus: state.recruitment.checkStatus,
   date: state.recruitment.date,
   time: state.recruitment.time,
+  note: state.form
 });
 
 const mapDispatchToProps = dispatch => ({
