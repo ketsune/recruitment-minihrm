@@ -10,7 +10,8 @@ const initialState = {
   checkStatus: {},
   date: '',
   time: '',
-  positions: []
+  positions: [],
+  signedPosition: {},
 };
 
 const Recruitment = (state = initialState, action) => {
@@ -91,6 +92,14 @@ const Recruitment = (state = initialState, action) => {
           [action.payload.key]: action.payload.status,
         }
       };
+    case actionTypes.RECRUITMENT_SET_SELECT_POSITION:
+      return {
+        ...state,
+        signedPosition: {
+          ...state.signedPosition,
+          [action.payload.key]: action.payload.value,
+        }
+      };
     case actionTypes.CLEAR_CHECKSTATUS:
       return {
         ...state,
@@ -168,6 +177,21 @@ const Recruitment = (state = initialState, action) => {
       return {
         ...state,
         time: action.payload.value
+      };
+    case actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST:
+      return {
+        ...state,
+        position: action.payload.position
+      };
+    case actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
       };
     default:
       return state;

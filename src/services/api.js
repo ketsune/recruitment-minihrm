@@ -339,6 +339,13 @@ api.updateRecruitmentNote = body => (
   })
 );
 
+api.updateRecruitmentSignedPosition = body => (
+  callApi('api/applicants/update-signed-position', {
+    method: 'PUT',
+    body
+  })
+);
+
 api.fetchRecruitmentProfile = id => (
   callApi(`../api/applicants/applicant-info/?id=${id}`)
 );

@@ -100,6 +100,14 @@ export const createRecruitmentFailure = message => ({
   }
 });
 
+export const setSelectPosition = (key, value) => ({
+  type: actionTypes.RECRUITMENT_SET_SELECT_POSITION,
+  payload: {
+    key,
+    value,
+  }
+});
+
 export const setDate = value => ({
   type: actionTypes.RECRUITMENT_SETDATE,
   payload: {
@@ -277,6 +285,27 @@ export const updateRecruitmentNoteSuccess = data => ({
 
 export const updateRecruitmentNoteFailure = message => ({
   type: actionTypes.RECRUITMENT_UPDATE_NOTE_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentSignedPositionRequest = position => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST,
+  payload: {
+    position
+  }
+});
+
+export const updateRecruitmentSignedPositionSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentSignedPositionFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_FAILURE,
   payload: {
     message
   }

@@ -5,7 +5,7 @@ import { Form, Table, Dropdown } from 'semantic-ui-react';
 import { compose, lifecycle } from 'recompose';
 import { reduxForm, Field } from 'redux-form';
 import Input from '../../components/Input';
-import { fetchPositionRecruitmentRequest } from '../../actions/recruitment';
+import { fetchPositionRecruitmentRequest, setSelectPosition } from '../../actions/recruitment';
 // import Input from '../../components/Input';
 // import * as validator from '../../utils/validator';
 
@@ -17,7 +17,7 @@ import { fetchPositionRecruitmentRequest } from '../../actions/recruitment';
 //   return errors;
 // };
 
-const row = (item, { checkStatus, date, time, submitting, positions }) => {
+const row = (item, { checkStatus, date, time, submitting, positions, selectPosition }) => {
   const options = [];
   let key = 1;
   positions.map((position) => {
@@ -54,12 +54,12 @@ const row = (item, { checkStatus, date, time, submitting, positions }) => {
       {(checkStatus[item.citizenId] === 'Exam') && <Table.Cell>Exam Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Sign Contract Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Complete') && <Table.Cell>Date : {date}</Table.Cell>}
-      {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell><Dropdown placeholder="Please select a position." search selection options={options} /></Table.Cell>}
+      {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell><Dropdown placeholder="Please select a position." search selection options={options} onChange={(e, data) => selectPosition(data, item.citizenId)} /></Table.Cell>}
     </Table.Row>
   );
 };
 // const EditRecruitmentForm = ({ data, checkStatus, onConfirm, date, time }) => (
-const EditRecruitmentForm = ({ data, checkStatus, date, time, handleSubmit, submitting, positions }) => (
+const EditRecruitmentForm = ({ data, checkStatus, date, time, handleSubmit, submitting, positions, selectPosition }) => (
   <Form onSubmit={handleSubmit}>
     <Table>
       <Table.Header>
@@ -70,7 +70,7 @@ const EditRecruitmentForm = ({ data, checkStatus, date, time, handleSubmit, subm
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {data.map(item => row(item, { checkStatus, date, time, submitting, positions }))}
+        {data.map(item => row(item, { checkStatus, date, time, submitting, positions, selectPosition }))}
       </Table.Body>
     </Table>
   </Form>
@@ -86,6 +86,7 @@ EditRecruitmentForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   positions: PropTypes.array.isRequired,
+  selectPosition: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -93,6 +94,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
   fetchPositionRecruitment: () => dispatch(fetchPositionRecruitmentRequest()),
+  selectPosition: (data, citizenId) => dispatch(setSelectPosition(citizenId, data.value)),
 });
 // const mapDispatchToProps = dispatch => ({
 //   onSubmit: values => new Promise((resolve, reject) => {
