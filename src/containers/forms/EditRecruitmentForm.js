@@ -37,7 +37,8 @@ const row = (item, { checkStatus, date, time, submitting }) => (
         {/* </Form> */}
       </Table.Cell>
     }
-    {(checkStatus[item.citizenId] === 'Approve' || checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Date : {date}, Time: {time}</Table.Cell>}
+    {(checkStatus[item.citizenId] === 'Approve') && <Table.Cell>Interview Date : {date} ({time})</Table.Cell>}
+    {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Sign Contract Date : {date} ({time})</Table.Cell>}
     {(checkStatus[item.citizenId] === 'Complete') && <Table.Cell>Date : {date}</Table.Cell>}
   </Table.Row>
 );

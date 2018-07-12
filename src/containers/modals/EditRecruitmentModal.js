@@ -30,7 +30,7 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus,
     </SUIModal.Content>
     <SUIModal.Actions>
       {buttons.map(B => B)}
-      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => onClick(checkStatus, date, time, data, note)}>Save</Button>
+      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => onClick(checkStatus, date, time, note)}>Save</Button>
       {confirm && <Button loading={submitting} disabled={submitting} onClick={onClose}>No</Button>}
     </SUIModal.Actions>
   </SUIModal>
@@ -69,7 +69,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   // function สำหรับการเปลี่ยนสเตตัส อาจจะเพิ่มการเช็คเงื่อนไขการเปลี่ยนสถานะเพื่อความถูกต้อง
-  onClick: (checkStatus, date, time, data, note) => {
+  onClick: (checkStatus, date, time, note) => {
     Object.keys(checkStatus)
       .filter(status => checkStatus[status] !== '')
       .map((key) => {
@@ -160,19 +160,27 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
     componentDidMount() {
-      // Check that date time is empty or not (validation)
       const { date, time, onClose, checkStatus } = this.props;
-      let tmp = Object.keys(checkStatus)
+      // Check that date time is empty or not (validation)
+      let applicantsStatus = Object.keys(checkStatus)
         .filter(key => checkStatus[key] === 'Complete' || checkStatus[key] === 'Approve'
           || checkStatus[key] === 'Sign Contract');
-      if (tmp.length > 0) {
-        tmp = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
-        if ((date === '' || time === '') && tmp.length === 0) {
+      if (applicantsStatus.length > 0) {
+        applicantsStatus = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
+        if ((date === '' || time === '') && applicantsStatus.length === 0) {
           alert('Date or Time is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
           onClose();
         }
-        else if (tmp.length > 0 && date === '') {
+        else if (applicantsStatus.length > 0 && date === '') {
           alert('Date is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
+          onClose();
+        }
+      }
+      // Check that user is select status or not when user press confirm button
+      if (checkStatus.length !== 0) {
+        const notEmptyStatus = Object.keys(checkStatus).filter(key => checkStatus[key] !== '');
+        if (notEmptyStatus.length === 0) {
+          alert('You did\'t choose any status!!!'); // eslint-disable-line no-alert
           onClose();
         }
       }
