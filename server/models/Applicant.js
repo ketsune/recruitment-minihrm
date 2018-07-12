@@ -125,6 +125,20 @@ Applicant.updateBlacklistDate = applicant => (
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
 
+Applicant.updateSignedPosition = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    signed_position = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.position,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
+
 Applicant.updateExamDate = applicant => (
   db.none(
     `UPDATE applicants

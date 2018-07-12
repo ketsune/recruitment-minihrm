@@ -111,6 +111,15 @@ exports.updateInterviewDateTime = (req, res, next) => {
     .catch(next);
 };
 
+exports.updateSignedPosition = (req, res, next) => {
+  const editApplicant = req.body;
+  Applicant.updateSignedPosition(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
 exports.updateSignDateTime = (req, res, next) => {
   const editApplicant = req.body.applicant;
   Applicant.updateSignDateTime(editApplicant)
