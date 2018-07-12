@@ -15,13 +15,13 @@ import {
   updateRecruitmentExamDateTimeRequest, updateRecruitmentSignedPositionRequest, clearStatus, clearDateTime, clearPosition
 } from '../../actions/recruitment';
 
-const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note, signedPosition, updateSignedPosition }) => (
+const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note, signedPosition, updateSignedPosition, resetOnClose }) => (
   <SUIModal
     dimmer="blurring"
     size="small"
     closeIcon
     open
-    onClose={onClose}
+    onClose={resetOnClose}
   >
     <SUIModal.Header>
       Edit Recruitment
@@ -57,6 +57,7 @@ EditRecruitmentModal.propTypes = {
   time: PropTypes.string.isRequired,
   note: PropTypes.object,
   signedPosition: PropTypes.object.isRequired,
+  resetOnClose: PropTypes.func.isRequired,
   // onSubmit: PropTypes.func.isRequired,
 };
 
@@ -176,6 +177,13 @@ const mapDispatchToProps = dispatch => ({
     });
     dispatch(clearPosition());
   },
+  // Function to reset value to prevent wrong work flow
+  resetOnClose: () => {
+    dispatch(clearDateTime());
+    dispatch(clearPosition());
+    dispatch(clearStatus());
+    dispatch(closeModal());
+  }
   // onSubmit: values => dispatch(updateRecruitmentNoteRequest(values)),
 });
 
