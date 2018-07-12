@@ -18,6 +18,24 @@ export const fetchRecruitmentFailure = message => ({
   }
 });
 
+export const fetchPositionRecruitmentRequest = () => ({
+  type: actionTypes.RECRUITMENT_FETCH_POSITION_REQUEST
+});
+
+export const fetchPositionRecruitmentSuccess = data => ({
+  type: actionTypes.RECRUITMENT_FETCH_POSITION_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const fetchPositionRecruitmentFailure = message => ({
+  type: actionTypes.RECRUITMENT_FETCH_POSITION_FAILURE,
+  payload: {
+    message
+  }
+});
+
 export const changeActiveItemRequest = activeItem => ({
   type: actionTypes.RECRUITMENT_CHANGE_ACTIVE_ITEM,
   payload: {

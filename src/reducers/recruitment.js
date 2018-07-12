@@ -10,6 +10,7 @@ const initialState = {
   checkStatus: {},
   date: '',
   time: '',
+  positions: []
 };
 
 const Recruitment = (state = initialState, action) => {
@@ -26,6 +27,23 @@ const Recruitment = (state = initialState, action) => {
         data: action.payload.data,
       };
     case actionTypes.RECRUITMENT_FETCH_FAILURE:
+      return {
+        ...state,
+        isFetching: true,
+        messege: action.payload.messege,
+      };
+    case actionTypes.RECRUITMENT_FETCH_POSITION_REQUEST:
+      return {
+        ...state,
+        isFetching: true
+      };
+    case actionTypes.RECRUITMENT_FETCH_POSITION_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        positions: action.payload.data.map(position => position.name),
+      };
+    case actionTypes.RECRUITMENT_FETCH_POSITION_FAILURE:
       return {
         ...state,
         isFetching: true,

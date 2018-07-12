@@ -16,13 +16,13 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
       {`${item.lastNameTh}`}
     </Table.Cell>
     <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
-    <Table.Cell>{`${item.email}`}</Table.Cell>
-    <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell>{`${item.interviewDate} ${item.interviewTime}`}</Table.Cell>
+    <Table.Cell>{`${item.examDate} ${item.examTime}`}</Table.Cell>
     <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'In Progress'} onChange={() => changeStatus(item.citizenId, 'In Progress')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
-    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
+    <Table.Cell><Checkbox name="editInterview" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
+    <Table.Cell><Checkbox name="editExam" checked={checkStatus[item.citizenId] === 'Exam'} onChange={() => changeStatus(item.citizenId, 'Exam')} /></Table.Cell>
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
@@ -37,14 +37,14 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
             <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'interviewDate' ? direction : null} onClick={() => handleSort('interviewDate')}>Interview Date/Time</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'examDate' ? direction : null} onClick={() => handleSort('examDate')}>Exam Date/Time</Table.HeaderCell>
             {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
             <Table.HeaderCell >Details</Table.HeaderCell>
             <Table.HeaderCell >In Progress</Table.HeaderCell>
             {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
-            <Table.HeaderCell >Edit Date</Table.HeaderCell>
+            <Table.HeaderCell >Interview Date</Table.HeaderCell>
+            <Table.HeaderCell >Exam Date</Table.HeaderCell>
             <Table.HeaderCell >Blacklist</Table.HeaderCell>
           </Table.Row>
         </Table.Header>

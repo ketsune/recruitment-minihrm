@@ -11,7 +11,8 @@ import {
   createRecruitmentRequest, updateRecruitmentInterviewDateTimeRequest,
   updateRecruitmentSignDateTimeRequest, updateRecruitmentCompleteDateTimeRequest,
   updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest,
-  updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest
+  updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest,
+  updateRecruitmentExamDateTimeRequest
 } from '../../actions/recruitment';
 
 const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note }) => (
@@ -102,7 +103,11 @@ const mapDispatchToProps = dispatch => ({
         switch (checkStatus[key]) {
           case 'Approve':
             dispatch(updateRecruitmentInterviewDateTimeRequest(dateTime));
+            dispatch(updateRecruitmentExamDateTimeRequest(dateTime));
             break;
+          case 'Exam':
+            dispatch(updateRecruitmentExamDateTimeRequest(dateTime));
+            return '';
           case 'Blacklist':
             delete dateTime.time;
             dateTime.date = today;
@@ -164,8 +169,9 @@ const enhance = compose(
       // Check that date time is empty or not (validation)
       let applicantsStatus = Object.keys(checkStatus)
         .filter(key => checkStatus[key] === 'Complete' || checkStatus[key] === 'Approve'
-          || checkStatus[key] === 'Sign Contract');
+          || checkStatus[key] === 'Sign Contract' || checkStatus[key] === 'Exam');
       if (applicantsStatus.length > 0) {
+        // Complete doesn't use time so filter non complete out
         applicantsStatus = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
         if ((date === '' || time === '') && applicantsStatus.length === 0) {
           alert('Date or Time is EMPTY!, Please fill it.'); // eslint-disable-line no-alert

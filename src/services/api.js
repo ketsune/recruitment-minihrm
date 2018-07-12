@@ -272,6 +272,10 @@ api.fetchRecruitment = () => (
   callApi('/api/applicants')
 );
 
+api.fetchPositionRecruitment = () => (
+  callApi('/api/positions')
+);
+
 api.changeRecruitmentStatus = body => (
   callApi('api/applicants/update-status', {
     method: 'PUT',

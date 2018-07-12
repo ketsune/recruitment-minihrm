@@ -3,6 +3,8 @@ import * as actionTypes from '../constants/actionTypes';
 import {
   fetchRecruitmentSuccess,
   fetchRecruitmentFailure,
+  fetchPositionRecruitmentSuccess,
+  fetchPositionRecruitmentFailure,
   createRecruitmentSuccess,
   createRecruitmentFailure,
   updateRecruitmentInterviewDateTimeFailure,
@@ -31,6 +33,16 @@ export function* fetchRecruitmentTask() {
   }
   catch (error) {
     yield put(fetchRecruitmentFailure(error));
+  }
+}
+
+export function* fetchPositionRecruitmentTask() {
+  try {
+    const positions = yield call(api.fetchPositionRecruitment);
+    yield put(fetchPositionRecruitmentSuccess(positions));
+  }
+  catch (error) {
+    yield put(fetchPositionRecruitmentFailure(error));
   }
 }
 
@@ -75,7 +87,6 @@ export function* updateRecruitmentSignDateTimeTask(action) {
     const recruitments = yield call(api.updateRecruitmentSignDateTime, {
       applicant: action.payload.datetime
     });
-    console.log(recruitments);
     yield put(updateRecruitmentSignDateTimeSuccess(recruitments));
   }
   catch (error) {
@@ -88,7 +99,6 @@ export function* updateRecruitmentCompleteDateTimeTask(action) {
     const recruitments = yield call(api.updateRecruitmentCompleteDateTime, {
       applicant: action.payload.datetime
     });
-    console.log(recruitments);
     yield put(updateRecruitmentCompleteDateTimeSuccess(recruitments));
   }
   catch (error) {
@@ -101,7 +111,6 @@ export function* updateRecruitmentRejectDateTask(action) {
     const recruitments = yield call(api.updateRecruitmentRejectDate, {
       applicant: action.payload.datetime
     });
-    console.log(recruitments);
     yield put(updateRecruitmentRejectDateSuccess(recruitments));
   }
   catch (error) {
@@ -114,7 +123,6 @@ export function* updateRecruitmentCancelDateTask(action) {
     const recruitments = yield call(api.updateRecruitmentCancelDate, {
       applicant: action.payload.datetime
     });
-    console.log(recruitments);
     yield put(updateRecruitmentCancelDateSuccess(recruitments));
   }
   catch (error) {
@@ -127,7 +135,6 @@ export function* updateRecruitmentBlacklistDateTask(action) {
     const recruitments = yield call(api.updateRecruitmentBlacklistDate, {
       applicant: action.payload.datetime
     });
-    console.log(recruitments);
     yield put(updateRecruitmentBlacklistDateSuccess(recruitments));
   }
   catch (error) {
@@ -137,8 +144,6 @@ export function* updateRecruitmentBlacklistDateTask(action) {
 
 export function* updateRecruitmentNoteTask(action) {
   try {
-    console.log('Note Saga');
-    console.log(action.payload.values);
     const recruitments = yield call(api.updateRecruitmentNote, {
       applicant: action.payload.values
     });
@@ -151,6 +156,10 @@ export function* updateRecruitmentNoteTask(action) {
 
 export function* watchFetchRecruitmentRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_FETCH_REQUEST, fetchRecruitmentTask);
+}
+
+export function* watchfetchPositionRecruitmentTask() {
+  yield takeEvery(actionTypes.RECRUITMENT_FETCH_POSITION_REQUEST, fetchPositionRecruitmentTask);
 }
 
 export function* watchCreateRecruitmentRequest() {
@@ -201,5 +210,6 @@ export default function* recruitmentSaga() {
     watchUpdateRecruitmentCancelDateRequest(),
     watchUpdateRecruitmentBlacklistDateRequest(),
     watchUpdateRecruitmentNoteRequest(),
+    watchfetchPositionRecruitmentTask(),
   ]);
 }
