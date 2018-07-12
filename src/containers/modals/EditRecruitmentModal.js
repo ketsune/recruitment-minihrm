@@ -27,7 +27,7 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus,
       Edit Recruitment
     </SUIModal.Header>
     <SUIModal.Content>
-      <EditRecruitmentForm data={data} checkStatus={checkStatus} date={date} time={time} />
+      <EditRecruitmentForm data={data.filter(row => Object.keys(checkStatus).includes(row.citizenId))} checkStatus={checkStatus} date={date} time={time} />
     </SUIModal.Content>
     <SUIModal.Actions>
       {buttons.map(B => B)}

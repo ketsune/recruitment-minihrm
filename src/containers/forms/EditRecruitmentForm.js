@@ -31,8 +31,8 @@ const row = (item, { checkStatus, date, time, submitting, positions, selectPosit
   });
   return (
     <Table.Row key={item.citizenId}>
-      {checkStatus[item.citizenId] && <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>}
-      {checkStatus[item.citizenId] && checkStatus[item.citizenId] !== 'Pass' && checkStatus[item.citizenId] !== 'Exam' && checkStatus[item.citizenId] !== 'Sign Contract' && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
+      <Table.Cell>{`${item.firstName} ${item.lastName}`}</Table.Cell>
+      {checkStatus[item.citizenId] !== 'Pass' && checkStatus[item.citizenId] !== 'Exam' && checkStatus[item.citizenId] !== 'Sign Contract' && <Table.Cell>{checkStatus[item.citizenId]}</Table.Cell>}
       {checkStatus[item.citizenId] === 'Exam' && <Table.Cell>Approve</Table.Cell>}
       {checkStatus[item.citizenId] === 'Pass' && <Table.Cell colSpan="2">{checkStatus[item.citizenId]}</Table.Cell>}
       {
