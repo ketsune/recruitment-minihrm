@@ -5,7 +5,7 @@ const Applicant = {};
 
 Applicant.create = applicant => (
   db.one(
-    'INSERT INTO applicants (first_name, last_name, position, mobile_number, email, first_name_th, last_name_th, citizen_id, file_path, file_name, status, registration_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING 1',
+    'INSERT INTO applicants (first_name, last_name, position, mobile_number, email, first_name_th, last_name_th, citizen_id, status, registration_date) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING 1',
     [
       applicant.firstName,
       applicant.lastName,
@@ -15,8 +15,6 @@ Applicant.create = applicant => (
       applicant.firstNameTH,
       applicant.lastNameTH,
       applicant.citizenID,
-      './upload/',
-      'resume.pdf',
       'Apply',
       applicant.registrationDate,
     ]
@@ -121,6 +119,21 @@ Applicant.updateBlacklistDate = applicant => (
     WHERE citizen_id = $2`,
     [
       applicant.date,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
+
+Applicant.updateExamDate = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    exam_date = $1, exam_time = $2
+    WHERE citizen_id = $3`,
+    [
+      applicant.date,
+      applicant.time,
       applicant.citizenId
     ]
   )

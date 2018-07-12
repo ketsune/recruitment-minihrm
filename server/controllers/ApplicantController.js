@@ -156,6 +156,16 @@ exports.updateBlacklistDate = (req, res, next) => {
     .catch(next);
 };
 
+exports.updateExamDate = (req, res, next) => {
+  const editApplicant = req.body;
+  console.log(editApplicant);
+  Applicant.updateExamDate(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
 exports.updateNote = (req, res, next) => {
   const editApplicant = req.body.applicant;
   Applicant.updateNote(editApplicant)
