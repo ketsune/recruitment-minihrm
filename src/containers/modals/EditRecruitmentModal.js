@@ -12,10 +12,10 @@ import {
   updateRecruitmentSignDateTimeRequest, updateRecruitmentCompleteDateTimeRequest,
   updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest,
   updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest,
-  updateRecruitmentExamDateTimeRequest
+  updateRecruitmentExamDateTimeRequest, updateRecruitmentSignedPositionRequest, clearStatus, clearDateTime, clearPosition
 } from '../../actions/recruitment';
 
-const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note }) => (
+const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note, signedPosition, updateSignedPosition }) => (
   <SUIModal
     dimmer="blurring"
     size="small"
@@ -31,7 +31,7 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus,
     </SUIModal.Content>
     <SUIModal.Actions>
       {buttons.map(B => B)}
-      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => onClick(checkStatus, date, time, note)}>Save</Button>
+      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => { onClick(checkStatus, date, time, note); if (Object.keys(signedPosition).length > 0) updateSignedPosition(signedPosition); onClose(); }}>Save</Button>
       {confirm && <Button loading={submitting} disabled={submitting} onClick={onClose}>No</Button>}
     </SUIModal.Actions>
   </SUIModal>
@@ -46,6 +46,7 @@ EditRecruitmentModal.defaultProps = {
 EditRecruitmentModal.propTypes = {
   onClick: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
+  updateSignedPosition: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
   data: PropTypes.array.isRequired,
   confirm: PropTypes.bool,
@@ -55,6 +56,7 @@ EditRecruitmentModal.propTypes = {
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   note: PropTypes.object,
+  signedPosition: PropTypes.object.isRequired,
   // onSubmit: PropTypes.func.isRequired,
 };
 
@@ -65,7 +67,8 @@ const mapStateToProps = state => ({
   checkStatus: state.recruitment.checkStatus,
   date: state.recruitment.date,
   time: state.recruitment.time,
-  note: state.form
+  note: state.form,
+  signedPosition: state.recruitment.signedPosition,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -73,7 +76,7 @@ const mapDispatchToProps = dispatch => ({
   onClick: (checkStatus, date, time, note) => {
     Object.keys(checkStatus)
       .filter(status => checkStatus[status] !== '')
-      .map((key) => {
+      .forEach((key) => {
         // UPDATE DATETIME => apply-->approve pass-->sign ?-->cancel ?-->blacklist
         const dateTime = {
           citizenId: key,
@@ -151,13 +154,28 @@ const mapDispatchToProps = dispatch => ({
           citizenId: key,
           status: checkStatus[key],
         };
-        console.log(form);
         dispatch(createRecruitmentRequest(form));
-        dispatch(closeModal());
-        return '';
+        return true;
       });
+    // Clear state for protecting wrong work flow
+    dispatch(clearStatus());
+    dispatch(clearDateTime());
   },
-  onClose: () => dispatch(closeModal()),
+  onClose: () => {
+    dispatch(closeModal());
+  },
+  // update position that applicant pass
+  updateSignedPosition: (signedPosition) => {
+    Object.keys(signedPosition).forEach((key) => {
+      const form = {
+        citizenId: key,
+        signedPosition: signedPosition[key],
+      };
+      dispatch(updateRecruitmentSignedPositionRequest(form));
+      return '';
+    });
+    dispatch(clearPosition());
+  },
   // onSubmit: values => dispatch(updateRecruitmentNoteRequest(values)),
 });
 

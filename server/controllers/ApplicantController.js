@@ -37,7 +37,7 @@ exports.updateStatus = (req, res, next) => {
     })
     .catch(next);
   if (editApplicant.status === 'Approve') {
-    Applicant.findById(req.body.applicant.citizenId).then((selectApplicant) => {
+    Applicant.findInfoById(req.body.applicant.citizenId).then((selectApplicant) => {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
@@ -76,7 +76,7 @@ exports.updateStatus = (req, res, next) => {
     }).catch(next);
   }
   if (editApplicant.status === 'Sign Contract') {
-    Applicant.findById(req.body.applicant.citizenId).then((selectApplicant) => {
+    Applicant.findInfoById(req.body.applicant.citizenId).then((selectApplicant) => {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
@@ -112,7 +112,7 @@ exports.updateInterviewDateTime = (req, res, next) => {
 };
 
 exports.updateSignedPosition = (req, res, next) => {
-  const editApplicant = req.body;
+  const editApplicant = req.body.applicant;
   Applicant.updateSignedPosition(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);

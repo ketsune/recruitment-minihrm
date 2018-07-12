@@ -159,7 +159,7 @@ export function* updateRecruitmentNoteTask(action) {
 export function* updateRecruitmentSignedPositionTask(action) {
   try {
     const recruitments = yield call(api.updateRecruitmentSignedPosition, {
-      applicant: action.payload.position
+      applicant: action.payload.form
     });
     yield put(updateRecruitmentSignedPositionSuccess(recruitments));
   }

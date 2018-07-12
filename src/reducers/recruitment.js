@@ -105,6 +105,18 @@ const Recruitment = (state = initialState, action) => {
         ...state,
         checkStatus: {},
       };
+    case actionTypes.CLEAR_POSITION:
+      return {
+        ...state,
+        position: {},
+        signedPosition: {},
+      };
+    case actionTypes.CLEAR_DATETIME:
+      return {
+        ...state,
+        date: '',
+        time: '',
+      };
     case actionTypes.RECRUITMENT_CREATE_REQUEST:
       return {
         ...state,
@@ -129,7 +141,6 @@ const Recruitment = (state = initialState, action) => {
     case actionTypes.RECRUITMENT_UPDATE_BLACKLIST_DATE_REQUEST:
       return {
         ...state,
-        datetime: action.payload.datetime
       };
     case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_SUCCESS:
     case actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_SUCCESS:
@@ -181,7 +192,7 @@ const Recruitment = (state = initialState, action) => {
     case actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST:
       return {
         ...state,
-        position: action.payload.position
+        position: action.payload.form
       };
     case actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_SUCCESS:
       return {

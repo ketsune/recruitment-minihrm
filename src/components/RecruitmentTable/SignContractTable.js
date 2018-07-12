@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Input, Button, Checkbox, Form } from 'semantic-ui-react';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { setDate, setTime } from '../../actions/recruitment';
@@ -15,7 +15,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     <Table.Cell collapsing>{`${item.firstNameTh}`}<br />
       {`${item.lastNameTh}`}
     </Table.Cell>
-    <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
+    <Table.Cell>{`${item.signedPosition}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell>{`${item.signDate} ${item.signTime}`}</Table.Cell>
@@ -79,11 +79,9 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
   </div>
 );
 
-const selector = formValueSelector('dateTime');
-
 const mapStateToProps = state => ({
-  date: selector(state, 'date'),
-  Time: selector(state, 'time')
+  date: state.recruitment.date,
+  time: state.recruitment.time
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -114,10 +112,6 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'dateTime',
-    initialValues: {
-      date: null,
-      time: null,
-    },
   })
 );
 

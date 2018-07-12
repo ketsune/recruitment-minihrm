@@ -132,7 +132,7 @@ Applicant.updateSignedPosition = applicant => (
     signed_position = $1
     WHERE citizen_id = $2`,
     [
-      applicant.position,
+      applicant.signedPosition,
       applicant.citizenId
     ]
   )

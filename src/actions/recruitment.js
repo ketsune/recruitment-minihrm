@@ -79,6 +79,20 @@ export const clearStatus = () => ({
   }
 });
 
+export const clearDateTime = () => ({
+  type: actionTypes.CLEAR_DATETIME,
+  payload: {
+
+  }
+});
+
+export const clearPosition = () => ({
+  type: actionTypes.CLEAR_POSITION,
+  payload: {
+
+  }
+});
+
 export const createRecruitmentRequest = form => ({
   type: actionTypes.RECRUITMENT_CREATE_REQUEST,
   payload: {
@@ -290,10 +304,10 @@ export const updateRecruitmentNoteFailure = message => ({
   }
 });
 
-export const updateRecruitmentSignedPositionRequest = position => ({
+export const updateRecruitmentSignedPositionRequest = form => ({
   type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST,
   payload: {
-    position
+    form
   }
 });
 

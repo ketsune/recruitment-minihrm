@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Input, Button, Checkbox, Form } from 'semantic-ui-react';
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { setDate, setTime } from '../../actions/recruitment';
@@ -78,11 +78,9 @@ const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCon
   </div>
 );
 
-const selector = formValueSelector('dateTime');
-
 const mapStateToProps = state => ({
-  date: selector(state, 'date'),
-  Time: selector(state, 'time')
+  date: state.recruitment.date,
+  time: state.recruitment.time
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -113,10 +111,6 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'dateTime',
-    initialValues: {
-      date: null,
-      time: null,
-    },
   })
 );
 
