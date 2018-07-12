@@ -15,7 +15,7 @@ const row = (item, { checkStatus, changeStatus }) => (
     <Table.Cell collapsing>{`${item.firstNameTh}`}<br />
       {`${item.lastNameTh}`}
     </Table.Cell>
-    <Table.Cell>{`${item.position.join('\n')}`}</Table.Cell>
+    <Table.Cell>{`${item.signedPosition}`}</Table.Cell>
     <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell>{`${item.firstDate}`}</Table.Cell>
@@ -35,7 +35,7 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
           <Table.Row>
             <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Position</Table.HeaderCell>
+            <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Signed Position</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'firstDate' ? direction : null} onClick={() => handleSort('firstDate')}>First Date</Table.HeaderCell>
