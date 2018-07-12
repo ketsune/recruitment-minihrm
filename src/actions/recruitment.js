@@ -117,6 +117,27 @@ export const updateRecruitmentInterviewDateTimeFailure = message => ({
   }
 });
 
+export const updateRecruitmentExamDateTimeRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentExamDateTimeSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentExamDateTimeFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_FAILURE,
+  payload: {
+    message
+  }
+});
+
 export const updateRecruitmentSignDateTimeRequest = datetime => ({
   type: actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST,
   payload: {

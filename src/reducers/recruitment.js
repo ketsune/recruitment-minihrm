@@ -94,6 +94,7 @@ const Recruitment = (state = initialState, action) => {
         message: action.payload.message
       };
     case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_REQUEST:
+    case actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_REQUEST:
     case actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST:
     case actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_REQUEST:
     case actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_REQUEST:
@@ -104,6 +105,7 @@ const Recruitment = (state = initialState, action) => {
         datetime: action.payload.datetime
       };
     case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_SUCCESS:
+    case actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_SUCCESS:
     case actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_SUCCESS:
     case actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_SUCCESS:
     case actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_SUCCESS:
@@ -114,6 +116,7 @@ const Recruitment = (state = initialState, action) => {
         data: action.payload.data
       };
     case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_FAILURE:
+    case actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_FAILURE:
     case actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_FAILURE:
     case actionTypes.RECRUITMENT_UPDATE_COMPLETE_DATETIME_FAILURE:
     case actionTypes.RECRUITMENT_UPDATE_REJECT_DATE_FAILURE:

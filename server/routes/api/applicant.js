@@ -21,7 +21,7 @@ router.put('/update-cancel-date', ApplicantController.updateCancelDate);
 
 router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
 
-router.put('/update-exam-date', ApplicantController.updateExamDate);
+router.put('/update-exam-datetime', ApplicantController.updateExamDate);
 
 router.put('/update-note', ApplicantController.updateNote);
 

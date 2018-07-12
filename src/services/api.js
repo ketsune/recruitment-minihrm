@@ -286,6 +286,13 @@ api.updateRecruitmentInterviewDateTime = body => (
   })
 );
 
+api.updateRecruitmentExamDateTime = body => (
+  callApi('api/applicants/update-exam-datetime', {
+    method: 'PUT',
+    body
+  })
+);
+
 api.updateRecruitmentSignDateTime = body => (
   callApi('api/applicants/update-sign-datetime', {
     method: 'PUT',

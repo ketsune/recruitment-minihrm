@@ -7,6 +7,8 @@ import {
   createRecruitmentFailure,
   updateRecruitmentInterviewDateTimeFailure,
   updateRecruitmentInterviewDateTimeSuccess,
+  updateRecruitmentExamDateTimeFailure,
+  updateRecruitmentExamDateTimeSuccess,
   updateRecruitmentSignDateTimeFailure,
   updateRecruitmentSignDateTimeSuccess,
   updateRecruitmentCompleteDateTimeFailure,
@@ -53,6 +55,18 @@ export function* updateRecruitmentInterviewDateTimeTask(action) {
   }
   catch (error) {
     yield put(updateRecruitmentInterviewDateTimeFailure(error));
+  }
+}
+
+export function* updateRecruitmentExamDateTimeTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentExamDateTime, {
+      applicant: action.payload.datetime
+    });
+    yield put(updateRecruitmentExamDateTimeSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentExamDateTimeFailure(error));
   }
 }
 
@@ -147,6 +161,10 @@ export function* watchUpdateRecruitmentInterviewDateTimeRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_REQUEST, updateRecruitmentInterviewDateTimeTask);
 }
 
+export function* watchUpdateRecruitmentExamDateTimeRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_REQUEST, updateRecruitmentExamDateTimeTask);
+}
+
 export function* watchUpdateRecruitmentSignDateTimeRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_SIGN_DATETIME_REQUEST, updateRecruitmentSignDateTimeTask);
 }
@@ -176,6 +194,7 @@ export default function* recruitmentSaga() {
     watchFetchRecruitmentRequest(),
     watchCreateRecruitmentRequest(),
     watchUpdateRecruitmentInterviewDateTimeRequest(),
+    watchUpdateRecruitmentExamDateTimeRequest(),
     watchUpdateRecruitmentSignDateTimeRequest(),
     watchUpdateRecruitmentCompleteDateTimeRequest(),
     watchUpdateRecruitmentRejectDateRequest(),
