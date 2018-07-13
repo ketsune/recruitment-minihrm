@@ -54,7 +54,7 @@ const row = (item, { checkStatus, date, time, submitting, positions, selectPosit
       {(checkStatus[item.citizenId] === 'Exam') && <Table.Cell>Exam Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Sign Contract Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Complete') && <Table.Cell>Date : {date}</Table.Cell>}
-      {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell><Dropdown placeholder="Please select a position." search selection options={options} onChange={(e, data) => selectPosition(data, item.citizenId)} /></Table.Cell>}
+      {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell><Dropdown placeholder="Please select a position." selection options={options} onChange={(e, data) => selectPosition(data, item.citizenId)} /></Table.Cell>}
     </Table.Row>
   );
 };
