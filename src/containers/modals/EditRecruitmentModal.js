@@ -136,6 +136,9 @@ const mapDispatchToProps = dispatch => ({
           case 'Exam':
             dispatch(updateRecruitmentExamDateTimeRequest(dateTime));
             return '';
+          case 'Interview':
+            dispatch(updateRecruitmentInterviewDateTimeRequest(dateTime));
+            return '';
           case 'Blacklist':
             delete dateTime.time;
             dateTime.date = today;

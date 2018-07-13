@@ -50,7 +50,8 @@ const row = (item, { checkStatus, date, time, submitting, positions, selectPosit
           {/* </Form> */}
         </Table.Cell>
       }
-      {(checkStatus[item.citizenId] === 'Approve') && <Table.Cell>Interview Date : {date} ({time})</Table.Cell>}
+      {(checkStatus[item.citizenId] === 'Approve') && <Table.Cell>Interview & Exam Date : {date} ({time})</Table.Cell>}
+      {(checkStatus[item.citizenId] === 'Interview') && <Table.Cell>Interview Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Exam') && <Table.Cell>Exam Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Sign Contract') && <Table.Cell>Sign Contract Date : {date} ({time})</Table.Cell>}
       {(checkStatus[item.citizenId] === 'Complete') && <Table.Cell>Date : {date}</Table.Cell>}

@@ -21,7 +21,7 @@ const row = (item, { checkStatus, reject, changeStatus, load }) => (
     <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'In Progress'} onChange={() => changeStatus(item.citizenId, 'In Progress')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
-    <Table.Cell><Checkbox name="editInterview" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => { changeStatus(item.citizenId, 'Approve'); load(item.interviewDate, item.interviewTime); }} /></Table.Cell>
+    <Table.Cell><Checkbox name="editInterview" checked={checkStatus[item.citizenId] === 'Interview'} onChange={() => { changeStatus(item.citizenId, 'Interview'); load(item.interviewDate, item.interviewTime); }} /></Table.Cell>
     <Table.Cell><Checkbox name="editExam" checked={checkStatus[item.citizenId] === 'Exam'} onChange={() => { changeStatus(item.citizenId, 'Exam'); load(item.examDate, item.examTime); }} /></Table.Cell>
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
@@ -43,8 +43,8 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
             <Table.HeaderCell >Details</Table.HeaderCell>
             <Table.HeaderCell >In Progress</Table.HeaderCell>
             {reject && <Table.HeaderCell >Reject</Table.HeaderCell>}
-            <Table.HeaderCell >Interview Date</Table.HeaderCell>
-            <Table.HeaderCell >Exam Date</Table.HeaderCell>
+            <Table.HeaderCell >Edit Interview Date</Table.HeaderCell>
+            <Table.HeaderCell >Edit Exam Date</Table.HeaderCell>
             <Table.HeaderCell >Blacklist</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
