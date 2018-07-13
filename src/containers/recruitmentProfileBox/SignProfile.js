@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Segment, Grid, Header, Icon } from 'semantic-ui-react';
 
-const SignProfile = ({ signProfile, onClick }) => (
+const SignProfile = ({ signProfile }) => (
   <Segment.Group raised size="large">
     <Segment padded>
       <Grid>
@@ -18,8 +18,8 @@ const SignProfile = ({ signProfile, onClick }) => (
       <Grid>
         <Grid.Row divided>
           <Grid.Column width={10}>
-            <Header size="small">Sign Time <Icon name="clock" />: {signProfile.signTime != "" ? signProfile.signTime : "-"}</Header>
-            <Header size="small">Sign Date <Icon name="calendar outline" />: {signProfile.signDate != "" ? signProfile.signDate : "-"}</Header>
+            <Header size="small">Sign Time <Icon name="clock" />: {signProfile.signTime !== null ? signProfile.signTime : '-'}</Header>
+            <Header size="small">Sign Date <Icon name="calendar outline" />: {signProfile.signDate !== null ? signProfile.signDate : '-'}</Header>
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -29,7 +29,6 @@ const SignProfile = ({ signProfile, onClick }) => (
 
 SignProfile.propTypes = {
   signProfile: PropTypes.object.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => ({
