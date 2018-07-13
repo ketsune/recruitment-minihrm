@@ -146,11 +146,15 @@ Applicant.findInfoById = id => (
 );
 
 Applicant.findFileById = id => (
-  db.oneOrNone('SELECT * FROM applicants_files WHERE citizen_id = $1', [id])
+  db.manyOrNone('SELECT * FROM applicants_files WHERE citizen_id = $1', [id])
 );
 
 Applicant.upload = (path, name, id, type) => (
   db.none('INSERT INTO applicants_files (citizen_id, file_path, file_name, type) VALUES ($1, $2, $3, $4);', [id, path, name, type])
+);
+
+Applicant.getPosition = () => (
+  db.manyOrNone('SELECT name FROM positions WHERE status = $1', ['Active'])
 );
 
 // EmployeeInfo.findById = id => (

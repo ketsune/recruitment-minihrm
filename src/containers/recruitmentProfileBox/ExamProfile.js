@@ -20,11 +20,13 @@ const ExamProfile = ({ examProfile, onClick }) => (
       <Grid>
         <Grid.Row divided>
           <Grid.Column width={10}>
-            <Header size="small">Interview Time <Icon name="clock" />: {examProfile.interviewTime}</Header>
-            <Header size="small">Interview Date <Icon name="calendar outline" />: {examProfile.interviewDate}</Header>
+            <Header size="small">Interview Time <Icon name="clock" />: {examProfile.interviewTime != "" ? examProfile.interviewTime : "-"}</Header>
+            <Header size="small">Interview Date <Icon name="calendar outline" />: {examProfile.interviewDate != "" ? examProfile.interviewDate : "-"}</Header>
+            <Header size="small">Exam Time <Icon name="clock" />: {examProfile.examTime != "" ? examProfile.examTime : "-"}</Header>
+            <Header size="small">Exam Date <Icon name="calendar outline" />: {examProfile.examDate != "" ? examProfile.examDate : "-"}</Header>
           </Grid.Column>
-          <Grid.Column width={6} verticalAlign="middle">
-            <Header size="small">Exam: <Icon name="file pdf outline" onClick={() => onClick()} /></Header>
+          <Grid.Column width={6} verticalAlign="buttom">
+            <Header size="small"><Icon name="file pdf outline" onClick={() => onClick()} /> :Exam</Header>
           </Grid.Column>
         </Grid.Row>
       </Grid>

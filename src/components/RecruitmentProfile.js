@@ -4,6 +4,8 @@ import { Grid } from 'semantic-ui-react';
 import PageHeader from './PageHeader';
 import GeneralProfileBox from '../containers/recruitmentProfileBox/GeneralProfile';
 import ExamProfileBox from '../containers/recruitmentProfileBox/ExamProfile';
+import SignProfileBox from '../containers/recruitmentProfileBox/SignProfile';
+
 
 const RecruitmentProfile = ({ recruitmentProfile }) => (
   <div>
@@ -12,6 +14,7 @@ const RecruitmentProfile = ({ recruitmentProfile }) => (
       <Grid.Column computer={12} mobile={16}>
         <GeneralProfileBox generalProfile={recruitmentProfile.profile} file={recruitmentProfile.file} />
         <ExamProfileBox examProfile={recruitmentProfile.profile} />
+        <SignProfileBox signProfile={recruitmentProfile.profile} />
       </Grid.Column>
     </Grid>
   </div>
