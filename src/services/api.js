@@ -272,6 +272,10 @@ api.fetchRecruitment = () => (
   callApi('/api/applicants')
 );
 
+api.fetchPositionRecruitment = () => (
+  callApi('/api/positions')
+);
+
 api.changeRecruitmentStatus = body => (
   callApi('api/applicants/update-status', {
     method: 'PUT',
@@ -281,6 +285,13 @@ api.changeRecruitmentStatus = body => (
 
 api.updateRecruitmentInterviewDateTime = body => (
   callApi('api/applicants/update-interview-datetime', {
+    method: 'PUT',
+    body
+  })
+);
+
+api.updateRecruitmentExamDateTime = body => (
+  callApi('api/applicants/update-exam-datetime', {
     method: 'PUT',
     body
   })
@@ -323,6 +334,13 @@ api.updateRecruitmentBlacklistDate = body => (
 
 api.updateRecruitmentNote = body => (
   callApi('api/applicants/update-note', {
+    method: 'PUT',
+    body
+  })
+);
+
+api.updateRecruitmentSignedPosition = body => (
+  callApi('api/applicants/update-signed-position', {
     method: 'PUT',
     body
   })

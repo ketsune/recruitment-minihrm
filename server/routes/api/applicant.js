@@ -9,6 +9,8 @@ router.get('/', ApplicantController.findAll);
 
 router.put('/update-status', ApplicantController.updateStatus);
 
+router.put('/update-signed-position', ApplicantController.updateSignedPosition);
+
 router.put('/update-interview-datetime', ApplicantController.updateInterviewDateTime);
 
 router.put('/update-sign-datetime', ApplicantController.updateSignDateTime);
@@ -20,6 +22,8 @@ router.put('/update-reject-date', ApplicantController.updateRejectDate);
 router.put('/update-cancel-date', ApplicantController.updateCancelDate);
 
 router.put('/update-blacklist-date', ApplicantController.updateBlacklistDate);
+
+router.put('/update-exam-datetime', ApplicantController.updateExamDate);
 
 router.put('/update-note', ApplicantController.updateNote);
 

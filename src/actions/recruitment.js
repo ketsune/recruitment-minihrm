@@ -18,6 +18,24 @@ export const fetchRecruitmentFailure = message => ({
   }
 });
 
+export const fetchPositionRecruitmentRequest = () => ({
+  type: actionTypes.RECRUITMENT_FETCH_POSITION_REQUEST
+});
+
+export const fetchPositionRecruitmentSuccess = data => ({
+  type: actionTypes.RECRUITMENT_FETCH_POSITION_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const fetchPositionRecruitmentFailure = message => ({
+  type: actionTypes.RECRUITMENT_FETCH_POSITION_FAILURE,
+  payload: {
+    message
+  }
+});
+
 export const changeActiveItemRequest = activeItem => ({
   type: actionTypes.RECRUITMENT_CHANGE_ACTIVE_ITEM,
   payload: {
@@ -61,6 +79,20 @@ export const clearStatus = () => ({
   }
 });
 
+export const clearDateTime = () => ({
+  type: actionTypes.CLEAR_DATETIME,
+  payload: {
+
+  }
+});
+
+export const clearPosition = () => ({
+  type: actionTypes.CLEAR_POSITION,
+  payload: {
+
+  }
+});
+
 export const createRecruitmentRequest = form => ({
   type: actionTypes.RECRUITMENT_CREATE_REQUEST,
   payload: {
@@ -79,6 +111,14 @@ export const createRecruitmentFailure = message => ({
   type: actionTypes.RECRUITMENT_CREATE_FAILURE,
   payload: {
     message
+  }
+});
+
+export const setSelectPosition = (key, value) => ({
+  type: actionTypes.RECRUITMENT_SET_SELECT_POSITION,
+  payload: {
+    key,
+    value,
   }
 });
 
@@ -112,6 +152,27 @@ export const updateRecruitmentInterviewDateTimeSuccess = data => ({
 
 export const updateRecruitmentInterviewDateTimeFailure = message => ({
   type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_DATETIME_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentExamDateTimeRequest = datetime => ({
+  type: actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_REQUEST,
+  payload: {
+    datetime
+  }
+});
+
+export const updateRecruitmentExamDateTimeSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentExamDateTimeFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_EXAM_DATETIME_FAILURE,
   payload: {
     message
   }
@@ -238,6 +299,27 @@ export const updateRecruitmentNoteSuccess = data => ({
 
 export const updateRecruitmentNoteFailure = message => ({
   type: actionTypes.RECRUITMENT_UPDATE_NOTE_FAILURE,
+  payload: {
+    message
+  }
+});
+
+export const updateRecruitmentSignedPositionRequest = form => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST,
+  payload: {
+    form
+  }
+});
+
+export const updateRecruitmentSignedPositionSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentSignedPositionFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_FAILURE,
   payload: {
     message
   }
