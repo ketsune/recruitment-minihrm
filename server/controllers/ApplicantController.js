@@ -208,3 +208,11 @@ exports.upload = (req, res, next) => {
     })
     .catch(next);
 };
+
+exports.getPosition = (req, res, next) => {
+  Applicant.getPosition()
+    .then((position) => {
+      res.json(position);
+    })
+    .catch(next);
+};

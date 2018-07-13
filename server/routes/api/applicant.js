@@ -31,6 +31,7 @@ router.get('/applicant-info', ApplicantController.findInfoById);
 
 router.get('/applicant-file', ApplicantController.findFileById);
 
+router.get('/get-position', ApplicantController.getPosition);
 
 const storage = multer.diskStorage({
   destination: (req, res, cb) => {
@@ -42,5 +43,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 router.post('/upload-file', upload.single('file'), ApplicantController.upload);
+
+
 
 module.exports = router;
