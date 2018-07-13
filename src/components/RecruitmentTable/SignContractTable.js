@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Input, Button, Checkbox, Form } from 'semantic-ui-react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { setDate, setTime } from '../../actions/recruitment';
 import history from '../../history';
 
-const row = (item, { checkStatus, reject, changeStatus }) => (
+const row = (item, { checkStatus, reject, changeStatus, load }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell collapsing>{`${item.firstName}`}<br />
       {`${item.lastName}`}
@@ -16,18 +16,17 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
       {`${item.lastNameTh}`}
     </Table.Cell>
     <Table.Cell>{`${item.signedPosition}`}</Table.Cell>
-    <Table.Cell>{`${item.email}`}</Table.Cell>
     <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell>{`${item.signDate} ${item.signTime}`}</Table.Cell>
     <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => changeStatus(item.citizenId, 'Complete')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Cancel'} onChange={() => changeStatus(item.citizenId, 'Cancel')} /></Table.Cell>}
-    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Sign Contract'} onChange={() => changeStatus(item.citizenId, 'Sign Contract')} /></Table.Cell>
+    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Sign Contract'} onChange={() => { changeStatus(item.citizenId, 'Sign Contract'); load(item.signDate, item.signTime); }} /></Table.Cell>
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
-const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setSignDate, setSignTime }) => (
+const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setSignDate, setSignTime, load }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -37,19 +36,18 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
             <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Signed Position</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
             <Table.HeaderCell sorted={sortKey === 'signDate' ? direction : null} onClick={() => handleSort('signDate')}>Sign Date/Time</Table.HeaderCell>
             <Table.HeaderCell >Details</Table.HeaderCell>
             {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
             <Table.HeaderCell >Complete</Table.HeaderCell>
             {reject && <Table.HeaderCell >Cancel</Table.HeaderCell>}
-            <Table.HeaderCell >Edit Date</Table.HeaderCell>
+            <Table.HeaderCell >Edit Date and Position</Table.HeaderCell>
             <Table.HeaderCell >Blacklist</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map(item => row(item, { checkStatus, reject, changeStatus }))}
+          {data.map(item => row(item, { checkStatus, reject, changeStatus, load }))}
         </Table.Body>
         <Table.Footer fullWidth>
           <Table.Row>
@@ -80,13 +78,25 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
 );
 
 const mapStateToProps = state => ({
-  date: state.recruitment.date,
-  time: state.recruitment.time
+  initialValues: {
+    date: state.recruitment.date,
+    time: state.recruitment.time,
+  }
 });
 
 const mapDispatchToProps = dispatch => ({
   setSignDate: value => dispatch(setDate(value)),
-  setSignTime: value => dispatch(setTime(value))
+  setSignTime: value => dispatch(setTime(value)),
+  load: (date, time) => {
+    dispatch(change('dateTime', 'date', date));
+    dispatch(change('dateTime', 'time', time));
+    dispatch(setDate(date));
+    dispatch(setTime(time));
+  }
+  // initialDateTime: (date, time) => {
+  //   dispatch(setDate(date));
+  //   dispatch(setTime(time));
+  // },
 });
 
 SignContractTable.defaultProps = {
@@ -104,6 +114,7 @@ SignContractTable.propTypes = {
   reject: PropTypes.bool,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
+  load: PropTypes.func.isRequired,
   setSignDate: PropTypes.func.isRequired,
   setSignTime: PropTypes.func.isRequired,
 };
@@ -112,7 +123,8 @@ const enhance = compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
     form: 'dateTime',
-  })
+    fields: ['date', 'time'],
+  }),
 );
 
 

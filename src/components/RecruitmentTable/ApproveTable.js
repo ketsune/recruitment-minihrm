@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Input, Button, Checkbox, Form } from 'semantic-ui-react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { setDate, setTime } from '../../actions/recruitment';
 import history from '../../history';
 
-const row = (item, { checkStatus, reject, changeStatus }) => (
+const row = (item, { checkStatus, reject, changeStatus, load }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell collapsing>{`${item.firstName}`}<br />
       {`${item.lastName}`}
@@ -21,13 +21,13 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
     <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
     <Table.Cell><Checkbox name="accept" checked={checkStatus[item.citizenId] === 'In Progress'} onChange={() => changeStatus(item.citizenId, 'In Progress')} /></Table.Cell>
     {reject && <Table.Cell><Checkbox name="reject" checked={checkStatus[item.citizenId] === 'Reject'} onChange={() => changeStatus(item.citizenId, 'Reject')} /></Table.Cell>}
-    <Table.Cell><Checkbox name="editInterview" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => changeStatus(item.citizenId, 'Approve')} /></Table.Cell>
-    <Table.Cell><Checkbox name="editExam" checked={checkStatus[item.citizenId] === 'Exam'} onChange={() => changeStatus(item.citizenId, 'Exam')} /></Table.Cell>
+    <Table.Cell><Checkbox name="editInterview" checked={checkStatus[item.citizenId] === 'Approve'} onChange={() => { changeStatus(item.citizenId, 'Approve'); load(item.interviewDate, item.interviewTime); }} /></Table.Cell>
+    <Table.Cell><Checkbox name="editExam" checked={checkStatus[item.citizenId] === 'Exam'} onChange={() => { changeStatus(item.citizenId, 'Exam'); load(item.examDate, item.examTime); }} /></Table.Cell>
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
-const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApproveDate, setApproveTime }) => (
+const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApproveDate, setApproveTime, load }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -49,7 +49,7 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map(item => row(item, { checkStatus, reject, changeStatus }))}
+          {data.map(item => row(item, { checkStatus, reject, changeStatus, load }))}
         </Table.Body>
         <Table.Footer fullWidth>
           <Table.Row>
@@ -86,7 +86,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setApproveDate: value => dispatch(setDate(value)),
-  setApproveTime: value => dispatch(setTime(value))
+  setApproveTime: value => dispatch(setTime(value)),
+  load: (date, time) => {
+    dispatch(change('dateTime', 'date', date));
+    dispatch(change('dateTime', 'time', time));
+    dispatch(setDate(date));
+    dispatch(setTime(time));
+  }
 });
 
 ApproveTable.defaultProps = {
@@ -102,6 +108,7 @@ ApproveTable.propTypes = {
   onConfirm: PropTypes.func.isRequired,
   checkStatus: PropTypes.object.isRequired,
   reject: PropTypes.bool,
+  load: PropTypes.func.isRequired,
   changeStatus: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
   setApproveDate: PropTypes.func.isRequired,

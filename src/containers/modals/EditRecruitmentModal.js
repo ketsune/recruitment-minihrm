@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 import { Modal as SUIModal, Button } from 'semantic-ui-react';
-import { isSubmitting } from 'redux-form';
+import { isSubmitting, change } from 'redux-form';
 import { closeModal } from '../../actions/modal';
 import EditRecruitmentForm from '../forms/EditRecruitmentForm';
+import { validateTime, validateDate } from '../../selectors/recruitment';
 // import { handleReduxFormSubmit } from '../../utils/helper';
 import {
   createRecruitmentRequest, updateRecruitmentInterviewDateTimeRequest,
@@ -15,7 +16,10 @@ import {
   updateRecruitmentExamDateTimeRequest, updateRecruitmentSignedPositionRequest, clearStatus, clearDateTime, clearPosition
 } from '../../actions/recruitment';
 
-const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note, signedPosition, updateSignedPosition, resetOnClose }) => (
+const EditRecruitmentModal = ({
+  onClick, onClose, submitting, data, checkStatus, date, time, buttons, confirm, note,
+  signedPosition, updateSignedPosition, resetOnClose, validateSign, updateStatus,
+}) => (
   <SUIModal
     dimmer="blurring"
     size="small"
@@ -31,7 +35,8 @@ const EditRecruitmentModal = ({ onClick, onClose, submitting, data, checkStatus,
     </SUIModal.Content>
     <SUIModal.Actions>
       {buttons.map(B => B)}
-      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => { onClick(checkStatus, date, time, note); if (Object.keys(signedPosition).length > 0) updateSignedPosition(signedPosition); onClose(); }}>Save</Button>
+      {/* Clean code by bind all function in one function onclick */}
+      <Button color="blue" loading={submitting} disabled={submitting} onClick={() => onClick(checkStatus, date, time, note, signedPosition, validateSign, updateStatus, updateSignedPosition)}>Save</Button>
       {confirm && <Button loading={submitting} disabled={submitting} onClick={onClose}>No</Button>}
     </SUIModal.Actions>
   </SUIModal>
@@ -51,14 +56,14 @@ EditRecruitmentModal.propTypes = {
   data: PropTypes.array.isRequired,
   confirm: PropTypes.bool,
   buttons: PropTypes.array,
-  // onConfirm: PropTypes.func.isRequired,
   checkStatus: PropTypes.object.isRequired,
   date: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   note: PropTypes.object,
   signedPosition: PropTypes.object.isRequired,
   resetOnClose: PropTypes.func.isRequired,
-  // onSubmit: PropTypes.func.isRequired,
+  validateSign: PropTypes.func.isRequired,
+  updateStatus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -73,8 +78,27 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  onClick: (checkStatus, date, time, note, signedPosition, validateSign, updateStatus, updateSignedPosition) => {
+    const isValidateSign = validateSign(checkStatus, signedPosition);
+    if (!isValidateSign) {
+      alert('Please choose position for every applicant'); // eslint-disable-line no-alert
+      return '';
+    }
+    updateStatus(checkStatus, date, time, note);
+    if (Object.keys(signedPosition).length > 0) {
+      updateSignedPosition(signedPosition);
+    }
+    dispatch(closeModal());
+    return '';
+  },
+  // Validate position dropdown fields
+  validateSign: (checkStatus, signedPosition) => {
+    const signedApplicant = Object.keys(checkStatus).filter(id => checkStatus[id] === 'Sign Contract');
+    return signedApplicant.length === Object.keys(signedPosition).length;
+    // console.log(signedApplicant.length === Object.keys(signedPosition).length);
+  },
   // function สำหรับการเปลี่ยนสเตตัส อาจจะเพิ่มการเช็คเงื่อนไขการเปลี่ยนสถานะเพื่อความถูกต้อง
-  onClick: (checkStatus, date, time, note) => {
+  updateStatus: (checkStatus, date, time, note) => {
     Object.keys(checkStatus)
       .filter(status => checkStatus[status] !== '')
       .forEach((key) => {
@@ -182,8 +206,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(clearDateTime());
     dispatch(clearPosition());
     dispatch(clearStatus());
+    dispatch(change('dateTime', 'date', ''));
+    dispatch(change('dateTime', 'time', ''));
     dispatch(closeModal());
-  }
+  },
   // onSubmit: values => dispatch(updateRecruitmentNoteRequest(values)),
 });
 
@@ -199,12 +225,12 @@ const enhance = compose(
       if (applicantsStatus.length > 0) {
         // Complete doesn't use time so filter non complete out
         applicantsStatus = Object.keys(checkStatus).filter(key => checkStatus[key] === 'Complete');
-        if ((date === '' || time === '') && applicantsStatus.length === 0) {
-          alert('Date or Time is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
+        if ((!validateDate(date) || !validateTime(time)) && applicantsStatus.length === 0) {
+          alert('Date or Time is EMPTY!, Please fill it.\n[Date Format => YYYY-MM-DD]\n[Time Format => HH:mm]'); // eslint-disable-line no-alert
           onClose();
         }
-        else if (applicantsStatus.length > 0 && date === '') {
-          alert('Date is EMPTY!, Please fill it.'); // eslint-disable-line no-alert
+        else if (applicantsStatus.length > 0 && !validateDate(date)) {
+          alert('Date is EMPTY!, Please fill it.\n[Date Format => YYYY-MM-DD]'); // eslint-disable-line no-alert
           onClose();
         }
       }

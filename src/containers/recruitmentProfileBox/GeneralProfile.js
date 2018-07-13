@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Segment, Grid, Header, Icon, Image } from 'semantic-ui-react';
+import { Segment, Grid, Header, Icon } from 'semantic-ui-react';
 // import { openModal } from '../../actions/modal';
 // import * as modalNames from '../../constants/modalNames';
 
@@ -26,7 +26,7 @@ const GeneralProfile = ({ generalProfile, file }) => {
               <Header size="small">Registration Date <Icon name="calendar outline" />: {generalProfile.registrationDate}</Header>
             </Grid.Column>
             <Grid.Column width={6} verticalAlign="middle" >
-              <Image src={imgSrc} href={imgSrc} />
+              <a href={imgSrc} rel="noopener noreferrer" target="_blank"><embed src={imgSrc} height="400" /></a>
             </Grid.Column>
           </Grid.Row>
         </Grid>

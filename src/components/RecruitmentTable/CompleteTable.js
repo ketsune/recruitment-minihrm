@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { Table, Input, Button, Checkbox, Form } from 'semantic-ui-react';
 import { setDate } from '../../actions/recruitment';
 import history from '../../history';
 
-const row = (item, { checkStatus, changeStatus }) => (
+const row = (item, { checkStatus, changeStatus, load }) => (
   <Table.Row key={item.citizenId}>
     <Table.Cell collapsing>{`${item.firstName}`}<br />
       {`${item.lastName}`}
@@ -20,13 +20,13 @@ const row = (item, { checkStatus, changeStatus }) => (
     <Table.Cell collapsing>{`${item.mobileNumber}`}</Table.Cell>
     <Table.Cell>{`${item.firstDate}`}</Table.Cell>
     <Table.Cell><Button icon="list" size="mini" onClick={() => history.push(`/recruitment/${item.citizenId}`)} /></Table.Cell>
-    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => changeStatus(item.citizenId, 'Complete')} /></Table.Cell>
+    <Table.Cell><Checkbox name="edit" checked={checkStatus[item.citizenId] === 'Complete'} onChange={() => { changeStatus(item.citizenId, 'Complete'); load(item.firstDate); }} /></Table.Cell>
     {/* <Table.Cell>{`${item.status}`}</Table.Cell> */}
     <Table.Cell><Checkbox name="blacklist" checked={checkStatus[item.citizenId] === 'Blacklist'} onChange={() => changeStatus(item.citizenId, 'Blacklist')} /></Table.Cell>
   </Table.Row>
 );
 
-const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate }) => (
+const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate, load }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -46,7 +46,7 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {data.map(item => row(item, { checkStatus, changeStatus }))}
+          {data.map(item => row(item, { checkStatus, changeStatus, load }))}
         </Table.Body>
         <Table.Footer fullWidth>
           <Table.Row>
@@ -81,6 +81,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setCompleteDate: value => dispatch(setDate(value)),
+  load: (date) => {
+    dispatch(change('dateTime', 'date', date));
+    dispatch(setDate(date));
+  }
 });
 
 CompleteTable.propTypes = {
@@ -94,6 +98,7 @@ CompleteTable.propTypes = {
   changeStatus: PropTypes.func.isRequired,
   setCompleteDate: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
+  load: PropTypes.func.isRequired,
 };
 
 const enhance = compose(
