@@ -80,7 +80,7 @@ const Recruitment = (state = initialState, action) => {
       let isThatStatus = false;
       let listKey = Object.keys(state.checkStatus);
       listKey.map(item => {
-        if (state.checkStatus[item] === 'Approve' || state.checkStatus[item] === 'Sign Contract' || state.checkStatus[item] === 'Complete') {
+        if (state.checkStatus[item] === 'Approve' || state.checkStatus[item] === 'Sign Contract' || state.checkStatus[item] === 'Complete' || state.checkStatus[item] === 'Interview' || state.checkStatus[item] === 'Exam') {
           if (!(item === action.payload.key && action.payload.status === state.checkStatus[action.payload.key])) {
             isThatStatus = true;
           }
@@ -109,7 +109,7 @@ const Recruitment = (state = initialState, action) => {
       }
       return {
         ...state,
-        isUseDate: isThatStatus || (action.payload.status === 'Approve' || action.payload.status === 'Sign Contract' || action.payload.status === 'Complete'),
+        isUseDate: (isThatStatus && !(state.checkStatus[action.payload.key] === 'Approve' || state.checkStatus[action.payload.key] === 'Sign Contract' || state.checkStatus[action.payload.key] === 'Complete' || state.checkStatus[action.payload.key] === 'Interview' || state.checkStatus[action.payload.key] === 'Exam')) || (action.payload.status === 'Approve' || action.payload.status === 'Sign Contract' || action.payload.status === 'Complete' || action.payload.status === 'Interview' || action.payload.status === 'Exam'),
         checkStatus: {
           ...state.checkStatus,
           [action.payload.key]: action.payload.status,
