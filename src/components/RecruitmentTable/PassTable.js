@@ -106,7 +106,7 @@ PassTable.propTypes = {
   clearStatus: PropTypes.func.isRequired,
   setPassDate: PropTypes.func.isRequired,
   setPassTime: PropTypes.func.isRequired,
-  isUseDate: PropTypes.bool,
+  isUseDate: PropTypes.bool.isRequired,
 };
 
 const enhance = compose(

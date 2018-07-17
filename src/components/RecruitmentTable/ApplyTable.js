@@ -107,7 +107,7 @@ ApplyTable.propTypes = {
   clearStatus: PropTypes.func.isRequired,
   setApplyDate: PropTypes.func.isRequired,
   setApplyTime: PropTypes.func.isRequired,
-  isUseDate: PropTypes.bool,
+  isUseDate: PropTypes.bool.isRequired,
 };
 
 const enhance = compose(

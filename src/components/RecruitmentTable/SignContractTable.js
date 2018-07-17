@@ -118,7 +118,7 @@ SignContractTable.propTypes = {
   load: PropTypes.func.isRequired,
   setSignDate: PropTypes.func.isRequired,
   setSignTime: PropTypes.func.isRequired,
-  isUseDate: PropTypes.bool,
+  isUseDate: PropTypes.bool.isRequired,
 };
 
 const enhance = compose(

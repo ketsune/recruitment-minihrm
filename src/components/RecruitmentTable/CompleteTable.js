@@ -100,7 +100,7 @@ CompleteTable.propTypes = {
   setCompleteDate: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
   load: PropTypes.func.isRequired,
-  isUseDate: PropTypes.bool,
+  isUseDate: PropTypes.bool.isRequired,
 };
 
 const enhance = compose(
