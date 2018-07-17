@@ -179,6 +179,21 @@ const Recruitment = (state = initialState, action) => {
         ...state,
         message: action.payload.message
       };
+    case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_REQUEST:
+      return {
+        ...state,
+        note: action.payload.values
+      };
+    case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_SUCCESS:
+      return {
+        ...state,
+        data: action.payload.data
+      };
+    case actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_FAILURE:
+      return {
+        ...state,
+        message: action.payload.message
+      };
     case actionTypes.RECRUITMENT_SETDATE:
       return {
         ...state,

@@ -27,6 +27,8 @@ router.put('/update-exam-datetime', ApplicantController.updateExamDate);
 
 router.put('/update-note', ApplicantController.updateNote);
 
+router.put('/update-interview-result', ApplicantController.updateInterviewResult);
+
 router.get('/applicant-info', ApplicantController.findInfoById);
 
 router.get('/applicant-file', ApplicantController.findFileById);
@@ -43,7 +45,5 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 router.post('/upload-file', upload.single('file'), ApplicantController.upload);
-
-
 
 module.exports = router;

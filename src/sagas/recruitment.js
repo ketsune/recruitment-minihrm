@@ -25,6 +25,8 @@ import {
   updateRecruitmentBlacklistDateSuccess,
   updateRecruitmentNoteFailure,
   updateRecruitmentNoteSuccess,
+  updateRecruitmentInterviewResultFailure,
+  updateRecruitmentInterviewResultSuccess,
 } from '../actions/recruitment';
 import api from '../services/api';
 
@@ -156,6 +158,18 @@ export function* updateRecruitmentNoteTask(action) {
   }
 }
 
+export function* updateRecruitmentInterviewResultTask(action) {
+  try {
+    const recruitments = yield call(api.updateRecruitmentInterviewResult, {
+      applicant: action.payload.values
+    });
+    yield put(updateRecruitmentInterviewResultSuccess(recruitments));
+  }
+  catch (error) {
+    yield put(updateRecruitmentInterviewResultFailure(error));
+  }
+}
+
 export function* updateRecruitmentSignedPositionTask(action) {
   try {
     const recruitments = yield call(api.updateRecruitmentSignedPosition, {
@@ -213,6 +227,10 @@ export function* watchUpdateRecruitmentNoteRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_NOTE_REQUEST, updateRecruitmentNoteTask);
 }
 
+export function* watchUpdateRecruitmentInterviewResultRequest() {
+  yield takeEvery(actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_REQUEST, updateRecruitmentInterviewResultTask);
+}
+
 export function* watchUpdateRecruitmentSignedPositionRequest() {
   yield takeEvery(actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST, updateRecruitmentSignedPositionTask);
 }
@@ -231,5 +249,6 @@ export default function* recruitmentSaga() {
     watchUpdateRecruitmentNoteRequest(),
     watchfetchPositionRecruitmentTask(),
     watchUpdateRecruitmentSignedPositionRequest(),
+    watchUpdateRecruitmentInterviewResultRequest()
   ]);
 }

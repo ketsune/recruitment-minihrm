@@ -14,15 +14,20 @@ const imgPart = (element) => {
   let otherSrc5 = ``;
   if (element.type === 'cv') {
     cvSrc = `http://localhost:3000/static${element.filePath}${element.fileName}`;
-  } else if (element.type === 'other1') {
+  }
+  else if (element.type === 'other1') {
     otherSrc1 = `http://localhost:3000/static${element.filePath}${element.fileName}`;
-  } else if (element.type === 'other2') {
+  }
+  else if (element.type === 'other2') {
     otherSrc2 = `http://localhost:3000/static${element.filePath}${element.fileName}`;
-  } else if (element.type === 'other3') {
+  }
+  else if (element.type === 'other3') {
     otherSrc3 = `http://localhost:3000/static${element.filePath}${element.fileName}`;
-  } else if (element.type === 'other4') {
+  }
+  else if (element.type === 'other4') {
     otherSrc4 = `http://localhost:3000/static${element.filePath}${element.fileName}`;
-  } else {
+  }
+  else {
     otherSrc5 = `http://localhost:3000/static${element.filePath}${element.fileName}`;
   }
   return (

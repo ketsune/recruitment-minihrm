@@ -168,6 +168,20 @@ Applicant.updateNote = applicant => (
     .then(() => db.manyOrNone(`SELECT * FROM applicants`))
 );
 
+Applicant.updateInterviewResult = applicant => (
+  db.none(
+    `UPDATE applicants
+    SET
+    interview_result = $1
+    WHERE citizen_id = $2`,
+    [
+      applicant.interviewResult,
+      applicant.citizenId
+    ]
+  )
+    .then(() => db.manyOrNone(`SELECT * FROM applicants`))
+);
+
 Applicant.findInfoById = id => (
   db.oneOrNone('SELECT * FROM applicants WHERE citizen_id = $1', [id])
 );

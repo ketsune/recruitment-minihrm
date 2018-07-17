@@ -339,6 +339,13 @@ api.updateRecruitmentNote = body => (
   })
 );
 
+api.updateRecruitmentInterviewResult = body => (
+  callApi('api/applicants/update-interview-result', {
+    method: 'PUT',
+    body
+  })
+);
+
 api.updateRecruitmentSignedPosition = body => (
   callApi('api/applicants/update-signed-position', {
     method: 'PUT',
