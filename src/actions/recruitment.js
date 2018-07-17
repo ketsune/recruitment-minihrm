@@ -304,6 +304,27 @@ export const updateRecruitmentNoteFailure = message => ({
   }
 });
 
+export const updateRecruitmentInterviewResultRequest = values => ({
+  type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_REQUEST,
+  payload: {
+    values,
+  }
+});
+
+export const updateRecruitmentInterviewResultSuccess = data => ({
+  type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_SUCCESS,
+  payload: {
+    data
+  }
+});
+
+export const updateRecruitmentInterviewResultFailure = message => ({
+  type: actionTypes.RECRUITMENT_UPDATE_INTERVIEW_RESULT_FAILURE,
+  payload: {
+    message
+  }
+});
+
 export const updateRecruitmentSignedPositionRequest = form => ({
   type: actionTypes.RECRUITMENT_UPDATE_SIGNED_POSITION_REQUEST,
   payload: {

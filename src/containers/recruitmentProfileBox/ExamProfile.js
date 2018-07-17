@@ -27,7 +27,12 @@ const ExamProfile = ({ examProfile, onClick }) => (
           </Grid.Column>
           <Grid.Column width={6}>
             <Header size="small">Exam : <Icon name="file pdf outline" onClick={() => onClick()} /></Header>
-            <Header size="small">Interview Result Note <Icon name="handshake outline" />:{/* {examProfile.interviewResult !== null ? examProfile.interviewResult : '-'}*/}</Header>
+            <Header size="small">Interview Result Note <Icon name="handshake outline" />:
+              {
+                examProfile.interviewResult !== null ?
+                examProfile.interviewResult : '-'
+              }
+            </Header>
           </Grid.Column>
         </Grid.Row>
       </Grid>

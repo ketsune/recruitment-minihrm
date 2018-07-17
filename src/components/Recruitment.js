@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Segment, Grid, Menu, Dropdown } from 'semantic-ui-react';
+import { Segment, Grid, Menu } from 'semantic-ui-react';
 import AllTable from './RecruitmentTable/AllTable';
 import ApplyTable from './RecruitmentTable/ApplyTable';
 import ApproveTable from './RecruitmentTable/ApproveTable';

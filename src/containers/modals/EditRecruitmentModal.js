@@ -13,7 +13,7 @@ import {
   updateRecruitmentSignDateTimeRequest, updateRecruitmentCompleteDateTimeRequest,
   updateRecruitmentRejectDateRequest, updateRecruitmentCancelDateRequest,
   updateRecruitmentBlacklistDateRequest, updateRecruitmentNoteRequest,
-  updateRecruitmentExamDateTimeRequest, updateRecruitmentSignedPositionRequest, clearStatus, clearDateTime, clearPosition
+  updateRecruitmentExamDateTimeRequest, updateRecruitmentSignedPositionRequest, clearStatus, clearDateTime, clearPosition, updateRecruitmentInterviewResultRequest
 } from '../../actions/recruitment';
 
 const EditRecruitmentModal = ({
@@ -157,8 +157,11 @@ const mapDispatchToProps = dispatch => ({
             break;
           // case 'In Progress':
           //   break;
-          // case 'Pass':
-          //   break;
+          case 'Pass':
+            addNote.interviewResult = addNote.note;
+            delete addNote.note;
+            dispatch(updateRecruitmentInterviewResultRequest(addNote));
+            break;
           case 'Reject':
             delete dateTime.time;
             dateTime.date = today;

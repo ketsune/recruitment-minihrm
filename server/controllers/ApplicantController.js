@@ -36,9 +36,6 @@ exports.updateStatus = (req, res, next) => {
       res.json(updatedApplicant);
     })
     .catch(next);
-  if (editApplicant.status === 'Sign Contract') {
-
-  }
 };
 
 exports.updateInterviewDateTime = (req, res, next) => {
@@ -81,7 +78,8 @@ exports.updateInterviewDateTime = (req, res, next) => {
           console.log(info);
         }
       });
-    } else {
+    }
+    else {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
@@ -136,7 +134,6 @@ exports.updateSignedPosition = (req, res, next) => {
       res.json(updatedApplicant);
     })
     .catch(next);
-
 };
 
 exports.updateSignDateTime = (req, res, next) => {
@@ -164,7 +161,8 @@ exports.updateSignDateTime = (req, res, next) => {
           console.log(info);
         }
       });
-    } else {
+    }
+    else {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
@@ -283,6 +281,15 @@ exports.updateExamDate = (req, res, next) => {
 exports.updateNote = (req, res, next) => {
   const editApplicant = req.body.applicant;
   Applicant.updateNote(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
+exports.updateInterviewResult = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateInterviewResult(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);
     })
