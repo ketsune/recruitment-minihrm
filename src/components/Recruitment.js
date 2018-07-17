@@ -158,20 +158,24 @@ const Recruitment = ({ activeItem, changeActiveItem, data, onSearchChange, sortK
         <Grid.Row>
           <Grid.Column width={16}>
             <Menu color="blue" inverted fluid compact stackable >
-              <Menu.Item name="All applicants" active={activeItem === 'All'} onClick={() => changeActiveItem('All')} />
-              <Menu.Item name="New applicants" active={activeItem === 'Apply'} onClick={() => changeActiveItem('Apply')} />
-              <Menu.Item name="Interview applicants" active={activeItem === 'Approve'} onClick={() => changeActiveItem('Approve')} />
-              <Menu.Item name="In Progress applicants" active={activeItem === 'In Progress'} onClick={() => changeActiveItem('In Progress')} />
-              <Menu.Item name="Reject or Fail applicants" active={activeItem === 'Reject'} onClick={() => changeActiveItem('Reject')} />
-              <Menu.Item name="Pass applicants" active={activeItem === 'Pass'} onClick={() => changeActiveItem('Pass')} />
-              <Dropdown item text="More">
+              <Menu.Item name="All" active={activeItem === 'All'} onClick={() => changeActiveItem('All')} />
+              <Menu.Item name="New" active={activeItem === 'Apply'} onClick={() => changeActiveItem('Apply')} />
+              <Menu.Item name="Interview" active={activeItem === 'Approve'} onClick={() => changeActiveItem('Approve')} />
+              <Menu.Item name="In Progress" active={activeItem === 'In Progress'} onClick={() => changeActiveItem('In Progress')} />
+              <Menu.Item name="Reject or Fail" active={activeItem === 'Reject'} onClick={() => changeActiveItem('Reject')} />
+              <Menu.Item name="Pass" active={activeItem === 'Pass'} onClick={() => changeActiveItem('Pass')} />
+              <Menu.Item name="Sign Contract" active={activeItem === 'Sign Contract'} onClick={() => changeActiveItem('Sign Contract')} />
+              <Menu.Item name="Cancel" active={activeItem === 'Cancel'} onClick={() => changeActiveItem('Cancel')} />
+              <Menu.Item name="Complete" active={activeItem === 'Complete'} onClick={() => changeActiveItem('Complete')} />
+              <Menu.Item name="Blacklist" active={activeItem === 'Blacklist'} onClick={() => changeActiveItem('Blacklist')} />
+              {/* <Dropdown item text="More">
                 <Dropdown.Menu>
-                  <Dropdown.Item text="Sign Contract applicants" active={activeItem === 'Sign Contract'} onClick={() => changeActiveItem('Sign Contract')} />
-                  <Dropdown.Item text="Cancel applicants" active={activeItem === 'Cancel'} onClick={() => changeActiveItem('Cancel')} />
-                  <Dropdown.Item text="Complete applicants" active={activeItem === 'Complete'} onClick={() => changeActiveItem('Complete')} />
-                  <Dropdown.Item text="Blacklist applicants" active={activeItem === 'Blacklist'} onClick={() => changeActiveItem('Blacklist')} />
+                  <Dropdown.Item text="Sign Contract" active={activeItem === 'Sign Contract'} onClick={() => changeActiveItem('Sign Contract')} />
+                  <Dropdown.Item text="Cancel" active={activeItem === 'Cancel'} onClick={() => changeActiveItem('Cancel')} />
+                  <Dropdown.Item text="Complete" active={activeItem === 'Complete'} onClick={() => changeActiveItem('Complete')} />
+                  <Dropdown.Item text="Blacklist" active={activeItem === 'Blacklist'} onClick={() => changeActiveItem('Blacklist')} />
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </Menu>
           </Grid.Column>
         </Grid.Row>

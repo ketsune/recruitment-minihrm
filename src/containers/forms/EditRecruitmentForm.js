@@ -45,7 +45,7 @@ const row = (item, { checkStatus, date, time, submitting, positions, selectPosit
         <Table.Cell>
           {/* <Form onSubmit={handleSubmit}> */}
           <Form.Group widths="equal">
-            <Field name={`note_${item.citizenId}`} as={Form.Input} component={Input} label="" placeholder="Note" disabled={submitting} />
+            <Field name={`note_${item.citizenId}`} as={Form.Input} component={Input} label="" placeholder="Note(can not save with empty note)" disabled={submitting} />
           </Form.Group>
           {/* </Form> */}
         </Table.Cell>
