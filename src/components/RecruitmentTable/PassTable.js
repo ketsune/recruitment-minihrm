@@ -27,7 +27,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
   </Table.Row>
 );
 
-const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setPassDate, setPassTime }) => (
+const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setPassDate, setPassTime, isUseDate }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -55,8 +55,8 @@ const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCon
             <Table.HeaderCell colSpan="4">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setPassDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setPassTime(value)} />
+                  {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setPassDate(value)} />}
+                  {isUseDate && <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setPassTime(value)} />}
                 </Form.Group>
               </Form>
             </Table.HeaderCell>
@@ -80,7 +80,8 @@ const PassTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCon
 
 const mapStateToProps = state => ({
   date: state.recruitment.date,
-  time: state.recruitment.time
+  time: state.recruitment.time,
+  isUseDate: state.recruitment.isUseDate,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -105,6 +106,7 @@ PassTable.propTypes = {
   clearStatus: PropTypes.func.isRequired,
   setPassDate: PropTypes.func.isRequired,
   setPassTime: PropTypes.func.isRequired,
+  isUseDate: PropTypes.bool,
 };
 
 const enhance = compose(

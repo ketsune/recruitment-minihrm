@@ -12,6 +12,7 @@ const initialState = {
   time: '',
   positions: [],
   signedPosition: {},
+  isUseDate: false,
 };
 
 const Recruitment = (state = initialState, action) => {
@@ -76,17 +77,39 @@ const Recruitment = (state = initialState, action) => {
       };
 
     case actionTypes.CHANGE_RECRUITMENT_STATUS:
-      if (action.payload.status === state.checkStatus[action.payload.key]) {
-        return {
-          ...state,
-          checkStatus: {
-            ...state.checkStatus,
-            [action.payload.key]: '',
+      let isThatStatus = false;
+      let listKey = Object.keys(state.checkStatus);
+      listKey.map(item => {
+        if (state.checkStatus[item] === 'Approve' || state.checkStatus[item] === 'Sign Contract' || state.checkStatus[item] === 'Complete') {
+          if (!(item === action.payload.key && action.payload.status === state.checkStatus[action.payload.key])) {
+            isThatStatus = true;
           }
-        };
+        }
+      });
+      if (action.payload.status === state.checkStatus[action.payload.key]) {
+        if (isThatStatus) {
+          return {
+            ...state,
+            isUseDate: true,
+            checkStatus: {
+              ...state.checkStatus,
+              [action.payload.key]: '',
+            }
+          };
+        } else {
+          return {
+            ...state,
+            isUseDate: false,
+            checkStatus: {
+              ...state.checkStatus,
+              [action.payload.key]: '',
+            }
+          };
+        }
       }
       return {
         ...state,
+        isUseDate: isThatStatus || (action.payload.status === 'Approve' || action.payload.status === 'Sign Contract' || action.payload.status === 'Complete'),
         checkStatus: {
           ...state.checkStatus,
           [action.payload.key]: action.payload.status,
@@ -104,6 +127,7 @@ const Recruitment = (state = initialState, action) => {
       return {
         ...state,
         checkStatus: {},
+        isUseDate: false,
       };
     case actionTypes.CLEAR_POSITION:
       return {

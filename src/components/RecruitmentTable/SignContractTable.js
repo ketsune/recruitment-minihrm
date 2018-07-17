@@ -26,7 +26,7 @@ const row = (item, { checkStatus, reject, changeStatus, load }) => (
   </Table.Row>
 );
 
-const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setSignDate, setSignTime, load }) => (
+const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setSignDate, setSignTime, load, isUseDate }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -54,8 +54,8 @@ const SignContractTable = ({ data, onSearchChange, sortKey, direction, handleSor
             <Table.HeaderCell colSpan="5">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setSignDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setSignTime(value)} />
+                  {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setSignDate(value)} />}
+                  {isUseDate && <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setSignTime(value)} />}
                 </Form.Group>
               </Form>
             </Table.HeaderCell>
@@ -81,7 +81,8 @@ const mapStateToProps = state => ({
   initialValues: {
     date: state.recruitment.date,
     time: state.recruitment.time,
-  }
+  },
+  isUseDate: state.recruitment.isUseDate,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -117,6 +118,7 @@ SignContractTable.propTypes = {
   load: PropTypes.func.isRequired,
   setSignDate: PropTypes.func.isRequired,
   setSignTime: PropTypes.func.isRequired,
+  isUseDate: PropTypes.bool,
 };
 
 const enhance = compose(

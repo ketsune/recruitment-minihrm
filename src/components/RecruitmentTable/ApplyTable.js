@@ -29,7 +29,7 @@ const row = (item, { checkStatus, reject, changeStatus }) => (
   </Table.Row>
 );
 
-const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApplyDate, setApplyTime }) => (
+const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApplyDate, setApplyTime, isUseDate }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -56,8 +56,8 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
             <Table.HeaderCell colSpan="4">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApplyTime(value)} />
+                  {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApplyDate(value)} />}
+                  {isUseDate && <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApplyTime(value)} />}
                 </Form.Group>
               </Form>
             </Table.HeaderCell>
@@ -81,7 +81,8 @@ const ApplyTable = ({ data, onSearchChange, sortKey, direction, handleSort, onCo
 
 const mapStateToProps = state => ({
   date: state.recruitment.date,
-  time: state.recruitment.time
+  time: state.recruitment.time,
+  isUseDate: state.recruitment.isUseDate,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -106,6 +107,7 @@ ApplyTable.propTypes = {
   clearStatus: PropTypes.func.isRequired,
   setApplyDate: PropTypes.func.isRequired,
   setApplyTime: PropTypes.func.isRequired,
+  isUseDate: PropTypes.bool,
 };
 
 const enhance = compose(

@@ -28,11 +28,11 @@ const imgPart = (element) => {
   return (
     <div key={element.fileName}>
       {cvSrc && <a href={cvSrc} rel="noopener noreferrer" target="_blank"><embed src={cvSrc} height="100" width="300" /><br /><Icon name="zoom" />View CV</a>}
-      {otherSrc1 && <a href={otherSrc1} rel="noopener noreferrer" target="_blank"><embed src={otherSrc1} height="100" width="300" /><br /><Icon name="zoom" />View Other1</a>}
-      {otherSrc2 && <a href={otherSrc2} rel="noopener noreferrer" target="_blank"><embed src={otherSrc2} height="100" width="300" /><br /><Icon name="zoom" />View Other2</a>}
-      {otherSrc3 && <a href={otherSrc3} rel="noopener noreferrer" target="_blank"><embed src={otherSrc3} height="100" width="300" /><br /><Icon name="zoom" />View Other3</a>}
-      {otherSrc4 && <a href={otherSrc4} rel="noopener noreferrer" target="_blank"><embed src={otherSrc4} height="100" width="300" /><br /><Icon name="zoom" />View Other4</a>}
-      {otherSrc5 && <a href={otherSrc5} rel="noopener noreferrer" target="_blank"><embed src={otherSrc5} height="100" width="300" /><br /><Icon name="zoom" />View Other5</a>}
+      {otherSrc1 && <a href={otherSrc1} rel="noopener noreferrer" target="_blank"><embed src={otherSrc1} height="100" width="300" /><br /><Icon name="zoom" />View Other</a>}
+      {otherSrc2 && <a href={otherSrc2} rel="noopener noreferrer" target="_blank"><embed src={otherSrc2} height="100" width="300" /><br /><Icon name="zoom" />View Other</a>}
+      {otherSrc3 && <a href={otherSrc3} rel="noopener noreferrer" target="_blank"><embed src={otherSrc3} height="100" width="300" /><br /><Icon name="zoom" />View Other</a>}
+      {otherSrc4 && <a href={otherSrc4} rel="noopener noreferrer" target="_blank"><embed src={otherSrc4} height="100" width="300" /><br /><Icon name="zoom" />View Other</a>}
+      {otherSrc5 && <a href={otherSrc5} rel="noopener noreferrer" target="_blank"><embed src={otherSrc5} height="100" width="300" /><br /><Icon name="zoom" />View Other</a>}
     </div>
   );
 };

@@ -26,7 +26,7 @@ const row = (item, { checkStatus, changeStatus, load }) => (
   </Table.Row>
 );
 
-const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate, load }) => (
+const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate, load, isUseDate }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -53,7 +53,7 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
             <Table.HeaderCell colSpan="3">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setCompleteDate(value)} />
+                  {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setCompleteDate(value)} />}
                 </Form.Group>
               </Form>
             </Table.HeaderCell>
@@ -77,6 +77,7 @@ const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, o
 
 const mapStateToProps = state => ({
   date: state.recruitment.date,
+  isUseDate: state.recruitment.isUseDate,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -99,6 +100,7 @@ CompleteTable.propTypes = {
   setCompleteDate: PropTypes.func.isRequired,
   clearStatus: PropTypes.func.isRequired,
   load: PropTypes.func.isRequired,
+  isUseDate: PropTypes.bool,
 };
 
 const enhance = compose(

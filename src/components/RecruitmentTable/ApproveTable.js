@@ -27,7 +27,7 @@ const row = (item, { checkStatus, reject, changeStatus, load }) => (
   </Table.Row>
 );
 
-const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApproveDate, setApproveTime, load }) => (
+const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, reject, changeStatus, clearStatus, setApproveDate, setApproveTime, load, isUseDate }) => (
   <div>
     <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
     <div style={{ overflowX: 'auto' }}>
@@ -56,8 +56,8 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
             <Table.HeaderCell colSpan="4">
               <Form onSubmit={onConfirm}>
                 <Form.Group floated="left">
-                  <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApproveDate(value)} />
-                  <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApproveTime(value)} />
+                  {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setApproveDate(value)} />}
+                  {isUseDate && <Field name="time" as={Form.Input} component={Input} label="Time" placeholder="Ex. 14:30:00" type="time" onChange={(event, value) => setApproveTime(value)} />}
                 </Form.Group>
               </Form>
             </Table.HeaderCell>
@@ -81,7 +81,8 @@ const ApproveTable = ({ data, onSearchChange, sortKey, direction, handleSort, on
 
 const mapStateToProps = state => ({
   date: state.recruitment.date,
-  time: state.recruitment.time
+  time: state.recruitment.time,
+  isUseDate: state.recruitment.isUseDate,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -113,6 +114,7 @@ ApproveTable.propTypes = {
   clearStatus: PropTypes.func.isRequired,
   setApproveDate: PropTypes.func.isRequired,
   setApproveTime: PropTypes.func.isRequired,
+  isUseDate: PropTypes.bool,
 };
 
 const enhance = compose(
@@ -121,6 +123,8 @@ const enhance = compose(
     form: 'dateTime',
   })
 );
+
+
 
 
 export default enhance(ApproveTable);
