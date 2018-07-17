@@ -76,10 +76,10 @@ const Recruitment = (state = initialState, action) => {
         ...state,
       };
 
-    case actionTypes.CHANGE_RECRUITMENT_STATUS:
+    case actionTypes.CHANGE_RECRUITMENT_STATUS: {
       let isThatStatus = false;
-      let listKey = Object.keys(state.checkStatus);
-      listKey.map(item => {
+      const listKey = Object.keys(state.checkStatus);
+      listKey.forEach((item) => {
         if (state.checkStatus[item] === 'Approve' || state.checkStatus[item] === 'Sign Contract' || state.checkStatus[item] === 'Complete' || state.checkStatus[item] === 'Interview' || state.checkStatus[item] === 'Exam') {
           if (!(item === action.payload.key && action.payload.status === state.checkStatus[action.payload.key])) {
             isThatStatus = true;
@@ -96,16 +96,15 @@ const Recruitment = (state = initialState, action) => {
               [action.payload.key]: '',
             }
           };
-        } else {
-          return {
-            ...state,
-            isUseDate: false,
-            checkStatus: {
-              ...state.checkStatus,
-              [action.payload.key]: '',
-            }
-          };
         }
+        return {
+          ...state,
+          isUseDate: false,
+          checkStatus: {
+            ...state.checkStatus,
+            [action.payload.key]: '',
+          }
+        };
       }
       return {
         ...state,
@@ -115,6 +114,7 @@ const Recruitment = (state = initialState, action) => {
           [action.payload.key]: action.payload.status,
         }
       };
+    }
     case actionTypes.RECRUITMENT_SET_SELECT_POSITION:
       return {
         ...state,

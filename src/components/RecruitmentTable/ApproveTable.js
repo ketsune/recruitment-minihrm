@@ -114,7 +114,7 @@ ApproveTable.propTypes = {
   clearStatus: PropTypes.func.isRequired,
   setApproveDate: PropTypes.func.isRequired,
   setApproveTime: PropTypes.func.isRequired,
-  isUseDate: PropTypes.bool,
+  isUseDate: PropTypes.bool.isRequired,
 };
 
 const enhance = compose(
@@ -123,8 +123,5 @@ const enhance = compose(
     form: 'dateTime',
   })
 );
-
-
-
 
 export default enhance(ApproveTable);
