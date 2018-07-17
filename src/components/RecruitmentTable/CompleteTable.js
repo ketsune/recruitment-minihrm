@@ -26,54 +26,68 @@ const row = (item, { checkStatus, changeStatus, load }) => (
   </Table.Row>
 );
 
-const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate, load, isUseDate }) => (
-  <div>
-    <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
-    <div style={{ overflowX: 'auto' }}>
-      <Table striped sortable selectable celled >
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Signed Position</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
-            <Table.HeaderCell sorted={sortKey === 'firstDate' ? direction : null} onClick={() => handleSort('firstDate')}>First Date</Table.HeaderCell>
-            <Table.HeaderCell >Details</Table.HeaderCell>
-            <Table.HeaderCell >Edit Date</Table.HeaderCell>
-            {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
-            <Table.HeaderCell >Blacklist</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {data.map(item => row(item, { checkStatus, changeStatus, load }))}
-        </Table.Body>
-        <Table.Footer fullWidth>
-          <Table.Row>
-            <Table.HeaderCell colSpan="3">
-              <Form onSubmit={onConfirm}>
-                <Form.Group floated="left">
-                  {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" onChange={(event, value) => setCompleteDate(value)} />}
-                </Form.Group>
-              </Form>
-            </Table.HeaderCell>
-            <Table.HeaderCell colSpan="8">
-              <Button.Group floated="right">
-                <Button color="blue" icon onClick={onConfirm} >
-                  Confirm
+const CompleteTable = ({ data, onSearchChange, sortKey, direction, handleSort, onConfirm, checkStatus, changeStatus, clearStatus, setCompleteDate, load, isUseDate }) => {
+  // Get Now DATE
+  let today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1;// January is 0!
+  const yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0'.concat(dd);
+  }
+  if (mm < 10) {
+    mm = '0'.concat(mm);
+  }
+  today = `${yyyy}-${mm}-${dd}`;
+  return (
+    <div>
+      <Input icon="search" placeholder="Search projects..." onChange={onSearchChange} />
+      <div style={{ overflowX: 'auto' }}>
+        <Table striped sortable selectable celled >
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell sorted={sortKey === 'firstName' ? direction : null} onClick={() => handleSort('firstName')}>Name</Table.HeaderCell>
+              <Table.HeaderCell sorted={sortKey === 'firstNameTh' ? direction : null} onClick={() => handleSort('firstNameTh')}>ชื่อ-นามสกุล</Table.HeaderCell>
+              <Table.HeaderCell sorted={sortKey === 'position' ? direction : null} onClick={() => handleSort('position')}>Signed Position</Table.HeaderCell>
+              <Table.HeaderCell sorted={sortKey === 'email' ? direction : null} onClick={() => handleSort('email')}>Email</Table.HeaderCell>
+              <Table.HeaderCell sorted={sortKey === 'mobileNumber' ? direction : null} onClick={() => handleSort('mobileNumber')}>Phone</Table.HeaderCell>
+              <Table.HeaderCell sorted={sortKey === 'firstDate' ? direction : null} onClick={() => handleSort('firstDate')}>First Date</Table.HeaderCell>
+              <Table.HeaderCell >Details</Table.HeaderCell>
+              <Table.HeaderCell >Edit Date</Table.HeaderCell>
+              {/* <Table.HeaderCell >Status</Table.HeaderCell> */}
+              <Table.HeaderCell >Blacklist</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {data.map(item => row(item, { checkStatus, changeStatus, load }))}
+          </Table.Body>
+          <Table.Footer fullWidth>
+            <Table.Row>
+              <Table.HeaderCell colSpan="3">
+                <Form onSubmit={onConfirm}>
+                  <Form.Group floated="left">
+                    {isUseDate && <Field name="date" as={Form.Input} component={Input} label="Date" placeholder="Ex. 2018-07-23" type="date" min={today} onChange={(event, value) => setCompleteDate(value)} />}
+                  </Form.Group>
+                </Form>
+              </Table.HeaderCell>
+              <Table.HeaderCell colSpan="8">
+                <Button.Group floated="right">
+                  <Button color="blue" icon onClick={onConfirm} >
+                    Confirm
                 </Button>
-                <Button.Or />
-                <Button basic color="red" icon onClick={clearStatus} >
-                  Select None
+                  <Button.Or />
+                  <Button basic color="red" icon onClick={clearStatus} >
+                    Select None
                 </Button>
-              </Button.Group>
-            </Table.HeaderCell>
-          </Table.Row>
-        </Table.Footer>
-      </Table>
+                </Button.Group>
+              </Table.HeaderCell>
+            </Table.Row>
+          </Table.Footer>
+        </Table>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const mapStateToProps = state => ({
   date: state.recruitment.date,

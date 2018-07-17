@@ -59,6 +59,7 @@ const Recruitment = (state = initialState, action) => {
         date: '',
         time: '',
         searchText: '',
+        isUseDate: false,
       };
     case actionTypes.FILTER_RECRUITMENT:
       return {

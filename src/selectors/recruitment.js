@@ -49,15 +49,11 @@ export const getFilterRecruitmentTwoParam = (data, status, status2) => {
 // may be move to validator after merging
 export const validateDate = (date) => {
   const regEx = new RegExp('([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))');
-  console.log(date);
-  console.log(regEx.test(date));
   return regEx.test(date);
 };
 
 export const validateTime = (time) => {
   const regEx = new RegExp('^((([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])|(([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]))$');
-  console.log(time);
-  console.log(regEx.test(time));
   return regEx.test(time);
 };
 
