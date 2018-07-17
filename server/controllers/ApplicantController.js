@@ -36,20 +36,28 @@ exports.updateStatus = (req, res, next) => {
       res.json(updatedApplicant);
     })
     .catch(next);
-  if (editApplicant.status === 'Approve') {
-    Applicant.findInfoById(req.body.applicant.citizenId).then((selectApplicant) => {
+  if (editApplicant.status === 'Sign Contract') {
+
+  }
+};
+
+exports.updateInterviewDateTime = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.findInfoById(editApplicant.citizenId).then((selectApplicant) => {
+    if (!(selectApplicant.interviewDate === null && selectApplicant.interviewTime === null)) {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
-        subject: 'HR Playtorium : Interview Appointment',
+        subject: 'HR Playtorium : Interview Appointment เปลี่ยนวัน',
         html: `<p>Dear Khun  ${selectApplicant.firstName} ,</p>
         <p>Playtorium Solutions Company Limited would like to make an appointment</p>
         <br />
         <hr />
-        <p>for  Interview as details below;</p>    
-        <p>Date : ${selectApplicant.interviewDate} </p>
-        <p>Time : ${selectApplicant.interviewTime}  : Interview and Portfolio Presentation (If Applicable)</p>
-        <p>Venue : PLAYTORIUM office, SJ Infinite One Business Complex, 11th Fl., (map as attached) Contact : Khun Suphattra 0819222562 </p>
+        <p>for  <span style="background-color: #FFFF00">Interview</span> as details below;</p>    
+        <p><span style="background-color: #FFFF00">Date : ${editApplicant.date} </span></p>
+        <p><span style="background-color: #FFFF00">Time : ${editApplicant.time}  : Interview and Portfolio Presentation (If Applicable)</span></p>
+        <p>Venue : PLAYTORIUM office, SJ Infinite One Business Complex, 11th Fl., (map as attached)</p>
+        <p> Contact : Khun Suphattra 0819222562 </p>
         <br />
         <hr />
         <p>For more info about Company products and services please visit our website: <a href="https://www.playtorium.co.th">www.playtorium.co.th</a> [1] and FB: PlaytoriumSolutions </p>
@@ -73,10 +81,90 @@ exports.updateStatus = (req, res, next) => {
           console.log(info);
         }
       });
-    }).catch(next);
-  }
-  if (editApplicant.status === 'Sign Contract') {
-    Applicant.findInfoById(req.body.applicant.citizenId).then((selectApplicant) => {
+    } else {
+      const mailOptions = {
+        from: 'masaru39@playtorium.co.th',
+        to: 'love_masachi4855@hotmail.com',
+        subject: 'HR Playtorium : Interview Appointment',
+        html: `<p>Dear Khun  ${selectApplicant.firstName} ,</p>
+            <p>Playtorium Solutions Company Limited would like to make an appointment</p>
+            <br />
+            <hr />
+            <p>for  Interview&Exam as details below;</p>    
+            <p><span style="background-color: #FFFF00">Interview Date : ${editApplicant.date} </span></p>
+            <p><span style="background-color: #FFFF00">Interview Time : ${editApplicant.time}  : Interview and Portfolio Presentation (If Applicable)</span></p>
+            <p><span style="background-color: #FFFF00">Exam Date : ${editApplicant.date} </span></p>
+            <p><span style="background-color: #FFFF00">Exam Time : ${editApplicant.time}</span></p>
+            <p>Venue : PLAYTORIUM office, SJ Infinite One Business Complex, 11th Fl., (map as attached)</p>
+            <p> Contact : Khun Suphattra 0819222562 </p>
+            <br />
+            <hr />
+            <p>For more info about Company products and services please visit our website: <a href="https://www.playtorium.co.th">www.playtorium.co.th</a> [1] and FB: PlaytoriumSolutions </p>
+            <p>Best regards,</p>
+            <p>Suphattra Trairatwarakorn</p>
+            <p>Account Manager</p>
+            <p>Playtorium Solutions Company Limited</p>
+            <p>Mobile : 0819222562</p>
+            `,
+        attachments: [{
+          filename: 'play_map.jpg',
+          path: './server/storage/play_map.jpg',
+        }]
+      };
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log(info);
+        }
+      });
+    }
+  }).catch(next);
+  Applicant.updateInterviewDateTime(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+};
+
+exports.updateSignedPosition = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.updateSignedPosition(editApplicant)
+    .then((updatedApplicant) => {
+      res.json(updatedApplicant);
+    })
+    .catch(next);
+
+};
+
+exports.updateSignDateTime = (req, res, next) => {
+  const editApplicant = req.body.applicant;
+  Applicant.findInfoById(editApplicant.citizenId).then((selectApplicant) => {
+    if (!(selectApplicant.signDate === null && selectApplicant.signTime === null)) {
+      const mailOptions = {
+        from: 'masaru39@playtorium.co.th',
+        to: 'love_masachi4855@hotmail.com',
+        subject: 'HR Playtorium : เซ็นสัญญา เปลี่ยนสักอย่าง',
+        html: `<p>Dear Khun  ${selectApplicant.firstName} ,</p>
+        
+        `,
+        attachments: [{
+          filename: 'play_map.jpg',
+          path: './server/storage/play_map.jpg',
+        }]
+      };
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log(info);
+        }
+      });
+    } else {
       const mailOptions = {
         from: 'masaru39@playtorium.co.th',
         to: 'love_masachi4855@hotmail.com',
@@ -98,30 +186,8 @@ exports.updateStatus = (req, res, next) => {
           console.log(info);
         }
       });
-    }).catch(next);
-  }
-};
-
-exports.updateInterviewDateTime = (req, res, next) => {
-  const editApplicant = req.body.applicant;
-  Applicant.updateInterviewDateTime(editApplicant)
-    .then((updatedApplicant) => {
-      res.json(updatedApplicant);
-    })
-    .catch(next);
-};
-
-exports.updateSignedPosition = (req, res, next) => {
-  const editApplicant = req.body.applicant;
-  Applicant.updateSignedPosition(editApplicant)
-    .then((updatedApplicant) => {
-      res.json(updatedApplicant);
-    })
-    .catch(next);
-};
-
-exports.updateSignDateTime = (req, res, next) => {
-  const editApplicant = req.body.applicant;
+    }
+  }).catch(next);
   Applicant.updateSignDateTime(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);
@@ -167,7 +233,46 @@ exports.updateBlacklistDate = (req, res, next) => {
 
 exports.updateExamDate = (req, res, next) => {
   const editApplicant = req.body.applicant;
-  console.log(editApplicant);
+  Applicant.findInfoById(editApplicant.citizenId).then((selectApplicant) => {
+    if (!(selectApplicant.examDate === null && selectApplicant.examTime === null)) {
+      const mailOptions = {
+        from: 'masaru39@playtorium.co.th',
+        to: 'love_masachi4855@hotmail.com',
+        subject: 'HR Playtorium : Interview Appointment เปลี่ยนสอบ',
+        html: `<p>Dear Khun  ${selectApplicant.firstName} ,</p>
+        <p>Playtorium Solutions Company Limited would like to make an appointment</p>
+        <br />
+        <hr />
+        <p>for  <span style="background-color: #FFFF00">Exam</span> as details below;</p>    
+        <p><span style="background-color: #FFFF00">Date : ${editApplicant.date} </span></p>
+        <p><span style="background-color: #FFFF00">Time : ${editApplicant.time} </span></p>
+        <p>Venue : PLAYTORIUM office, SJ Infinite One Business Complex, 11th Fl., (map as attached)</p>
+        <p> Contact : Khun Suphattra 0819222562 </p>
+        <br />
+        <hr />
+        <p>For more info about Company products and services please visit our website: <a href="https://www.playtorium.co.th">www.playtorium.co.th</a> [1] and FB: PlaytoriumSolutions </p>
+        <p>Best regards,</p>
+        <p>Suphattra Trairatwarakorn</p>
+        <p>Account Manager</p>
+        <p>Playtorium Solutions Company Limited</p>
+        <p>Mobile : 0819222562</p>
+        `,
+        attachments: [{
+          filename: 'play_map.jpg',
+          path: './server/storage/play_map.jpg',
+        }]
+      };
+
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log(info);
+        }
+      });
+    }
+  }).catch(next);
   Applicant.updateExamDate(editApplicant)
     .then((updatedApplicant) => {
       res.json(updatedApplicant);

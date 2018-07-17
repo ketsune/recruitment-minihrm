@@ -55,7 +55,7 @@ export const validateDate = (date) => {
 };
 
 export const validateTime = (time) => {
-  const regEx = new RegExp('^(([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]|([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9])$');
+  const regEx = new RegExp('^((([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9])|(([0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]))$');
   console.log(time);
   console.log(regEx.test(time));
   return regEx.test(time);
